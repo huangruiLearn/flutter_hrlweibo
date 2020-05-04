@@ -1,0 +1,138 @@
+name: flutter_hrlweibo
+description: A new Flutter application.
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  #https://github.com/ZaraclaJ/audio_recorder
+  path_provider: ^1.1.0
+  file: ^5.0.4
+
+  cupertino_icons: ^0.1.2
+
+  #https://github.com/luanpotter/audioplayers
+  audioplayers: ^0.14.0
+  #https://github: com/best-flutter/flutter_swiper
+  flutter_swiper: ^1.1.6
+   #https://github.com/best-flutter/flutter_page_indicator
+  flutter_page_indicator: ^0.0.3
+  #https://github.com/flutter/plugins/tree/master/packages/video_player
+  video_player:
+  # https://github:com/brianegan/chewie:
+  chewie: ^0.9.5
+  #https://github.com/flutterchina/azlistview
+  azlistview: ^0.1.2
+  #https://github.com/flutterchina/lpinyin
+  lpinyin: ^1.0.9
+  # https://github:com/fluttercandies/extended_text_field:
+  extended_text_field: ^0.5.0
+  url_launcher: 5.3.0
+  # https://github: com/fluttercandies/extended_nested_scroll_view:
+  extended_nested_scroll_view: ^0.4.0
+
+
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_screenutil: ^0.5.2
+  flutter_easyrefresh: ^2.0.8
+  dio: 2.1.0
+  fluttertoast: ^3.1.0
+  shared_preferences: ^0.5.3
+  synchronized: ^2.1.0
+  event_bus: ^1.0.1
+  # https://github.com/theyakka/fluro
+  fluro: ^1.5.1
+  #https://github.com/flutter/plugins/tree/master/packages/image_picker
+  image_picker: ^0.6.1+4
+  #https://github.com/adee42/flutter_keyboard_visibility
+  keyboard_visibility: ^0.5.6
+
+
+   #https://github.com/Baseflow/flutter-permission-handler
+  permission_handler:   '^3.0.0'
+
+
+  #https://github.com/Daegalus/dart-uuid
+  uuid: 2.0.4
+ #https://github.com/peng8350/flutter_pulltorefresh
+  pull_to_refresh: ^1.5.7
+  flutter_spinkit:  ^4.0.0
+
+  #https://pub.flutter-io.cn/packages/audio_recorder
+  flutter_record_plugin:
+        git:
+          url: https://github.com/huangruiLearn/flutter_record_plugin.git
+          ref: ca5a0f3821616d38842dde4a6588a1ce9ad5673d
+
+
+
+
+
+# For information on the generic Dart part of this file, see the
+# following page: https://www.dartlang.org/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+  - assets/images/
+
+  fonts:
+   - family: HotSearch
+     fonts:
+      - asset: assets/fonts/Lobster-Regular.ttf
+
+
+
+  #  - images/a_dot_ham.jpeg
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.io/assets-and-images/#resolution-aware.
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.io/assets-and-images/#from-packages
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.io/custom-fonts/#from-packages
+
