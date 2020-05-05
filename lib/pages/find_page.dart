@@ -6,7 +6,7 @@ import 'package:flutter_hrlweibo/constant/constant.dart';
 import 'package:flutter_hrlweibo/http/service_method.dart';
 import 'package:flutter_hrlweibo/http/service_url.dart';
 import 'package:flutter_hrlweibo/model/FindHomeModel.dart';
-import 'package:flutter_hrlweibo/model/find_topic.dart';
+import 'package:flutter_hrlweibo/model/FindTopicModel.dart';
 import 'package:flutter_hrlweibo/public.dart';
 import 'package:flutter_hrlweibo/widget/MyNoticeVecAnimation.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -554,8 +554,7 @@ class _FindPageState extends State<FindPage> {
         mHotSearchTypeWidget = Container();
       }
       var size = MediaQuery.of(context).size;
-      double itemWidth = size.width / 2 - 10;
-      double itemWidth2 = size.width / 2 - 40;
+
 
       mChild = Container(
         color: Colors.white,

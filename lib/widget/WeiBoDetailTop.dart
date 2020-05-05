@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hrlweibo/model/WeiBoModel.dart';
 import 'package:flutter_hrlweibo/constant/constant.dart';
-import 'package:flutter/gestures.dart';
-import '../pages/home/weibo_retweet_page.dart';
-import '../http/service_url.dart';
-import 'WeiBoItem.dart';
+ import 'WeiBoItem.dart';
 
 class WeiBoDetailTopWidget extends StatefulWidget {
   final WeiBoModel mModel;
@@ -29,20 +26,9 @@ Widget _wholeItemWidget(BuildContext context, WeiBoModel weiboItem) {
      color: Colors.white,
     child: Column(
       children: <Widget>[
-      /*  _authorRow(context, weiboItem),
-        textContent(content: weiboItem.content),
-        _NineGrid(context, weiboItem.picurl),
-        _RetWeetLayout(context, weiboItem),*/
+
         WeiBoItemWidget(weiboItem,true),
 
-
-
-        /*  new Container(
-              margin: EdgeInsets.only(left: 15, right: 15, bottom: 10 ),
-              height: 0.5,
-              color: Color(0xffDBDBDB),
-            ), //下划线
-            _RePraCom(context, weiboItem),*/
         _shareRow(context, weiboItem),
         new Container(
           margin: EdgeInsets.only(top: 15),

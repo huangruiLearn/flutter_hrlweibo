@@ -3,7 +3,7 @@ import 'dart:ui' as ui show Codec, FrameInfo, Image;
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hrlweibo/model/message_normal.dart';
+import 'package:flutter_hrlweibo/model/MessageNormal.dart';
 import 'package:flutter_hrlweibo/public.dart';
 import 'package:flutter_hrlweibo/widget/messgae/chat_bottom.dart';
 import 'package:flutter_hrlweibo/widget/messgae/expanded_viewport.dart';

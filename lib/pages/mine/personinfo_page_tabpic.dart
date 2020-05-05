@@ -250,9 +250,7 @@ class _PageInfoPicState extends State<PageInfoPic> {
   @override
   Widget build(BuildContext context) {
 
-  /*  responseJson["blockList"].forEach((data) {
-      blockList.add(ComicBlock.fromJson(data));
-    });*/
+
   blockList.clear();
   for(int i=0;i<3;i++){
     List<String> mPicList=new List();

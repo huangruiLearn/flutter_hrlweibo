@@ -40,15 +40,4 @@ class ServiceUrl {
    static String getVideoSmallList =Constant.baseUrl + 'manage/hrlvedio/smallVideolist.do'; //视频-小视频列表
   static String getVideoDetailRecommendList =Constant.baseUrl + 'manage/hrlvedio/videodetailrecommedlist.do'; //视频详情-推荐列表
 
-
-
-
-
-  static const servicePath = {
-    // 'login': serviceUrl + 'manage/hrluser/login.do', //登录
-    // 'getVedioCategory': serviceUrl + 'manage/hrlvedio/list.do', //获取视频分类
-   // 'getCategory': serviceUrl + 'wxmini/getCategory', //商品类别信息
- //   'getMallGoods': serviceUrl + 'wxmini/getMallGoods', //商品分类的商品列表
-  //  'getGoodDetailById': serviceUrl + 'wxmini/getGoodDetailById', //商品详细信息列表
-  };
 }

@@ -241,11 +241,7 @@ class _HotSearchPageState extends State<HotSearchPage> {
                   ),
                 ];
               }, body: new Builder(
-
-                  ///这个Builder需要提供一个BuildContext，
-                  ///它“在”NestedScrollView中，
-                  ///以便SliverOverlapAbsorberHandleFor()可以找到NestedScrollView。
-                  builder: (BuildContext contexta) {
+                   builder: (BuildContext contexta) {
                 return CustomScrollView(
                   slivers: <Widget>[
                     SliverOverlapInjector(

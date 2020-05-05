@@ -4,7 +4,7 @@ import 'package:video_player/video_player.dart';
 
 
 
-///http://vt1.doubanio.com/201902111139/0c06a85c600b915d8c9cbdbbaf06ba9f/view/movie/M/302420330.mp4
+
 class VideoWidget extends StatefulWidget {
   final String url;
   final String previewImgUrl; //预览图片的地址

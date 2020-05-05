@@ -15,8 +15,6 @@ class VideoPage extends StatefulWidget {
 class _VideoPageState extends State<VideoPage> with TickerProviderStateMixin  {
   TabController mTabController;
   List<VedioCategory> mTabList= new List();
-  bool loading = true;
-  LoadState mLayoutState = LoadState.State_Loading;
 
 
 

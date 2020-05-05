@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hrlweibo/model/message_normal.dart';
+import 'package:flutter_hrlweibo/model/MessageNormal.dart';
 import 'package:flutter_hrlweibo/public.dart';
 import 'package:flutter_hrlweibo/widget/messgae/bubble.dart';
 import 'voice_animation.dart';
