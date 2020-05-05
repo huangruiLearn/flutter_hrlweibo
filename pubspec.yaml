@@ -52,7 +52,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_screenutil: ^0.5.2
-  flutter_easyrefresh: ^2.0.8
   dio: 2.1.0
   fluttertoast: ^3.1.0
   shared_preferences: ^0.5.3
@@ -72,9 +71,7 @@ dev_dependencies:
 
   #https://github.com/Daegalus/dart-uuid
   uuid: 2.0.4
- #https://github.com/peng8350/flutter_pulltorefresh
-  pull_to_refresh: ^1.5.7
-  flutter_spinkit:  ^4.0.0
+
 
   #https://pub.flutter-io.cn/packages/audio_recorder
   flutter_record_plugin:
