@@ -55,7 +55,7 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> {
       vsync: ScrollableState(), //动画效果的异步处理
     );
 
-    mCommentScrollController.addListener(() {
+    /*mCommentScrollController.addListener(() {
       if (mCommentScrollController.position.pixels ==
           mCommentScrollController.position.maxScrollExtent) {
         print("滑动到底部:isForwardloadingMore  " +
@@ -110,7 +110,7 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> {
             break;
         }
       }
-    });
+    });*/
   }
 
   Future getWeiBoDeatilData() async {
@@ -224,7 +224,8 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> {
                      color: Colors.white),
                 Expanded(
                   child: new NestedScrollView(
-                    controller: mCommentScrollController,
+
+                    //controller: mCommentScrollController,
                     headerSliverBuilder: (context, bool) {
                       return [
                         SliverToBoxAdapter(
@@ -348,33 +349,90 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> {
   }
 
   Widget mForwardWidget() {
-    return new ListView.builder(
-      padding: new EdgeInsets.all(0.0),
-      //   itemExtent: 50.0,
-      itemBuilder: (BuildContext context, int index) {
-        return mForwardItem(context, index);
-      },
-      itemCount: mForwardList.length + 1,
-      //controller: mCommentScrollController,
+    return  NotificationListener<ScrollNotification>(
+      child: new ListView.builder(
+        physics: ClampingScrollPhysics(),
+        padding: new EdgeInsets.all(0.0),
+        //   itemExtent: 50.0,
+        itemBuilder: (BuildContext context, int index) {
+          return mForwardItem(context, index);
+        },
+        itemCount: mForwardList.length + 1,
+        //  controller: mCommentScrollController,
+       ),
+      onNotification: (ScrollNotification scrollInfo) =>
+          _onScrollNotification(scrollInfo),
     );
   }
 
+  _onScrollNotification(ScrollNotification scrollInfo) {
+    if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
+      //滑到了底部
+      print("滑动到了底部");
+
+      if (!isForwardloadingMore) {
+        if (isForwarhasMore) {
+          setState(() {
+            isForwardloadingMore = true;
+            mForwardCurPage += 1;
+          });
+          Future.delayed(Duration(seconds: 3), () {
+            getForwardDataLoadMore(
+                mForwardCurPage, widget.mModel.weiboId);
+          });
+        } else {
+          setState(() {
+            isForwarhasMore = false;
+          });
+        }
+      }
+    }
+  }
+
   Widget mCommentWidget() {
-    return new ListView.builder(
-      padding: new EdgeInsets.all(0.0),
-      //   itemExtent: 50.0,
-      itemBuilder: (BuildContext context, int index) {
-        return mCommentItem(context, index);
-      },
-      itemCount: mCommentList.length == 0 ? 1 : mCommentList.length + 2,
-      //controller: mCommentScrollController,
-    );
+    return NotificationListener<ScrollNotification>(
+      child: new ListView.builder(
+        padding: new EdgeInsets.all(0.0),
+        //   itemExtent: 50.0,
+        itemBuilder: (BuildContext context, int index) {
+          return mCommentItem(context, index);
+        },
+        itemCount: mCommentList.length == 0 ? 1 : mCommentList.length + 2,
+        //controller: mCommentScrollController,
+      ),
+      onNotification: (ScrollNotification scrollInfo) =>
+          _onScrollNotification2(scrollInfo),
+    ) ;
+  }
+
+  _onScrollNotification2(ScrollNotification scrollInfo) {
+    if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
+      //滑到了底部
+      print("滑动到了底部");
+      if (!isCommentloadingMore) {
+        if (isCommenthasMore) {
+          setState(() {
+            isCommentloadingMore = true;
+            mCommentCurPage += 1;
+          });
+          Future.delayed(Duration(seconds: 3), () {
+            getCommentDataLoadMore(
+                mCommentCurPage, widget.mModel.weiboId);
+          });
+        } else {
+          setState(() {
+            isCommenthasMore = false;
+          });
+        }
+      }
+    }
   }
 
   Widget mForwardItem(BuildContext context, int index) {
     if (index == mForwardList.length) {
       return buildForwardLoadMore();
     }
+
 
     return Container(
       margin: EdgeInsets.only(top: 5),
