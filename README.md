@@ -22,9 +22,24 @@ apk下载地址   https://www.pgyer.com/g95X   密码 123456
                    
 每个模块对应的ui截图在下面 没有截全,可以下载apk或者直接运行项目看效果
 
-感觉有帮助的话就给个start吧！
+感觉有帮助的话就给个start吧，我会持续更新完善这个项目！
 
+
+ <br/>
+ <br/>
+ <br/>
  
+ 
+
+**基础环境**
+
+Flutter 1.12.13+hotfix.7 • channel stable 
+
+Dart 2.7.0
+<br/>
+<br/>
+ <br/>
+
 
 
  **首页模块:**
