@@ -8,6 +8,7 @@ import '../home/weibo_retweet_page.dart';
 import '../home/weibo_detail_page.dart';
 import 'package:flutter_hrlweibo/public.dart';
 import "package:dio/dio.dart";
+import 'package:flutter_hrlweibo/widget/loading_container.dart';
 
 
 
@@ -23,17 +24,20 @@ class WeiBoHomeListPager extends StatefulWidget {
   _WeiBoHomeListPagerState createState() => _WeiBoHomeListPagerState();
 }
 
-class _WeiBoHomeListPagerState extends State<WeiBoHomeListPager> {
+class _WeiBoHomeListPagerState extends State<WeiBoHomeListPager>    with AutomaticKeepAliveClientMixin{
 
-  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-  new GlobalKey<RefreshIndicatorState>();
 
+  bool isRefreshloading = true;
   bool isloadingMore = false;//是否显示加载中
   bool ishasMore = true;//是否还有更多
   num mCurPage = 1;
   ScrollController _scrollController = new ScrollController();
+   List<WeiBoModel> hotContentList = [];
 
-  List<WeiBoModel> hotContentList = [];
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
+
 
   @override
   void initState() {
@@ -50,9 +54,7 @@ class _WeiBoHomeListPagerState extends State<WeiBoHomeListPager> {
               isloadingMore = true;
               mCurPage += 1;
             });
-            Future.delayed(Duration(seconds: 3), (){
-              getSubDataLoadMore(mCurPage);
-            });
+            getSubDataLoadMore(mCurPage);
           } else {
             print('没有更多数据');
             setState(() {
@@ -92,13 +94,15 @@ class _WeiBoHomeListPagerState extends State<WeiBoHomeListPager> {
       hotContentList.clear();
       hotContentList.addAll(category.data.list);
       setState(() {
-
+        isRefreshloading=false;
       });
     }, (error) {
       print("接口异常："+error);
      //  ToastUtil.show(error);
-      /*setState(() {
-       });*/
+       setState(() {
+         isRefreshloading = false;
+
+       });
 
     });
 
@@ -185,7 +189,9 @@ class _WeiBoHomeListPagerState extends State<WeiBoHomeListPager> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      body:  RefreshIndicator(
+      body:   LoadingContainer(
+        isLoading: isRefreshloading,
+        child:RefreshIndicator(
         // key: _refreshIndicatorKey,
 
         onRefresh: getSubDataRefresh ,
@@ -204,7 +210,7 @@ class _WeiBoHomeListPagerState extends State<WeiBoHomeListPager> {
         ),
 
       ),
-
+      ),
     );
 
   }
@@ -221,5 +227,7 @@ class _WeiBoHomeListPagerState extends State<WeiBoHomeListPager> {
       child: WeiBoItemWidget(  model,false),
     );
   }
+
+
 }
 

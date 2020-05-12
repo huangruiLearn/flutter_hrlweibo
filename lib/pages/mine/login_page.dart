@@ -136,15 +136,17 @@ class _LoginPageState extends State<LoginPage> {
          onPressed: (_inputAccount.isEmpty || _inputPwd.isEmpty)
             ? null
             : () {
+
+
                  FormData params = FormData.from(
                     {'username': _inputAccount, 'password': _inputPwd});
                   DioManager.getInstance().post(ServiceUrl.login, params, (data) {
-                  UserUtil.saveUserInfo(data['data']);
+                     UserUtil.saveUserInfo(data['data']);
                   ToastUtil.show('登录成功!');
                   Navigator.pop(context);
                   Routes .navigateTo(context, Routes.indexPage );
                  }, (error) {
-                   ToastUtil.show(error);
+                     ToastUtil.show(error);
                 });
                },
         child: new Padding(

@@ -260,7 +260,7 @@ class _SettingPageState extends State<SettingPage> {
                                 onPressed: (){
                                    UserUtil.loginout();
                                    Navigator.of(context).pop();
-                                   Routes.navigateTo(context, '${Routes.indexPage}',clearStack: true,transition: TransitionType.fadeIn);
+                                   Routes.navigateTo(context, '${Routes.loginPage}',clearStack: true,transition: TransitionType.fadeIn);
                                  },
                               ),
                               FlatButton(
