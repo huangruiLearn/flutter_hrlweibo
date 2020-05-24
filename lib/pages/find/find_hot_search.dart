@@ -240,8 +240,7 @@ class _HotSearchPageState extends State<HotSearchPage> {
                     ),
                   ),
                 ];
-              }, body: new Builder(
-                   builder: (BuildContext contexta) {
+              }, body: new Builder(builder: (BuildContext contexta) {
                 return CustomScrollView(
                   slivers: <Widget>[
                     SliverOverlapInjector(
@@ -284,14 +283,12 @@ class _HotSearchPageState extends State<HotSearchPage> {
                     children: <Widget>[
                       Container(
                         color: Color(0xffE7E7E7),
-
                         height: 1,
                       ),
                       Container(
                           child: Container(
                         color: Color(0xffF9F9F9),
                         height: 40,
-
                         child: Row(
                           children: <Widget>[
                             Expanded(
@@ -319,10 +316,9 @@ class _HotSearchPageState extends State<HotSearchPage> {
                             ),
                             Container(
                               width: 1,
-
                               height: 30,
                               color: Color(0xffE7E7E7),
-                            ) ,
+                            ),
                             Expanded(
                               flex: 1,
                               child: Center(
@@ -346,9 +342,8 @@ class _HotSearchPageState extends State<HotSearchPage> {
                                 ),
                               ),
                             ),
-                             Container(
+                            Container(
                               width: 1,
-
                               height: 30,
                               color: Color(0xffE7E7E7),
                             ),

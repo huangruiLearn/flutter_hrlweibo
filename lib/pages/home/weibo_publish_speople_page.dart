@@ -104,7 +104,7 @@ class _WeiBoPublishAtUserPageState extends State<WeiBoPublishAtUserPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
-                    margin: EdgeInsets.only(  right: 15),
+                    margin: EdgeInsets.only(right: 15),
                     child: CircleAvatar(
                       //头像半径
                       radius: 15,
@@ -115,17 +115,14 @@ class _WeiBoPublishAtUserPageState extends State<WeiBoPublishAtUserPage> {
                   child: Text(
                     '${mModel.nick}',
                     style: TextStyle(
-                        letterSpacing: 0,
-                        color: Colors.black,
-                        fontSize: 14),
+                        letterSpacing: 0, color: Colors.black, fontSize: 14),
                   ),
                 ),
               ],
             ),
             onTap: () {
               print("OnItemClick: $mModel");
-               Navigator.of(context).pop(mModel);
-
+              Navigator.of(context).pop(mModel);
             },
           ),
         )

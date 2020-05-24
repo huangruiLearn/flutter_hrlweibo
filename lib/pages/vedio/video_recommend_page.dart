@@ -1,10 +1,11 @@
+import 'dart:convert' as convert;
+
 import "package:dio/dio.dart";
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hrlweibo/model/VideoModel.dart';
 import 'package:flutter_hrlweibo/public.dart';
 import 'package:flutter_hrlweibo/util/date_util.dart';
-import 'dart:convert' as convert;
 
 class VideoRecommendPage extends StatefulWidget {
   @override
@@ -98,12 +99,12 @@ class _VideoRecommendPageState extends State<VideoRecommendPage> {
   Widget getContentItem(BuildContext context, VideoModel mModel) {
     return InkResponse(
       highlightColor: Colors.transparent,
-       onTap: (){
-        Routes.navigateTo(context, Routes.videoDetailPage  ,  params: {
-          'video':   convert.jsonEncode(mModel) ,
-        },transition: TransitionType.fadeIn);
-
-
+      onTap: () {
+        Routes.navigateTo(context, Routes.videoDetailPage,
+            params: {
+              'video': convert.jsonEncode(mModel),
+            },
+            transition: TransitionType.fadeIn);
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,7 +122,7 @@ class _VideoRecommendPageState extends State<VideoRecommendPage> {
                     child: FadeInImage(
                       fit: BoxFit.cover,
                       placeholder:
-                      AssetImage(Constant.ASSETS_IMG + 'img_default2.png'),
+                          AssetImage(Constant.ASSETS_IMG + 'img_default2.png'),
                       image: NetworkImage(
                         mModel.coverimg,
                       ),
@@ -130,41 +131,39 @@ class _VideoRecommendPageState extends State<VideoRecommendPage> {
                 ),
                 Positioned(
                     child: new Align(
-                      alignment: FractionalOffset.bottomCenter,
-                      child: Container(
-                        padding: EdgeInsets.only(bottom: 5),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          //     mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
+                  alignment: FractionalOffset.bottomCenter,
+                  child: Container(
+                    padding: EdgeInsets.only(bottom: 5),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      //     mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
 
-                          children: <Widget>[
-                            Container(
-                              margin: EdgeInsets.only(left: 5, right: 3),
-                              child: Image.asset(
-                                Constant.ASSETS_IMG + 'video_play.png',
-                                width: 15.0,
-                                height: 15.0,
-                              ),
-                            ),
-                            Text(mModel.playnum.toString(),
-                                style:
-                                TextStyle(fontSize: 14.0, color: Colors.white)),
-                            Spacer(),
-                            Container(
-                              margin: EdgeInsets.only(right: 5),
-                              child: Text(
-                                  DateUtil.getFormatTime4(mModel.videotime)
-                                      .toString(),
-                                  style:
-                                  TextStyle(fontSize: 14.0, color: Colors.white)),
-                            ),
-
-
-                          ],
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(left: 5, right: 3),
+                          child: Image.asset(
+                            Constant.ASSETS_IMG + 'video_play.png',
+                            width: 15.0,
+                            height: 15.0,
+                          ),
                         ),
-                      ),
-                    ))
+                        Text(mModel.playnum.toString(),
+                            style:
+                                TextStyle(fontSize: 14.0, color: Colors.white)),
+                        Spacer(),
+                        Container(
+                          margin: EdgeInsets.only(right: 5),
+                          child: Text(
+                              DateUtil.getFormatTime4(mModel.videotime)
+                                  .toString(),
+                              style: TextStyle(
+                                  fontSize: 14.0, color: Colors.white)),
+                        ),
+                      ],
+                    ),
+                  ),
+                ))
               ],
             ),
           ),
@@ -180,29 +179,34 @@ class _VideoRecommendPageState extends State<VideoRecommendPage> {
           Container(
             margin: EdgeInsets.only(top: 5),
             child: Row(
-
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Stack(
                   children: <Widget>[
-                    (mModel.recommengstr=="null")?((mModel.tag=="null")?new Container():Text(
-                      mModel.tag.toString(),style: TextStyle(fontSize: 12,color: Colors.black),
-                    )):Container(
-                      padding: EdgeInsets.all(2),
-                      child: Text(
-                        mModel.recommengstr,style: TextStyle(fontSize: 11,color: Colors.orange),
-                      ),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.all(
-                          //圆角
-                          Radius.circular(5.0),
-                        ),
-                        color: Color(0xffFEF5E2),
-
-                      ),
-                    ),
-
+                    (mModel.recommengstr == "null")
+                        ? ((mModel.tag == "null")
+                            ? new Container()
+                            : Text(
+                                mModel.tag.toString(),
+                                style: TextStyle(
+                                    fontSize: 12, color: Colors.black),
+                              ))
+                        : Container(
+                            padding: EdgeInsets.all(2),
+                            child: Text(
+                              mModel.recommengstr,
+                              style:
+                                  TextStyle(fontSize: 11, color: Colors.orange),
+                            ),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.rectangle,
+                              borderRadius: BorderRadius.all(
+                                //圆角
+                                Radius.circular(5.0),
+                              ),
+                              color: Color(0xffFEF5E2),
+                            ),
+                          ),
                   ],
                 ),
                 Spacer(),

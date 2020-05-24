@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hrlweibo/model/OtherUserModel.dart';
 import 'package:flutter_hrlweibo/public.dart';
-import 'package:flutter/cupertino.dart';
 
 class PersonInfoPage extends StatefulWidget {
   String mOtherUserId;
@@ -20,7 +20,19 @@ class _PersonInfoPageState extends State<PersonInfoPage>
   bool isShowBlackTitle = false;
 
   TabController _tabController;
-  OtherUser mUser=new OtherUser(id: "0",username: "",nick: "",headurl: "",decs: "",gender: "0",followCount: "0",fanCount: "0",ismember: 0,isvertify: 0,relation: 0,createtime: 0);
+  OtherUser mUser = new OtherUser(
+      id: "0",
+      username: "",
+      nick: "",
+      headurl: "",
+      decs: "",
+      gender: "0",
+      followCount: "0",
+      fanCount: "0",
+      ismember: 0,
+      isvertify: 0,
+      relation: 0,
+      createtime: 0);
 
   @override
   void initState() {
@@ -60,7 +72,7 @@ class _PersonInfoPageState extends State<PersonInfoPage>
   }
 
   var mTabs = <String>[
-        '主页'
+    '主页'
         '微博'
         '相册'
   ];
@@ -117,8 +129,7 @@ class _PersonInfoPageState extends State<PersonInfoPage>
     );
   }
 
-
-   Widget _detailBottom(  ) {
+  Widget _detailBottom() {
     return Row(
       mainAxisSize: MainAxisSize.max,
       //  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -139,18 +150,17 @@ class _PersonInfoPageState extends State<PersonInfoPage>
         new Flexible(
           child: InkWell(
             onTap: () {
-              Routes .navigateTo(context, Routes.chatPage, transition: TransitionType.fadeIn);
-
+              Routes.navigateTo(context, Routes.chatPage,
+                  transition: TransitionType.fadeIn);
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-
                 Container(
                   child: Text('聊天',
                       style: TextStyle(color: Colors.black, fontSize: 14)),
-                 ),
+                ),
               ],
             ),
           ),
@@ -162,23 +172,23 @@ class _PersonInfoPageState extends State<PersonInfoPage>
           color: Colors.black12,
         ),
         new Flexible(
-          child:  Center(
-     child:Text("热门",style: TextStyle(fontSize: 14,color: Colors.black),),
-     ),
+          child: Center(
+            child: Text(
+              "热门",
+              style: TextStyle(fontSize: 14, color: Colors.black),
+            ),
+          ),
           flex: 1,
         ),
         Container(
           margin: EdgeInsets.only(top: 10, bottom: 10),
           width: 1.0,
-         ),
+        ),
       ],
     );
   }
 
-
-
-
-  Widget mFollowBtnWidget( ) {
+  Widget mFollowBtnWidget() {
     if (mUser.relation == 0) {
       return Container(
         margin: EdgeInsets.only(right: 15),
@@ -186,15 +196,15 @@ class _PersonInfoPageState extends State<PersonInfoPage>
           child: Container(
               padding: new EdgeInsets.only(
                   top: 4.0, bottom: 4.0, left: 6.0, right: 6.0),
-               child: Row(
+              child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                   Text("已关注",
+                  Text("已关注",
                       style: TextStyle(color: Color(0xff333333), fontSize: 14)),
                 ],
               )),
           onTap: () {
-         showCancelFollowDialog( );
+            showCancelFollowDialog();
           },
         ),
       );
@@ -205,27 +215,22 @@ class _PersonInfoPageState extends State<PersonInfoPage>
           child: Container(
             padding: new EdgeInsets.only(
                 top: 4.0, bottom: 4.0, left: 6.0, right: 6.0),
-
             child: Text("+ 关注",
                 style: TextStyle(color: Colors.black, fontSize: 14)),
           ),
           onTap: () {
-
             FormData params = FormData.from({
               'userid': UserUtil.getUserInfo().id,
               'otheruserid': mUser.id,
             });
-            DioManager.getInstance()
-                .post(ServiceUrl.followOther, params, (data) {
+            DioManager.getInstance().post(ServiceUrl.followOther, params,
+                (data) {
               int mRelation = data['data']['relation'];
-              mUser.relation=mRelation;
+              mUser.relation = mRelation;
               setState(() {});
             }, (error) {
               ToastUtil.show(error);
             });
-
-
-
           },
         ),
       );
@@ -236,7 +241,6 @@ class _PersonInfoPageState extends State<PersonInfoPage>
           child: Container(
               padding: new EdgeInsets.only(
                   top: 4.0, bottom: 4.0, left: 6.0, right: 6.0),
-
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
@@ -250,15 +254,14 @@ class _PersonInfoPageState extends State<PersonInfoPage>
                 ],
               )),
           onTap: () {
-            showCancelFollowDialog( );
+            showCancelFollowDialog();
           },
         ),
       );
     }
   }
 
-
-  Widget showCancelFollowDialog( ) {
+  Widget showCancelFollowDialog() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -292,7 +295,7 @@ class _PersonInfoPageState extends State<PersonInfoPage>
                       .post(ServiceUrl.followCancelOther, params, (data) {
                     Navigator.of(context).pop();
                     int mRelation = data['data']['relation'];
-                    mUser.relation=mRelation;
+                    mUser.relation = mRelation;
                     setState(() {});
                   }, (error) {
                     ToastUtil.show(error);
@@ -304,25 +307,13 @@ class _PersonInfoPageState extends State<PersonInfoPage>
         });
   }
 
-
   @override
   Widget build(BuildContext context) {
-    /*  if (blockList == null || blockList.length == 0) {
-      return LoadingIndicator(
-        pageState,
-        retry: _retry,
-      );
-    }*/
-
     return SafeArea(
         //  color: Colors.white,
         child: Scaffold(
       backgroundColor: Colors.white,
       body: Stack(children: [
-        /*  RefreshIndicator(
-            onRefresh: () {},
-            color: Colors.white,
-            child:*/
         NotificationListener(
             onNotification: (scrollNotification) {
               if (scrollNotification is ScrollUpdateNotification &&
@@ -342,12 +333,7 @@ class _PersonInfoPageState extends State<PersonInfoPage>
                         handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
                             context),
                         child: SliverAppBar(
-                          leading:
-                              /*new IconButton(
-                        icon: Icon(Icons.arrow_back),
-                        onPressed: () {},
-                      ),*/
-                              new Container(
+                          leading: new Container(
                             margin: EdgeInsets.only(top: 20, bottom: 10),
                             child: isShowBlackTitle
                                 ? Image.asset(
@@ -442,7 +428,9 @@ class _PersonInfoPageState extends State<PersonInfoPage>
                                                 child: new CircleAvatar(
                                                   backgroundImage:
                                                       new NetworkImage(
-                                                          mUser.headurl==null?"":mUser.headurl),
+                                                          mUser.headurl == null
+                                                              ? ""
+                                                              : mUser.headurl),
                                                   radius: 33.0,
                                                 ),
                                               ),
@@ -464,7 +452,8 @@ class _PersonInfoPageState extends State<PersonInfoPage>
                                             ),
                                           ),
                                           Container(
-                                            margin: EdgeInsets.only(top: 15,left: 5),
+                                            margin: EdgeInsets.only(
+                                                top: 15, left: 5),
                                             child: mUser.gender == "1"
                                                 ? new Container(
                                                     child: Image.asset(
@@ -474,7 +463,7 @@ class _PersonInfoPageState extends State<PersonInfoPage>
                                                       height: 15,
                                                       fit: BoxFit.cover,
                                                     ),
-                                                 )
+                                                  )
                                                 : new Container(
                                                     child: Image.asset(
                                                       Constant.ASSETS_IMG +
@@ -487,22 +476,27 @@ class _PersonInfoPageState extends State<PersonInfoPage>
                                           ),
                                           Container(
                                             margin: EdgeInsets.only(top: 15),
-
                                             child: mUser.ismember == 0
-                                                ? new Container(margin: EdgeInsets.only(left: 5),
-                                              child: Image.asset(
-                                                Constant.ASSETS_IMG + 'mine_openmember.webp',
-                                                width: 40.0,
-                                                height: 25.0,
-                                              ),)
+                                                ? new Container(
+                                                    margin: EdgeInsets.only(
+                                                        left: 5),
+                                                    child: Image.asset(
+                                                      Constant.ASSETS_IMG +
+                                                          'mine_openmember.webp',
+                                                      width: 40.0,
+                                                      height: 25.0,
+                                                    ),
+                                                  )
                                                 : Container(
-                                              margin: EdgeInsets.only(left: 5),
-                                              child: Image.asset(
-                                                Constant.ASSETS_IMG + 'home_memeber.webp',
-                                                width: 15.0,
-                                                height: 13.0,
-                                              ),
-                                            ),
+                                                    margin: EdgeInsets.only(
+                                                        left: 5),
+                                                    child: Image.asset(
+                                                      Constant.ASSETS_IMG +
+                                                          'home_memeber.webp',
+                                                      width: 15.0,
+                                                      height: 13.0,
+                                                    ),
+                                                  ),
                                           )
                                         ],
                                       ),
@@ -549,7 +543,6 @@ class _PersonInfoPageState extends State<PersonInfoPage>
                                       ),
                                     ],
                                   ),
-
                                 ),
                               ],
                             ),
@@ -570,29 +563,26 @@ class _PersonInfoPageState extends State<PersonInfoPage>
                     controller: _tabController,
                     // These are the contents of the tab views, below the tabs.
                     children: [
-                      PersonInfoHomeHome(mUser.nick,mUser.decs,mUser.createtime,mUser.gender),
+                      PersonInfoHomeHome(mUser.nick, mUser.decs,
+                          mUser.createtime, mUser.gender),
                       PageInfoWeiBo(),
                       PageInfoPic(),
                     ],
                   ),
                 ),
                 UserUtil.getUserInfo().id == widget.mOtherUserId
-                    ? new Container(
-
-                )
+                    ? new Container()
                     : Align(
                         //对齐底部
                         alignment: Alignment.bottomCenter,
                         child: Container(
                             child: Container(
-                              color: Colors.white,
-                      child: _detailBottom(),
-
+                          color: Colors.white,
+                          child: _detailBottom(),
                           height: 50,
                         ))),
               ],
             )),
-        /* ),*/
       ]),
     ));
   }

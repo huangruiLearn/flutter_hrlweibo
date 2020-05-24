@@ -1,10 +1,7 @@
-import 'dart:io';
-import 'package:flutter_hrlweibo/public.dart';
-import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:flutter_hrlweibo/public.dart';
 import 'package:flutter_hrlweibo/util/toast_util.dart';
-import 'package:path/path.dart';
 
 //修改个性签名界面
 class ChangeDescPage extends StatefulWidget {
@@ -15,7 +12,6 @@ class ChangeDescPage extends StatefulWidget {
 class _ChangeDescPageState extends State<ChangeDescPage> {
   TextEditingController _mEtController = new TextEditingController();
 
-  //#F3F1F4
   String mInputName = "";
 
   @override
@@ -36,71 +32,64 @@ class _ChangeDescPageState extends State<ChangeDescPage> {
         centerTitle: true,
         actions: <Widget>[
           Container(
-            margin: EdgeInsets.only(right: 15),
-            child: InkWell(
-              child: Center(
-                child:Text('完成'),
-              ),
-              onTap:(){
-                if (_mEtController.text.isEmpty) {
-                  ToastUtil.show('内容不能为空!');
-                  return;
-                }
-                FormData params = FormData.from({
-                  'userId': UserUtil.getUserInfo().id,
-                  'personSign': _mEtController.text
-                });
-                DioManager.getInstance()
-                    .post(ServiceUrl.updateIntroduce, params, (data) {
-                  ToastUtil.show('修改个性签名成功!');
-                  UserUtil.saveUserDesc(_mEtController.text);
-                  Constant.eventBus.fire(ChangeInfoEvent());
-                  Navigator.pop(context);
-                }, (error) {
-                  ToastUtil.show(error);
-                });
-
-
-            },
-            )
-          ),
-
+              margin: EdgeInsets.only(right: 15),
+              child: InkWell(
+                child: Center(
+                  child: Text('完成'),
+                ),
+                onTap: () {
+                  if (_mEtController.text.isEmpty) {
+                    ToastUtil.show('内容不能为空!');
+                    return;
+                  }
+                  FormData params = FormData.from({
+                    'userId': UserUtil.getUserInfo().id,
+                    'personSign': _mEtController.text
+                  });
+                  DioManager.getInstance()
+                      .post(ServiceUrl.updateIntroduce, params, (data) {
+                    ToastUtil.show('修改个性签名成功!');
+                    UserUtil.saveUserDesc(_mEtController.text);
+                    Constant.eventBus.fire(ChangeInfoEvent());
+                    Navigator.pop(context);
+                  }, (error) {
+                    ToastUtil.show(error);
+                  });
+                },
+              )),
         ],
       ),
-
       body: Container(
           color: Color(0xffF3F1F4),
           child: new Column(
             children: <Widget>[
-
-          Container(
-            height: 1,
-            color: Color(0xfffefefe),
-          ),
+              Container(
+                height: 1,
+                color: Color(0xfffefefe),
+              ),
               Container(
                   constraints: BoxConstraints(
                     minHeight: 100,
                   ),
                   height: 50,
                   color: Color(0xffffffff),
-                   child: Container(
-                     margin: EdgeInsets.only(top: 15),
-
-                     child: TextField(
+                  child: Container(
+                    margin: EdgeInsets.only(top: 15),
+                    child: TextField(
                       controller: _mEtController,
                       maxLength: 50,
                       maxLines: 3,
                       decoration: InputDecoration(
                         hintText: "介绍下自己",
-                         hintStyle:
-                        TextStyle(color: Color(0xff999999), fontSize: 15),
+                        hintStyle:
+                            TextStyle(color: Color(0xff999999), fontSize: 15),
                         contentPadding: EdgeInsets.only(left: 15, right: 15),
                         border: InputBorder.none,
                       ),
                     ),
                   )),
             ],
-          ) ),
+          )),
     ));
   }
 }

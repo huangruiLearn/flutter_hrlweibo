@@ -1,13 +1,13 @@
+import "package:dio/dio.dart";
 import 'package:flutter/material.dart';
 import 'package:flutter_hrlweibo/constant/constant.dart';
-import 'package:flutter_hrlweibo/model/MsgComZanModel.dart';
-import "package:dio/dio.dart";
 import 'package:flutter_hrlweibo/http/service_url.dart';
-import '../../http/service_method.dart';
+import 'package:flutter_hrlweibo/model/MsgComZanModel.dart';
 import 'package:flutter_hrlweibo/util/date_util.dart';
-import 'package:flutter_hrlweibo/widget/weibo/parsed_text.dart';
 import 'package:flutter_hrlweibo/widget/weibo/match_text.dart';
+import 'package:flutter_hrlweibo/widget/weibo/parsed_text.dart';
 
+import '../../http/service_method.dart';
 
 class MsgCommentPage extends StatefulWidget {
   @override
@@ -15,65 +15,50 @@ class MsgCommentPage extends StatefulWidget {
 }
 
 class _MsgCommentPageState extends State<MsgCommentPage> {
-
-  bool isloadingMore = false;//是否显示加载中
-  bool ishasMore = true;//是否还有更多
+  bool isloadingMore = false; //是否显示加载中
+  bool ishasMore = true; //是否还有更多
   num mCurPage = 1;
   ScrollController _scrollController = new ScrollController();
-  List< ComZanModel> mZanList = [];
+  List<ComZanModel> mZanList = [];
 
-
-
-
-
-
-  Future    getSubDataRefresh() async {
+  Future getSubDataRefresh() async {
     isloadingMore = false;
     ishasMore = true;
     mCurPage = 1;
     FormData formData = FormData.from({
-      "pageNum":"1",
-      "pageSize":Constant.PAGE_SIZE,
+      "pageNum": "1",
+      "pageSize": Constant.PAGE_SIZE,
     });
-    DioManager.getInstance().post(ServiceUrl.getMsgCommentList, formData, (data) {
-      ComZanListModel mList = ComZanListModel.fromJson(data['data']) ;
+    DioManager.getInstance().post(ServiceUrl.getMsgCommentList, formData,
+        (data) {
+      ComZanListModel mList = ComZanListModel.fromJson(data['data']);
       mZanList.clear();
-      mZanList =mList.list;
-      setState(() {
-
-      });
+      mZanList = mList.list;
+      setState(() {});
     }, (error) {
-      setState(() {
-
-      });
+      setState(() {});
     });
-
-
   }
 
-
-
-  Future  getSubDataLoadMore(int page)  async   {
+  Future getSubDataLoadMore(int page) async {
     FormData formData = FormData.from({
-      "pageNum":page,
-      "pageSize":Constant.PAGE_SIZE,
-
+      "pageNum": page,
+      "pageSize": Constant.PAGE_SIZE,
     });
-    await    DioManager.getInstance().post(ServiceUrl.getMsgCommentList, formData, (data) {
-      ComZanListModel mList = ComZanListModel.fromJson(data['data']) ;
-       mZanList.addAll(mList.list);
+    await DioManager.getInstance().post(ServiceUrl.getMsgCommentList, formData,
+        (data) {
+      ComZanListModel mList = ComZanListModel.fromJson(data['data']);
+      mZanList.addAll(mList.list);
       setState(() {
         isloadingMore = false;
-        ishasMore = mList.list.length>=Constant.PAGE_SIZE;
+        ishasMore = mList.list.length >= Constant.PAGE_SIZE;
       });
-
     }, (error) {
       setState(() {
         isloadingMore = false;
         ishasMore = false;
       });
     });
-
   }
 
   @override
@@ -92,7 +77,7 @@ class _MsgCommentPageState extends State<MsgCommentPage> {
               isloadingMore = true;
               mCurPage += 1;
             });
-            Future.delayed(Duration(seconds: 3), (){
+            Future.delayed(Duration(seconds: 3), () {
               getSubDataLoadMore(mCurPage);
             });
           } else {
@@ -104,18 +89,18 @@ class _MsgCommentPageState extends State<MsgCommentPage> {
         }
       }
     });
-
-
-
   }
+
   Widget _buildLoadMore() {
-    return isloadingMore?Container(
-        child: Padding(
-          padding: const EdgeInsets.only(top:5,bottom: 5),
-          child: Center(
-              child:Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[ Container(
+    return isloadingMore
+        ? Container(
+            child: Padding(
+            padding: const EdgeInsets.only(top: 5, bottom: 5),
+            child: Center(
+                child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Container(
                   margin: EdgeInsets.only(right: 10),
                   child: SizedBox(
                     child: CircularProgressIndicator(
@@ -123,27 +108,26 @@ class _MsgCommentPageState extends State<MsgCommentPage> {
                     ),
                     height: 12.0,
                     width: 12.0,
-                  ) ,
+                  ),
                 ),
-                  Text("加载中..."),],
-              )
-          ),
-        )
-    ):new Container(
-      child: ishasMore
-          ? new Container()
-          : Center(
-          child: Container(
-              margin: EdgeInsets.only(top: 5, bottom: 5),
-              child: Text(
-                "没有更多数据",
-                style: TextStyle(fontSize: 14, color: Colors.grey),
-              ))),
-    );
+                Text("加载中..."),
+              ],
+            )),
+          ))
+        : new Container(
+            child: ishasMore
+                ? new Container()
+                : Center(
+                    child: Container(
+                        margin: EdgeInsets.only(top: 5, bottom: 5),
+                        child: Text(
+                          "没有更多数据",
+                          style: TextStyle(fontSize: 14, color: Colors.grey),
+                        ))),
+          );
   }
 
-
-  getContentItem(BuildContext context, int index,List<ComZanModel> mList) {
+  getContentItem(BuildContext context, int index, List<ComZanModel> mList) {
     return new Container(
       color: Colors.white,
       child: Column(
@@ -151,44 +135,37 @@ class _MsgCommentPageState extends State<MsgCommentPage> {
         children: <Widget>[
           Row(
             children: <Widget>[
-
-                Padding(
-                    padding: const EdgeInsets.fromLTRB(15.0, 10.0, 0.0, 10.0),
-                    child: Text(mList[index].username+"评论了",
-                        style: TextStyle(
-                            fontSize: 14.0,
-                            color:Color(0xff7D7D7D)
-                        ), ),   ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15.0, 10.0, 0.0, 10.0),
+                child: Text(
+                  mList[index].username + "评论了",
+                  style: TextStyle(fontSize: 14.0, color: Color(0xff7D7D7D)),
+                ),
+              ),
               Spacer(),
               Container(
                 margin: EdgeInsets.only(right: 15),
                 child: Image.asset(
-                Constant.ASSETS_IMG + 'msg_comment_close.png',
-
+                  Constant.ASSETS_IMG + 'msg_comment_close.png',
                   width: 10.0,
                   height: 10.0,
                 ),
               )
-
             ],
           ),
-
           Container(
-             height: 0.5,
+            height: 0.5,
             color: Color(0xffEEEEEE),
             //  margin: EdgeInsets.only(left: 60),
           ),
-
-          _authorRow(context,mList[index]),
+          _authorRow(context, mList[index]),
           Container(
-            margin: EdgeInsets.only(left: 15,right: 15,top: 5,bottom: 8),
+            margin: EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 8),
             child: Text(mList[index].content),
-            ),
-
-
+          ),
           _retweetcontent(mList[index]),
           Container(
-            margin: EdgeInsets.only(top: 13 ),
+            margin: EdgeInsets.only(top: 13),
             height: 10,
             color: Color(0xffEEEEEE),
             //  margin: EdgeInsets.only(left: 60),
@@ -198,71 +175,65 @@ class _MsgCommentPageState extends State<MsgCommentPage> {
     );
   }
 
-
-
-  Widget _retweetcontent( ComZanModel mModel ) {
-    print("图片地址是:"+ mModel.weibopicurl);
+  Widget _retweetcontent(ComZanModel mModel) {
+    print("图片地址是:" + mModel.weibopicurl);
     return InkWell(
       onTap: () {},
       child: Container(
-          margin: EdgeInsets.only(left: 20,right: 20),
+          margin: EdgeInsets.only(left: 20, right: 20),
           color: Color(0xFFF8F8F8),
           child: Row(
             children: <Widget>[
               new Container(
-                child: /*Image.network(
+                child:
+                    /*Image.network(
                     mModel.weibopicurl,
                     fit: BoxFit.fill,
                     width: 90,
                     height: 90),*/
-                FadeInImage.assetNetwork(
-                    placeholder:Constant.ASSETS_IMG+'img_default.png',
-                    image:  mModel.weibopicurl,
-                    fit: BoxFit.fill,
-                    width: 90,
-                    height: 90
-                ),
+                    FadeInImage.assetNetwork(
+                        placeholder: Constant.ASSETS_IMG + 'img_default.png',
+                        image: mModel.weibopicurl,
+                        fit: BoxFit.fill,
+                        width: 90,
+                        height: 90),
               ),
               new Container(
-                margin: EdgeInsets.only(left: 10.0 ),
+                margin: EdgeInsets.only(left: 10.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      '@' +mModel.weibousername,
+                      '@' + mModel.weibousername,
                       style: TextStyle(color: Colors.black, fontSize: 15),
                     ),
                     new Container(
-                        margin: EdgeInsets.only(top: 5.0 ),
+                        margin: EdgeInsets.only(top: 5.0),
                         width: MediaQuery.of(context).size.width * 0.6,
-                        child:/* Text('' + widget.mModel.content,
-                          style: TextStyle(color: Colors.grey, fontSize: 14),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis),
-                    )*/
-                        ParsedText(
+                        child: ParsedText(
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
-                          text:  mModel.weibcontent,
+                          text: mModel.weibcontent,
                           style: TextStyle(
-                              height: 1.5,
-                              fontSize: 13,
-                              color:  Colors.grey
-                          ),
+                              height: 1.5, fontSize: 13, color: Colors.grey),
                           parse: <MatchText>[
                             MatchText(
                                 pattern: r"\[(@[^:]+):([^\]]+)\]",
                                 style: TextStyle(
-                                  color:  Colors.grey,
+                                  color: Colors.grey,
                                   fontSize: 13,
                                 ),
                                 renderText: ({String str, String pattern}) {
-                                  Map<String, String> map = Map<String, String>();
+                                  Map<String, String> map =
+                                      Map<String, String>();
                                   RegExp customRegExp = RegExp(pattern);
                                   Match match = customRegExp.firstMatch(str);
                                   map['display'] = match.group(1);
                                   map['value'] = match.group(2);
-                                  print("正则:" + match.group(1) + "---" + match.group(2));
+                                  print("正则:" +
+                                      match.group(1) +
+                                      "---" +
+                                      match.group(2));
                                   return map;
                                 },
                                 onTap: (url) {
@@ -289,27 +260,23 @@ class _MsgCommentPageState extends State<MsgCommentPage> {
                                 //       pattern: r"\B#+([\w]+)\B#",
                                 //   pattern: r"\[(#[^:]+):([^#]+)\]",
                                 style: TextStyle(
-                                  color:  Colors.grey,
+                                  color: Colors.grey,
                                   fontSize: 13,
                                 ),
                                 renderText: ({String str, String pattern}) {
-                                  Map<String, String> map = Map<String, String>();
-                                  //  RegExp customRegExp = RegExp(pattern);
-                                  //#fskljflsk:12#
-                                  // Match match = customRegExp.firstMatch(str);
+                                  Map<String, String> map =
+                                      Map<String, String>();
 
-                                  /*  String idStr =str.substring(str.indexOf(";"),
-                     (str.lastIndexOf("#")-1));*/
-
-                                  String idStr =
-                                  str.substring(str.indexOf(":") + 1, str.lastIndexOf("#"));
+                                  String idStr = str.substring(
+                                      str.indexOf(":") + 1,
+                                      str.lastIndexOf("#"));
                                   String showStr = str
-                                      .substring(str.indexOf("#"), str.lastIndexOf("#") + 1)
+                                      .substring(str.indexOf("#"),
+                                          str.lastIndexOf("#") + 1)
                                       .replaceAll(":" + idStr, "");
                                   map['display'] = showStr;
                                   map['value'] = idStr;
                                   //   print("正则:"+str+"---"+idStr+"--"+startIndex.toString()+"--"+str.lastIndexOf("#").toString());
-
                                   return map;
                                 },
                                 onTap: (url) async {
@@ -344,7 +311,8 @@ class _MsgCommentPageState extends State<MsgCommentPage> {
                                 print("表情的正则:" + str);
                                 String mEmoji2 = "";
                                 try {
-                                  String mEmoji = str.replaceAll(RegExp('(\\[/)|(\\])'), "");
+                                  String mEmoji = str.replaceAll(
+                                      RegExp('(\\[/)|(\\])'), "");
                                   int mEmojiNew = int.parse(mEmoji);
                                   mEmoji2 = String.fromCharCode(mEmojiNew);
                                 } on Exception catch (_) {
@@ -364,10 +332,10 @@ class _MsgCommentPageState extends State<MsgCommentPage> {
                                   fontSize: 15,
                                 ),
                                 renderText: ({String str, String pattern}) {
-
-                                  Map<String, String> map = Map<String, String>();
-                                  map['display'] =  '全文';
-                                  map['value'] =  '全文';
+                                  Map<String, String> map =
+                                      Map<String, String>();
+                                  map['display'] = '全文';
+                                  map['value'] = '全文';
                                   return map;
                                 },
                                 onTap: (url) async {
@@ -390,11 +358,8 @@ class _MsgCommentPageState extends State<MsgCommentPage> {
                                     },
                                   );
                                 }),
-
-
                           ],
-                        )
-                    ),
+                        )),
                   ],
                 ),
               )
@@ -402,7 +367,6 @@ class _MsgCommentPageState extends State<MsgCommentPage> {
           )),
     );
   }
-
 
   //发布者昵称头像布局
   Widget _authorRow(BuildContext context, ComZanModel mZanItem) {
@@ -412,20 +376,8 @@ class _MsgCommentPageState extends State<MsgCommentPage> {
         children: <Widget>[
           Container(
             margin: EdgeInsets.only(right: 5),
-            child: mZanItem. isvertify == 0
+            child: mZanItem.isvertify == 0
                 ? Container(
-                width: 40.0,
-                height: 40.0,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.transparent,
-                  image: DecorationImage(
-                      image: NetworkImage(mZanItem.userheadurl),
-                      fit: BoxFit.cover),
-                ))
-                : Stack(
-              children: <Widget>[
-                Container(
                     width: 40.0,
                     height: 40.0,
                     decoration: BoxDecoration(
@@ -434,22 +386,34 @@ class _MsgCommentPageState extends State<MsgCommentPage> {
                       image: DecorationImage(
                           image: NetworkImage(mZanItem.userheadurl),
                           fit: BoxFit.cover),
-                    )),
-                Positioned(
-                  right: 0,
-                  bottom: 0,
-                  child: Container(
-                    child: Image.asset(
-                      (mZanItem.isvertify == 1)
-                          ? Constant.ASSETS_IMG + 'home_vertify.webp'
-                          : Constant.ASSETS_IMG + 'home_vertify2.webp',
-                      width: 15.0,
-                      height: 15.0,
-                    ),
+                    ))
+                : Stack(
+                    children: <Widget>[
+                      Container(
+                          width: 40.0,
+                          height: 40.0,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.transparent,
+                            image: DecorationImage(
+                                image: NetworkImage(mZanItem.userheadurl),
+                                fit: BoxFit.cover),
+                          )),
+                      Positioned(
+                        right: 0,
+                        bottom: 0,
+                        child: Container(
+                          child: Image.asset(
+                            (mZanItem.isvertify == 1)
+                                ? Constant.ASSETS_IMG + 'home_vertify.webp'
+                                : Constant.ASSETS_IMG + 'home_vertify2.webp',
+                            width: 15.0,
+                            height: 15.0,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -470,13 +434,13 @@ class _MsgCommentPageState extends State<MsgCommentPage> {
                     child: mZanItem.ismember == 0
                         ? new Container()
                         : Container(
-                      margin: EdgeInsets.only(left: 5),
-                      child: Image.asset(
-                        Constant.ASSETS_IMG + 'home_memeber.webp',
-                        width: 15.0,
-                        height: 13.0,
-                      ),
-                    ),
+                            margin: EdgeInsets.only(left: 5),
+                            child: Image.asset(
+                              Constant.ASSETS_IMG + 'home_memeber.webp',
+                              width: 15.0,
+                              height: 13.0,
+                            ),
+                          ),
                   )
                 ],
               ),
@@ -492,13 +456,12 @@ class _MsgCommentPageState extends State<MsgCommentPage> {
                           style: TextStyle(
                               color: Color(0xff808080), fontSize: 11.0)),
                       Container(
-                        margin: EdgeInsets.only(left:7,right: 7),
-                        child:   Text(
-                            "来自",
+                        margin: EdgeInsets.only(left: 7, right: 7),
+                        child: Text("来自",
                             style: TextStyle(
                                 color: Color(0xff808080), fontSize: 11.0)),
                       ),
-                      Text(mZanItem.tail==null?"":mZanItem.tail ,
+                      Text(mZanItem.tail == null ? "" : mZanItem.tail,
                           style: TextStyle(
                               color: Color(0xff5B778D), fontSize: 11.0))
                     ],
@@ -531,18 +494,18 @@ class _MsgCommentPageState extends State<MsgCommentPage> {
 
   @override
   Widget build(BuildContext context) {
-
-
     return SafeArea(
       child: Scaffold(
         appBar: new AppBar(
-
           elevation: 0,
-          title: new Text('所有评论',style: TextStyle(fontSize: 18,color: Colors.black),),
+          title: new Text(
+            '所有评论',
+            style: TextStyle(fontSize: 18, color: Colors.black),
+          ),
           leading: IconButton(
             icon: Image.asset(
               Constant.ASSETS_IMG + 'icon_back.png',
-              width:25.0,
+              width: 25.0,
               height: 25.0,
             ),
             onPressed: () {},
@@ -550,36 +513,33 @@ class _MsgCommentPageState extends State<MsgCommentPage> {
           backgroundColor: Color(0xffFAFAFA),
           centerTitle: true,
           actions: <Widget>[
-
             Container(
-              child:   Center(
-                child: GestureDetector(child: Text("设置",style:TextStyle(fontSize: 16,color: Colors.black)), onTap: (){
-
-                }),
+              child: Center(
+                child: GestureDetector(
+                    child: Text("设置",
+                        style: TextStyle(fontSize: 16, color: Colors.black)),
+                    onTap: () {}),
               ),
               margin: EdgeInsets.only(right: 15),
-
             )
           ],
         ),
         body: Container(
-          child:  RefreshIndicator(
+          child: RefreshIndicator(
             // key: _refreshIndicatorKey,
 
-            onRefresh: getSubDataRefresh ,
-            child:   new ListView.builder(
-              itemCount: mZanList.length+1    ,
+            onRefresh: getSubDataRefresh,
+            child: new ListView.builder(
+              itemCount: mZanList.length + 1,
               itemBuilder: (context, index) {
                 if (index == mZanList.length) {
                   return _buildLoadMore();
                 } else {
-                  return getContentItem(context, index,mZanList);
+                  return getContentItem(context, index, mZanList);
                 }
-
               },
               controller: _scrollController,
             ),
-
           ),
         ),
       ),

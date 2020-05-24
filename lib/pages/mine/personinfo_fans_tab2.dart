@@ -3,8 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hrlweibo/public.dart';
 
-
-
 class FanListPage extends StatefulWidget {
   @override
   FanListPageState createState() => FanListPageState();
@@ -19,8 +17,8 @@ class FanListPageState extends State<FanListPage> {
   var mTextController = new TextEditingController();
 
   //下拉刷新
-  Future  _pullToRefresh() async {
-     getFanList(true);
+  Future _pullToRefresh() async {
+    getFanList(true);
   }
 
   //加载更多
@@ -49,9 +47,7 @@ class FanListPageState extends State<FanListPage> {
 
   //获取数据
   getFanList(bool isRefresh) {
-
-
-    if(isRefresh){
+    if (isRefresh) {
       isloadingMore = false;
       ishasMore = true;
       curPage = 1;
@@ -66,79 +62,34 @@ class FanListPageState extends State<FanListPage> {
         data['data']['list'].forEach((data) {
           list.add(FanFollowModel.fromJson(data));
         });
-        mFanList=[];
+        mFanList = [];
         mFanList = list;
         setState(() {});
       }, (error) {});
-    }else{
+    } else {
       FormData params = FormData.from({
         'mcurrentuserId': UserUtil.getUserInfo().id,
         'mqueryuseid': UserUtil.getUserInfo().id,
         'pageNum': "$curPage",
         'pageSize': "10"
       });
-      DioManager.getInstance().post(ServiceUrl.getFanList, params,
-              (data) {
-            List<FanFollowModel> list = List();
-            data['data']['list'].forEach((data) {
-              list.add(FanFollowModel.fromJson(data));
-            });
-            mFanList.addAll(list);
-            isloadingMore = false;
-            ishasMore = list.length >= Constant.PAGE_SIZE;
-            setState(() {});
-          }, (error) {
-            setState(() {
-              isloadingMore = false;
-              ishasMore = false;
-            });
-          });
+      DioManager.getInstance().post(ServiceUrl.getFanList, params, (data) {
+        List<FanFollowModel> list = List();
+        data['data']['list'].forEach((data) {
+          list.add(FanFollowModel.fromJson(data));
+        });
+        mFanList.addAll(list);
+        isloadingMore = false;
+        ishasMore = list.length >= Constant.PAGE_SIZE;
+        setState(() {});
+      }, (error) {
+        setState(() {
+          isloadingMore = false;
+          ishasMore = false;
+        });
+      });
     }
-
-
-
-
-
-
-
-
-
-  /*   FormData params = FormData.from({
-      'mcurrentuserId': UserUtil.getUserInfo().id,
-      'mqueryuseid': UserUtil.getUserInfo().id,
-      'pageNum': "$curPage",
-      'pageSize': "10"
-    });
-    DioManager.getInstance().post(ServiceUrl.getFanList, params, (data) {
-      if (isRefresh) {
-        List<FanFollowModel> list = List();
-        data['data']['list'].forEach((data) {
-          list.add(FanFollowModel.fromJson(data));
-        });
-        mFanList = list;
-      } else {
-        List<FanFollowModel> list = List();
-        list.addAll(mFanList);
-        data['data']['list'].forEach((data) {
-          list.add(FanFollowModel.fromJson(data));
-        });
-        mFanList = list;
-      }
-       setState(() {
-        loading = false;
-      });
-    }, (error) {
-      if (isRefresh) {
-        mFanList = new List<FanFollowModel>();
-      } else {
-        mFanList.addAll(new List<FanFollowModel>());
-      }
-      setState(() {
-        loading = false;
-      });
-    });*/
   }
-
 
   Widget mFanPage() {
     if (mFanList == null) {
@@ -164,41 +115,43 @@ class FanListPageState extends State<FanListPage> {
           onRefresh: _pullToRefresh);
     }
   }
+
   Widget _buildLoadMore() {
     return isloadingMore
         ? Container(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 5, bottom: 5),
-          child: Center(
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(right: 10),
-                    child: SizedBox(
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                      ),
-                      height: 12.0,
-                      width: 12.0,
+            child: Padding(
+            padding: const EdgeInsets.only(top: 5, bottom: 5),
+            child: Center(
+                child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(right: 10),
+                  child: SizedBox(
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
                     ),
+                    height: 12.0,
+                    width: 12.0,
                   ),
-                  Text("加载中..."),
-                ],
-              )),
-        ))
+                ),
+                Text("加载中..."),
+              ],
+            )),
+          ))
         : new Container(
-      child: ishasMore
-          ? new Container()
-          : Center(
-          child: Container(
-              margin: EdgeInsets.only(top: 5, bottom: 5),
-              child: Text(
-                "没有更多数据",
-                style: TextStyle(fontSize: 14, color: Colors.grey),
-              ))),
-    );
+            child: ishasMore
+                ? new Container()
+                : Center(
+                    child: Container(
+                        margin: EdgeInsets.only(top: 5, bottom: 5),
+                        child: Text(
+                          "没有更多数据",
+                          style: TextStyle(fontSize: 14, color: Colors.grey),
+                        ))),
+          );
   }
+
   Widget mFanTop() {
     return Column(
       children: <Widget>[
@@ -252,7 +205,7 @@ class FanListPageState extends State<FanListPage> {
   Widget mFollowItem(i) {
     if (i == 0) {
       return mFanTop();
-    }  else  if (i == mFanList.length+1) {
+    } else if (i == mFanList.length + 1) {
       return _buildLoadMore();
     } else {
       FanFollowModel mModel = mFanList[i - 1];
@@ -361,22 +314,18 @@ class FanListPageState extends State<FanListPage> {
                 style: TextStyle(color: Colors.orange, fontSize: 12)),
           ),
           onTap: () {
-
             FormData params = FormData.from({
               'userid': UserUtil.getUserInfo().id,
               'otheruserid': mModel.id,
             });
-            DioManager.getInstance()
-                .post(ServiceUrl.followOther, params, (data) {
+            DioManager.getInstance().post(ServiceUrl.followOther, params,
+                (data) {
               int mRelation = data['data']['relation'];
               (mFanList[position]).relation = mRelation;
               setState(() {});
             }, (error) {
               ToastUtil.show(error);
             });
-
-
-
           },
         ),
       );
@@ -389,7 +338,7 @@ class FanListPageState extends State<FanListPage> {
                   top: 4.0, bottom: 4.0, left: 6.0, right: 6.0),
               decoration: new BoxDecoration(
                 color: Colors.white,
-                 border: Border.all(color: Color(0xff999999)),
+                border: Border.all(color: Color(0xff999999)),
                 borderRadius: new BorderRadius.circular(5.0),
               ),
               child: Row(

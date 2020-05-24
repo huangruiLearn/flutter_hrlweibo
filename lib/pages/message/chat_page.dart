@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:ui' as ui show Codec, FrameInfo, Image;
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -83,14 +84,11 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: new WillPopScope(
-          onWillPop: (){
-
-               FocusScope.of(context).requestFocus(FocusNode());
-               changeNotifier.sink.add(null);
-               Navigator.pop(context);
-
-
-          },
+      onWillPop: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+        changeNotifier.sink.add(null);
+        Navigator.pop(context);
+      },
       child: Scaffold(
         appBar: PreferredSize(
             child: AppBar(
@@ -195,8 +193,7 @@ class _ChatPageState extends State<ChatPage> {
                                       }
                                     },
                                   );
-
-                                  return mChatItem;
+                                   return mChatItem;
                                 },
                                 childCount: mlistMessage.length,
                               ),

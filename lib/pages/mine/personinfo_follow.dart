@@ -12,18 +12,19 @@ class _FollowPageState extends State<FollowPage> {
 
   @override
   void initState() {
-     super.initState();
-     mTabcontroller = TabController(vsync: ScrollableState(), initialIndex: 0, length: 2);
+    super.initState();
+    mTabcontroller =
+        TabController(vsync: ScrollableState(), initialIndex: 0, length: 2);
   }
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xffFAFAFA),
         leading: IconButton(
-           iconSize: 30,
+            iconSize: 30,
             icon: Icon(Icons.chevron_left),
             onPressed: () {
               Navigator.pop(context);
@@ -80,7 +81,6 @@ class _FollowPageState extends State<FollowPage> {
                 ),
               ),
             ),
-
             Expanded(
               flex: 1,
               child: TabBarView(

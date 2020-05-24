@@ -4,9 +4,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hrlweibo/model/WeiBoCommentList.dart';
 import 'package:flutter_hrlweibo/model/WeiBoDetail.dart';
+import 'package:flutter_hrlweibo/pages/home/weibo_comment_page.dart';
 import 'package:flutter_hrlweibo/public.dart';
 import 'package:flutter_hrlweibo/util/date_util.dart';
- import 'package:flutter_hrlweibo/pages/home/weibo_comment_page.dart';
+
 class VideoDetailCommentPage extends StatefulWidget {
   @override
   _VideoDetailCommentPageState createState() => _VideoDetailCommentPageState();
@@ -48,16 +49,15 @@ class _VideoDetailCommentPageState extends State<VideoDetailCommentPage> {
                       onTap: () {
                         Navigator.of(context).push(PageRouteBuilder(
                             opaque: false,
-                            pageBuilder: (context, animation, secondaryAnimation) {
-                              return CommentDialogPage  ("1" ,true,  (){
+                            pageBuilder:
+                                (context, animation, secondaryAnimation) {
+                              return CommentDialogPage("1", true, () {
                                 //评论成功从新获取数据
                                 mCommentScrollController.animateTo(.0,
                                     duration: Duration(milliseconds: 100),
-                                    curve: Curves.ease
-                                );
+                                    curve: Curves.ease);
                                 getCommentDataLoadMore(mCommentCurPage, "1");
-
-                              } );
+                              });
                             }));
                       },
                       child: Container(

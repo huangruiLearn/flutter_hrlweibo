@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+
 import 'weibo_homelist_page.dart';
-
-
 
 class WeiBoHotPage extends StatefulWidget {
   @override
@@ -9,15 +8,7 @@ class WeiBoHotPage extends StatefulWidget {
 }
 
 class _WeiBoHotPageState extends State<WeiBoHotPage> {
-  final List<String> _tabValues = [
-    '推荐',
-    '附近',
-    '榜单',
-    '明星',
-    '搞笑',
-    '社会',
-    '测试'
-  ];
+  final List<String> _tabValues = ['推荐', '附近', '榜单', '明星', '搞笑', '社会', '测试'];
   TabController _controller;
 
   @override
@@ -50,7 +41,7 @@ class _WeiBoHotPageState extends State<WeiBoHotPage> {
                 child: TabBar(
                     isScrollable: true,
                     indicatorColor: Color(0xffffffff),
-                    labelColor:   Color(0xffFF3700),
+                    labelColor: Color(0xffFF3700),
                     unselectedLabelColor: Color(0xff666666),
                     labelStyle:
                         TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
@@ -100,16 +91,12 @@ class _WeiBoHotPageState extends State<WeiBoHotPage> {
                   child: Text("暂无数据"),
                 ),
                 new WeiBoHomeListPager(mCatId: "10"),
-              //  new WeiBoHomeListPager(),
+                //  new WeiBoHomeListPager(),
               ],
             ),
           )
         ],
       ),
     );
-
   }
 }
-
-
-

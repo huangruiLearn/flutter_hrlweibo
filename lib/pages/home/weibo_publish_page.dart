@@ -8,9 +8,6 @@ import 'package:flutter_hrlweibo/widget/extend_textfield/my_special_text_span_bu
 import 'package:flutter_hrlweibo/widget/messgae/emoji_widget.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:path/path.dart' as path;
-import 'package:flutter_hrlweibo/widget/weibo/parsed_text.dart';
-
-
 
 //发布微博界面
 class WeiBoPublishPage extends StatefulWidget {
@@ -41,12 +38,6 @@ class _WeiBoPublishPageState extends State<WeiBoPublishPage> {
   MySpecialTextSpanBuilder _mySpecialTextSpanBuilder =
       MySpecialTextSpanBuilder();
 
-  /*TextEditingController controller = TextEditingController()
-    ..text =
-        "[33]Extended text field help you to build rich text quickly. any special text you will have with extended text. this is demo to show how to create custom toolbar and handles."
-        "\n\nIt's my pleasure to invite you to join \$FlutterCandies\$ if you want to improve flutter .[36]"
-        "\n\nif you meet any problem, please let me konw @zmtzawqlp .[44]";*/
-
   @override
   void initState() {
     // TODO: implement initState
@@ -54,7 +45,6 @@ class _WeiBoPublishPageState extends State<WeiBoPublishPage> {
 
     _keyboardVisibility.addNewListener(
       onChange: (bool visible) {
-
         if (visible) {
           mEmojiLayoutShow = false;
 
@@ -121,8 +111,6 @@ class _WeiBoPublishPageState extends State<WeiBoPublishPage> {
     ));
   }
 
-
-
   Widget _retweettitle() {
     return Container(
       color: Color(0xFFFAFAFA),
@@ -132,19 +120,18 @@ class _WeiBoPublishPageState extends State<WeiBoPublishPage> {
           Align(
               alignment: Alignment.centerLeft,
               child: Container(
-                margin: EdgeInsets.only(left: 15.0),
-                child: InkWell(
-                  onTap: (){
-                    Navigator.pop(context);
-                  },
-                  child: Text('取消',
-                      style: TextStyle(fontSize: 15, color: Colors.black)),
-                )
-              )),
+                  margin: EdgeInsets.only(left: 15.0),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text('取消',
+                        style: TextStyle(fontSize: 15, color: Colors.black)),
+                  ))),
           Align(
             alignment: Alignment.center,
             child: Container(
-              margin: EdgeInsets.only(top: 5,bottom: 5),
+              margin: EdgeInsets.only(top: 5, bottom: 5),
               child: Column(
                 children: <Widget>[
                   Text('发微博',
@@ -159,8 +146,7 @@ class _WeiBoPublishPageState extends State<WeiBoPublishPage> {
               alignment: Alignment.centerRight,
               child: InkWell(
                 onTap: () {
-
-                  if(_mEtController.text.isEmpty){
+                  if (_mEtController.text.isEmpty) {
                     ToastUtil.show("内容不能为空!");
                     return;
                   }
@@ -186,7 +172,6 @@ class _WeiBoPublishPageState extends State<WeiBoPublishPage> {
                   }, (error) {
                     ToastUtil.show(error);
                   });
-
                 },
                 child: Container(
                   margin: EdgeInsets.only(right: 15.0),
@@ -203,9 +188,6 @@ class _WeiBoPublishPageState extends State<WeiBoPublishPage> {
       ),
     );
   }
-
-
-
 
   Widget _retweettosay() {
     int mGridCount;
@@ -381,8 +363,7 @@ class _WeiBoPublishPageState extends State<WeiBoPublishPage> {
                       height: 25.0,
                     ),
                     onTap: () {
-                      Routes
-                          .navigateTo(
+                      Routes.navigateTo(
                               context, '${Routes.weiboPublishAtUsrPage}')
                           .then((result) {
                         WeiboAtUser mAtUser = result as WeiboAtUser;
@@ -418,8 +399,7 @@ class _WeiBoPublishPageState extends State<WeiBoPublishPage> {
                       height: 25.0,
                     ),
                     onTap: () {
-                      Routes
-                          .navigateTo(
+                      Routes.navigateTo(
                               context, '${Routes.weiboPublishTopicPage}')
                           .then((result) {
                         WeiBoTopic mTopic = result;

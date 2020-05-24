@@ -14,87 +14,87 @@ class _FanPageState extends State<FanPage> {
   @override
   void initState() {
     super.initState();
-    mTabcontroller = TabController(vsync: ScrollableState(), initialIndex: 0, length: 2);
+    mTabcontroller =
+        TabController(vsync: ScrollableState(), initialIndex: 0, length: 2);
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Color(0xffFAFAFA),
-            leading: IconButton(
-                iconSize: 30,
-                icon: Icon(Icons.chevron_left),
-                onPressed: () {
-                  Navigator.pop(context);
-                }),
-            title: Text(
-              '粉丝',
-              style: TextStyle(fontSize: 16),
-            ),
-            elevation: 0.5,
-            centerTitle: true,
-            actions: <Widget>[
-              Container(
-                  margin: EdgeInsets.only(right: 15),
-                  child: InkWell(
-                    child: Center(
-                      child: Text('发现用户'),
-                    ),
-                    onTap: () {},
-                  )),
-            ],
-          ),
-          body: Container(
-            color: Color(0xffeeeeee),
-            child: Column(
-              children: <Widget>[
-                Container(
-                  alignment: Alignment.center,
-                  color: Colors.white,
-                  padding: EdgeInsets.symmetric(horizontal: 70),
-                  child: TabBar(
-                    tabs: [
-                      Tab(
-                        text: "推荐",
-                      ),
-                      Tab(
-                        text: "粉丝",
-                      ),
-                    ],
-                    controller: mTabcontroller,
-                    //配置控制器
-                    //  isScrollable: true,
-                    indicatorColor: Colors.deepOrange,
-                    indicatorWeight: 2,
-                    indicatorSize: TabBarIndicatorSize.label,
-                    //indicatorPadding: EdgeInsets.only(bottom: 10.0),
-                    //labelPadding: EdgeInsets.only(left: 20),
-                    labelColor: Color(0xff333333),
-                    labelStyle: TextStyle(
-                      fontSize: 16.0,
-                    ),
-                    unselectedLabelColor: Color(0xff666666),
-                    unselectedLabelStyle: TextStyle(
-                      fontSize: 14.0,
-                    ),
-                  ),
+      appBar: AppBar(
+        backgroundColor: Color(0xffFAFAFA),
+        leading: IconButton(
+            iconSize: 30,
+            icon: Icon(Icons.chevron_left),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
+        title: Text(
+          '粉丝',
+          style: TextStyle(fontSize: 16),
+        ),
+        elevation: 0.5,
+        centerTitle: true,
+        actions: <Widget>[
+          Container(
+              margin: EdgeInsets.only(right: 15),
+              child: InkWell(
+                child: Center(
+                  child: Text('发现用户'),
                 ),
-
-                Expanded(
-                  flex: 1,
-                  child: TabBarView(
-                    controller: mTabcontroller, //配置控制器
-                    children: <Widget>[
-                      FFRecommendPage(),
-                      FanListPage(),
-                    ],
+                onTap: () {},
+              )),
+        ],
+      ),
+      body: Container(
+        color: Color(0xffeeeeee),
+        child: Column(
+          children: <Widget>[
+            Container(
+              alignment: Alignment.center,
+              color: Colors.white,
+              padding: EdgeInsets.symmetric(horizontal: 70),
+              child: TabBar(
+                tabs: [
+                  Tab(
+                    text: "推荐",
                   ),
-                )
-              ],
+                  Tab(
+                    text: "粉丝",
+                  ),
+                ],
+                controller: mTabcontroller,
+                //配置控制器
+                //  isScrollable: true,
+                indicatorColor: Colors.deepOrange,
+                indicatorWeight: 2,
+                indicatorSize: TabBarIndicatorSize.label,
+                //indicatorPadding: EdgeInsets.only(bottom: 10.0),
+                //labelPadding: EdgeInsets.only(left: 20),
+                labelColor: Color(0xff333333),
+                labelStyle: TextStyle(
+                  fontSize: 16.0,
+                ),
+                unselectedLabelColor: Color(0xff666666),
+                unselectedLabelStyle: TextStyle(
+                  fontSize: 14.0,
+                ),
+              ),
             ),
-          ),
-        ));
+            Expanded(
+              flex: 1,
+              child: TabBarView(
+                controller: mTabcontroller, //配置控制器
+                children: <Widget>[
+                  FFRecommendPage(),
+                  FanListPage(),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    ));
   }
 }

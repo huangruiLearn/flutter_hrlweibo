@@ -1,25 +1,21 @@
 import 'dart:math' as math;
 
+import "package:dio/dio.dart";
+import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' hide NestedScrollView;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_hrlweibo/constant/constant.dart';
 import 'package:flutter_hrlweibo/http/service_method.dart';
 import 'package:flutter_hrlweibo/http/service_url.dart';
 import 'package:flutter_hrlweibo/model/FindHomeModel.dart';
-import 'package:flutter_hrlweibo/model/FindTopicModel.dart';
+import 'package:flutter_hrlweibo/model/WeiBoModel.dart';
 import 'package:flutter_hrlweibo/public.dart';
 import 'package:flutter_hrlweibo/widget/MyNoticeVecAnimation.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+
+import '../widget/weiboitem/WeiBoItem.dart';
 import 'find/find_topic.dart';
-import "package:dio/dio.dart";
-import 'package:flutter_hrlweibo/pages/home/weibo_hot_page.dart';
-import 'package:flutter_hrlweibo/model/WeiBoModel.dart';
-import '../widget/WeiBoItem.dart';
-import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart'
-    hide NestedScrollView;
-
 import 'home/weibo_detail_page.dart';
-
 
 class FindPage extends StatefulWidget {
   @override
@@ -28,9 +24,8 @@ class FindPage extends StatefulWidget {
 
 class _FindPageState extends State<FindPage> {
   //活动导航
-  bool isFindKindVisible = false;
-
-  final List<String> _tabValues = [
+   bool isFindKindVisible = false;
+   final List<String> _tabValues = [
     '热点',
     '本地',
     '话题',
@@ -61,8 +56,7 @@ class _FindPageState extends State<FindPage> {
       length: _tabValues.length, //Tab页数量
       vsync: ScrollableState(), //动画效果的异步处理
     );
-    //  (!this._controller?.get ?? false) ? new Container() : _controller ,
-    getFindInfoDate();
+     getFindInfoDate();
   }
 
   //获取发现页信息
@@ -74,7 +68,7 @@ class _FindPageState extends State<FindPage> {
       setState(() {
         mTopHotSearchList = mModel.findhottop;
         mFindKindList = mModel.findkind;
-        mFindCenter= mModel.findhotcenter;
+        mFindCenter = mModel.findhotcenter;
         mFindTopic = mModel.findtopic;
         mFindHotList = mModel.findhot;
         mFindLocalList = mModel.findlocal;
@@ -107,38 +101,33 @@ class _FindPageState extends State<FindPage> {
             }));
   }
 
-
-  Widget mCenterBannerItemWidegt(int i){
-    List <Findhottop> mCneterItem=[];
-    if(i==0){
-      mCneterItem=mFindCenter.page1;
-    }else if(i==1){
-      mCneterItem=mFindCenter.page2;
-    }else if(i==2){
-      mCneterItem=mFindCenter.page3;
-    }else if(i==3){
-      mCneterItem=mFindCenter.page4;
-    }else if(i==4){
-      mCneterItem=mFindCenter.page5;
+  Widget mCenterBannerItemWidegt(int i) {
+    List<Findhottop> mCneterItem = [];
+    if (i == 0) {
+      mCneterItem = mFindCenter.page1;
+    } else if (i == 1) {
+      mCneterItem = mFindCenter.page2;
+    } else if (i == 2) {
+      mCneterItem = mFindCenter.page3;
+    } else if (i == 3) {
+      mCneterItem = mFindCenter.page4;
+    } else if (i == 4) {
+      mCneterItem = mFindCenter.page5;
     }
 
-
-    return  new Row(
+    return new Row(
       children: <Widget>[
         new Expanded(
           flex: 3,
           child: Container(
-              margin: EdgeInsets.only(
-                  left: 10, right: 2.5),
-              decoration: BoxDecoration(
-                  borderRadius:
-                  BorderRadius.circular(5),
-                  image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: NetworkImage(
-                          mCneterItem[0].recommendcoverimg))),
-            child:  Container(
-              padding: EdgeInsets.only(left: 10,bottom: 8),
+            margin: EdgeInsets.only(left: 10, right: 2.5),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: NetworkImage(mCneterItem[0].recommendcoverimg))),
+            child: Container(
+              padding: EdgeInsets.only(left: 10, bottom: 8),
               child: Align(
                 alignment: Alignment.bottomLeft,
                 child: Column(
@@ -148,26 +137,34 @@ class _FindPageState extends State<FindPage> {
                     Row(
                       children: <Widget>[
                         Container(
-
-                decoration: BoxDecoration(
-                borderRadius:
-                    BorderRadius.circular(3),
-                  color: Color(0xffFB304E)),
-                          padding: EdgeInsets.only(left: 4,right: 5,bottom: 2  ),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(3),
+                              color: Color(0xffFB304E)),
+                          padding:
+                              EdgeInsets.only(left: 4, right: 5, bottom: 2),
                           child: Center(
-                            child: Text("热搜",style: TextStyle(fontSize: 10,color: Colors.white)),
+                            child: Text("热搜",
+                                style: TextStyle(
+                                    fontSize: 10, color: Colors.white)),
                           ),
                         ),
-                        Text("#"+mCneterItem[0].hotdesc+"#",style: TextStyle(fontSize: 13,color: Colors.white),),
+                        Text(
+                          "#" + mCneterItem[0].hotdesc + "#",
+                          style: TextStyle(fontSize: 13, color: Colors.white),
+                        ),
                       ],
                     ),
                     Container(
                       margin: EdgeInsets.only(top: 3),
-                      child: Text(mCneterItem[0].hotdiscuss+"讨论  "+mCneterItem[0].hotread+"阅读",style: TextStyle(fontSize: 10,color: Colors.white)),
+                      child: Text(
+                          mCneterItem[0].hotdiscuss +
+                              "讨论  " +
+                              mCneterItem[0].hotread +
+                              "阅读",
+                          style: TextStyle(fontSize: 10, color: Colors.white)),
                     )
                   ],
                 ),
-
               ),
             ),
           ),
@@ -179,51 +176,42 @@ class _FindPageState extends State<FindPage> {
                 new Expanded(
                   flex: 1,
                   child: Container(
-                      margin: EdgeInsets.only(
-                          left: 2.5,
-                          bottom: 2.5,
-                          right: 10),
-                      decoration: BoxDecoration(
-                          borderRadius:
-                          BorderRadius.circular(
-                              5),
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(
-                                  mCneterItem[1].recommendcoverimg))),
-                    child:   Container(
-                      padding: EdgeInsets.only(left: 3,right: 3,bottom: 3),
-                      child: Align(
+                    margin: EdgeInsets.only(left: 2.5, bottom: 2.5, right: 10),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(
+                                mCneterItem[1].recommendcoverimg))),
+                    child: Container(
+                        padding: EdgeInsets.only(left: 3, right: 3, bottom: 3),
+                        child: Align(
                           alignment: Alignment.bottomLeft,
-                        child:  Text("#"+mCneterItem[1].hotdesc+"#",style: TextStyle(fontSize: 10,color: Colors.white),),
-
-                      )),
+                          child: Text(
+                            "#" + mCneterItem[1].hotdesc + "#",
+                            style: TextStyle(fontSize: 10, color: Colors.white),
+                          ),
+                        )),
                   ),
                 ),
                 new Expanded(
                   flex: 1,
                   child: Container(
-                      margin: EdgeInsets.only(
-                          left: 2.5,
-                          top: 2.5,
-                          right: 10),
-                      decoration: BoxDecoration(
-                          borderRadius:
-                          BorderRadius.circular(
-                              5),
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(
-                                  mCneterItem[2].recommendcoverimg))
-
-                      ),
-
-                    child:   Container(
-                        padding: EdgeInsets.only(left: 3,right: 3,bottom: 3),
+                    margin: EdgeInsets.only(left: 2.5, top: 2.5, right: 10),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(
+                                mCneterItem[2].recommendcoverimg))),
+                    child: Container(
+                        padding: EdgeInsets.only(left: 3, right: 3, bottom: 3),
                         child: Align(
                           alignment: Alignment.bottomLeft,
-                          child:  Text("#"+mCneterItem[2].hotdesc+"#",style: TextStyle(fontSize: 10,color: Colors.white),),
-
+                          child: Text(
+                            "#" + mCneterItem[2].hotdesc + "#",
+                            style: TextStyle(fontSize: 10, color: Colors.white),
+                          ),
                         )),
                   ),
                 ),
@@ -383,16 +371,14 @@ class _FindPageState extends State<FindPage> {
                                   size: 7,
                                   space: 5,
                                   activeSize: 7,
-                                  /*   color: Color(0xF0F0F0),
-                            activeColor:  Color(0xD8D8D8),*/
-                                  color: Color(0xffF0F0F0),
+                                   color: Color(0xffF0F0F0),
                                   activeColor: Color(0xffD8D8D8),
                                 ),
                                 margin: EdgeInsets.all(0)),
                             itemBuilder: (c, i) {
                               return mCenterBannerItemWidegt(i);
                             },
-                            itemCount: mFindCenter==null?0:5,
+                            itemCount: mFindCenter == null ? 0 : 5,
                           ),
                           constraints:
                               new BoxConstraints.loose(new Size(300, 100.0))),
@@ -415,8 +401,7 @@ class _FindPageState extends State<FindPage> {
                             Container(
                               width: double.infinity,
                               color: Colors.white,
-                              child:  Center(
-
+                              child: Center(
                                 child: TabBar(
                                     isScrollable: true,
                                     indicatorColor: Color(0xffFF3700),
@@ -430,7 +415,7 @@ class _FindPageState extends State<FindPage> {
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.w700),
                                     unselectedLabelStyle:
-                                    TextStyle(fontSize: 16.0),
+                                        TextStyle(fontSize: 16.0),
                                     indicatorSize: TabBarIndicatorSize.label,
                                     controller: _controller,
                                     tabs: [
@@ -475,7 +460,9 @@ class _FindPageState extends State<FindPage> {
                           return getContentItem(context, index, mFindLocalList);
                         },
                       ),
-                      (mFindTopic==null)?new Container():FindTopicPage(mModel: mFindTopic),
+                      (mFindTopic == null)
+                          ? new Container()
+                          : FindTopicPage(mModel: mFindTopic),
                       new ListView.builder(
                         itemCount: mSuperTopicList.length,
                         itemBuilder: (context, index) {
@@ -513,8 +500,7 @@ class _FindPageState extends State<FindPage> {
     if (index == mItemList.length) {
       mChild = GestureDetector(
         onTap: () {
-           Routes.navigateTo(context, Routes.hotSearchPage );
-
+          Routes.navigateTo(context, Routes.hotSearchPage);
         },
         child: Row(
           children: <Widget>[
@@ -555,21 +541,21 @@ class _FindPageState extends State<FindPage> {
       }
       var size = MediaQuery.of(context).size;
 
-
       mChild = Container(
         color: Colors.white,
         child: GestureDetector(
             onTap: () {
-
-              Routes.navigateTo(context, Routes.topicDetailPage ,params: {
-              'mTitle': mItemList[index].hotdesc,
-              'mImg': mItemList[index].recommendcoverimg,
-              'mReadCount': mItemList[index].hotread,
-              'mDiscussCount': mItemList[index].hotdiscuss,
-              'mHost': mItemList[index].hothost,
-              },);
-
-
+              Routes.navigateTo(
+                context,
+                Routes.topicDetailPage,
+                params: {
+                  'mTitle': mItemList[index].hotdesc,
+                  'mImg': mItemList[index].recommendcoverimg,
+                  'mReadCount': mItemList[index].hotread,
+                  'mDiscussCount': mItemList[index].hotdiscuss,
+                  'mHost': mItemList[index].hothost,
+                },
+              );
             },
             child: Row(
               children: <Widget>[
@@ -608,9 +594,8 @@ class _FindPageState extends State<FindPage> {
 
   Widget mFindKindItem(
       BuildContext context, int index, List<Findkind> mItemList) {
-    if(mItemList.length==0)
-      return new Container();
-     Widget mKindChild;
+    if (mItemList.length == 0) return new Container();
+    Widget mKindChild;
     if (index == 5) {
       mKindChild = Container(
         height: 80,

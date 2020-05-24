@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hrlweibo/pages/find_page.dart';
 import 'package:flutter_hrlweibo/pages/message_page.dart';
-import 'home_page.dart';
-import 'video_page.dart';
-import 'mine_page.dart';
-import 'package:flutter_hrlweibo/constant/constant.dart';
- import 'package:flutter_hrlweibo/public.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_hrlweibo/public.dart';
 
+import 'home_page.dart';
+import 'mine_page.dart';
+import 'video_page.dart';
 
 class IndexPage extends StatefulWidget {
   @override
@@ -16,10 +15,10 @@ class IndexPage extends StatefulWidget {
 
 class _IndexPageState extends State<IndexPage> {
   int _tabIndex = 0;
-
   var tabImages;
   var appBarTitles = ['首页', '视频', '发现', '消息', '我'];
   var currentPage;
+  DateTime lastPopTime;
 
   /*
    * 根据选择获得对应的normal或是press的icon
@@ -81,7 +80,6 @@ class _IndexPageState extends State<IndexPage> {
     MinePage()
   ];
 
-
   @override
   Widget build(BuildContext context) {
     initData();
@@ -92,12 +90,9 @@ class _IndexPageState extends State<IndexPage> {
       BottomNavigationBarItem(icon: getTabIcon(3), title: getTabTitle(3)),
       BottomNavigationBarItem(icon: getTabIcon(4), title: getTabTitle(4)),
     ];
-    DateTime lastPopTime;
-
-
 
     return SafeArea(
-      child:  WillPopScope(
+      child: WillPopScope(
         child: Scaffold(
           backgroundColor: Color.fromRGBO(244, 245, 245, 1.0),
           bottomNavigationBar: BottomNavigationBar(
@@ -115,20 +110,19 @@ class _IndexPageState extends State<IndexPage> {
             index: _tabIndex,
             children: tabBodies,
           ),
-        ) ,
-        onWillPop: () async{
+        ),
+          onWillPop: ()   {
           // 点击返回键的操作
-          if(lastPopTime == null || DateTime.now().difference(lastPopTime) > Duration(seconds: 2)){
+          if (lastPopTime == null || DateTime.now().difference(lastPopTime) > Duration(seconds: 2)) {
             lastPopTime = DateTime.now();
-            ToastUtil.show(  '再按一次退出应用');
-          }else{
+            ToastUtil.show('再按一次退出应用');
+          } else {
             lastPopTime = DateTime.now();
             // 退出app
-            await SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+              SystemChannels.platform.invokeMethod('SystemNavigator.pop');
           }
         },
       ),
-    )
-    ;
+    );
   }
 }

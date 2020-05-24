@@ -1,7 +1,6 @@
 import 'package:flutter_hrlweibo/constant/constant.dart';
 
 class ServiceUrl {
-//const serviceUrl= 'http://192.168.8.200:8080/hrlweibo/';
 
   // 请求成功
   static const API_CODE_SUCCESS = "200";

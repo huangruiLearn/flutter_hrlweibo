@@ -1,11 +1,7 @@
-import 'dart:io';
-import 'package:flutter_hrlweibo/public.dart';
-import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:flutter_hrlweibo/public.dart';
 import 'package:flutter_hrlweibo/util/toast_util.dart';
-import 'package:path/path.dart';
-
 
 //修改昵称界面
 class ChangeNickNamePage extends StatefulWidget {
@@ -47,15 +43,15 @@ class _ChangeNickNamePageState extends State<ChangeNickNamePage> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: TextField(
-                    controller: _mEtController,
-                    decoration: InputDecoration(
-                      hintText: "请输入您的昵称",
-                      hintStyle:
-                      TextStyle(color: Color(0xff999999), fontSize: 16),
-                      contentPadding: EdgeInsets.only(left: 15, right: 15),
-                      border: InputBorder.none,
+                      controller: _mEtController,
+                      decoration: InputDecoration(
+                        hintText: "请输入您的昵称",
+                        hintStyle:
+                            TextStyle(color: Color(0xff999999), fontSize: 16),
+                        contentPadding: EdgeInsets.only(left: 15, right: 15),
+                        border: InputBorder.none,
+                      ),
                     ),
-                  ),
                   )),
               Align(
                   alignment: Alignment.centerLeft,
@@ -100,8 +96,8 @@ class _ChangeNickNamePageState extends State<ChangeNickNamePage> {
                           .post(ServiceUrl.updateNick, params, (data) {
                         ToastUtil.show('修改昵称成功!');
                         UserUtil.saveUserNick(_mEtController.text);
-                         Constant.eventBus.fire(ChangeInfoEvent());
-                         Navigator.pop(context);
+                        Constant.eventBus.fire(ChangeInfoEvent());
+                        Navigator.pop(context);
                       }, (error) {
                         ToastUtil.show(error);
                       });

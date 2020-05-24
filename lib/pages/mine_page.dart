@@ -1,16 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_hrlweibo/pages/mine/login_page.dart';
-import 'package:flutter_hrlweibo/util/sp_util.dart';
-import 'package:flutter_hrlweibo/model/UserModel.dart';
-import 'package:flutter_hrlweibo/public.dart';
-
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-
-
-
-
-
+import 'package:flutter_hrlweibo/public.dart';
 
 class MinePage extends StatefulWidget {
   @override
@@ -21,18 +12,18 @@ class _MinePageState extends State<MinePage> {
   @override
   void initState() {
     super.initState();
-      if (UserUtil.isLogin()) {
-        print("请求参数的值是:"+UserUtil.getUserInfo().id);
-        FormData params = FormData.from({
-          'muserId': UserUtil.getUserInfo().id,
-          'otheruserId': UserUtil.getUserInfo().id,
-        });
+    if (UserUtil.isLogin()) {
+      print("请求参数的值是:" + UserUtil.getUserInfo().id);
+      FormData params = FormData.from({
+        'muserId': UserUtil.getUserInfo().id,
+        'otheruserId': UserUtil.getUserInfo().id,
+      });
       DioManager.getInstance().post(ServiceUrl.getUserInfo, params, (data) {
         UserUtil.saveUserInfo(data['data']);
-        setState(() {   });
+        setState(() {});
       }, (error) {});
-     }
-   }
+    }
+  }
 
   @override
   void deactivate() {
@@ -47,8 +38,8 @@ class _MinePageState extends State<MinePage> {
         });
         DioManager.getInstance().post(ServiceUrl.getUserInfo, params, (data) {
           UserUtil.saveUserInfo(data['data']);
-          SchedulerBinding.instance.addPostFrameCallback((_) =>
-              setState(() {}));
+          SchedulerBinding.instance
+              .addPostFrameCallback((_) => setState(() {}));
         }, (error) {});
       }
     }
@@ -56,8 +47,6 @@ class _MinePageState extends State<MinePage> {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Material(
       child: Container(
           color: Color(0xffEEEEEE),
@@ -74,16 +63,7 @@ class _MinePageState extends State<MinePage> {
                 ],
               )),
             ],
-          )
-          /*InkWell(
-          child: Text('登陆'),
-          onTap:  () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-              return LoginPage( );
-            }));
-          }        )*/
-
-          ),
+          )),
     );
   }
 
@@ -142,8 +122,7 @@ class _MinePageState extends State<MinePage> {
                             height: 25.0,
                           ),
                           onTap: () {
-                            Routes
-                                .navigateTo(context, '${Routes.settingPage}');
+                            Routes.navigateTo(context, '${Routes.settingPage}');
                           },
                         ),
                       )
@@ -155,144 +134,142 @@ class _MinePageState extends State<MinePage> {
         ));
   }
 
-
-  Widget  mHeadWidget(){
-
-    return    (UserUtil.getUserInfo() == null||UserUtil.getUserInfo().headurl==null)?CircleAvatar(
-      //头像半径
-      radius: 25,
-      //头像图片 -> NetworkImage网络图片，AssetImage项目资源包图片, FileImage本地存储图片
-      backgroundImage: AssetImage(Constant.ASSETS_IMG +
-          "ic_avatar_default.png"),
-    ):ClipRRect(
-      borderRadius: BorderRadius.circular(25),
-      child: FadeInImage(
-        fit: BoxFit.cover,
-        placeholder: AssetImage(
-            Constant.ASSETS_IMG+'img_default.png'
-        ),
-        image: NetworkImage(
-            UserUtil.getUserInfo().headurl),
-      ),
-    )   ;
+  Widget mHeadWidget() {
+    return (UserUtil.getUserInfo() == null ||
+            UserUtil.getUserInfo().headurl == null)
+        ? CircleAvatar(
+            //头像半径
+            radius: 25,
+            //头像图片 -> NetworkImage网络图片，AssetImage项目资源包图片, FileImage本地存储图片
+            backgroundImage:
+                AssetImage(Constant.ASSETS_IMG + "ic_avatar_default.png"),
+          )
+        : ClipRRect(
+            borderRadius: BorderRadius.circular(25),
+            child: FadeInImage(
+              fit: BoxFit.cover,
+              placeholder: AssetImage(Constant.ASSETS_IMG + 'img_default.png'),
+              image: NetworkImage(UserUtil.getUserInfo().headurl),
+            ),
+          );
   }
+
   //我的信息
   Widget _buildMyInfo() {
-     return Container(
+    return Container(
       color: Colors.white,
-     //
-     margin: EdgeInsets.only(top: 10),
+      //
+      margin: EdgeInsets.only(top: 10),
       child: Column(
         children: <Widget>[
-      Material(
-    //水波纹按压效果
-    color: Colors.white,
-    child:  InkWell(child: Container(
-      padding: EdgeInsets.only(top: 12,bottom: 15),
-      child: Row(
-        children: <Widget>[
-          Container(
-              width: 50,
-              height: 50,
-              margin: EdgeInsets.only(left: 20, right: 15),
-              child:  UserUtil.getUserInfo(). isvertify == 0
-                  ? mHeadWidget
-                  : Stack(
-                children: <Widget>[
-                  mHeadWidget(),
-                  Positioned(
-                    right: 0,
-                    bottom: 0,
-                    child: Container(
-                      child: Image.asset(
-                        (UserUtil.getUserInfo(). isvertify  == 1)
-                            ? Constant.ASSETS_IMG + 'home_vertify.webp'
-                            : Constant.ASSETS_IMG + 'home_vertify2.webp',
-                        width: 16.0,
-                        height: 16.0,
-                      ),
-                    ),
-                  ),
-                ],
-              )
-
-
-
-
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-
-                child: Row(
-                  children: <Widget>[
-                    Center(
-                      child: Padding(
-                          padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-                          child: Text(UserUtil.getUserInfo().nick,
+          Material(
+              //水波纹按压效果
+              color: Colors.white,
+              child: InkWell(
+                child: Container(
+                  padding: EdgeInsets.only(top: 12, bottom: 15),
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                          width: 50,
+                          height: 50,
+                          margin: EdgeInsets.only(left: 20, right: 15),
+                          child: UserUtil.getUserInfo().isvertify == 0
+                              ? mHeadWidget
+                              : Stack(
+                                  children: <Widget>[
+                                    mHeadWidget(),
+                                    Positioned(
+                                      right: 0,
+                                      bottom: 0,
+                                      child: Container(
+                                        child: Image.asset(
+                                          (UserUtil.getUserInfo().isvertify ==
+                                                  1)
+                                              ? Constant.ASSETS_IMG +
+                                                  'home_vertify.webp'
+                                              : Constant.ASSETS_IMG +
+                                                  'home_vertify2.webp',
+                                          width: 16.0,
+                                          height: 16.0,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            child: Row(
+                              children: <Widget>[
+                                Center(
+                                  child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0.0, 0.0, 0.0, 0.0),
+                                      child: Text(UserUtil.getUserInfo().nick,
+                                          style: TextStyle(
+                                              fontSize: 15.0,
+                                              color: UserUtil.getUserInfo()
+                                                          .ismember ==
+                                                      0
+                                                  ? Colors.black
+                                                  : Color(0xffF86119)))),
+                                ),
+                                Center(
+                                  child: UserUtil.getUserInfo().ismember == 0
+                                      ? new Container()
+                                      : Container(
+                                          margin: EdgeInsets.only(left: 5),
+                                          child: Image.asset(
+                                            Constant.ASSETS_IMG +
+                                                'home_memeber.webp',
+                                            width: 15.0,
+                                            height: 13.0,
+                                          ),
+                                        ),
+                                )
+                              ],
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(top: 5),
+                            child: Text(
+                              (UserUtil.getUserInfo() == null ||
+                                      UserUtil.getUserInfo().decs == null)
+                                  ? ""
+                                  : UserUtil.getUserInfo().decs,
                               style: TextStyle(
-                                  fontSize: 15.0,
-                                  color: UserUtil.getUserInfo().ismember == 0
-                                      ? Colors.black
-                                      : Color(0xffF86119)))),
-                    ),
-                    Center(
-                      child: UserUtil.getUserInfo().ismember == 0
-                          ? new Container()
-                          : Container(
-                        margin: EdgeInsets.only(left: 5),
-                        child: Image.asset(
-                          Constant.ASSETS_IMG + 'home_memeber.webp',
-                          width: 15.0,
-                          height: 13.0,
-                        ),
+                                  letterSpacing: 0,
+                                  color: Colors.grey,
+                                  fontSize: 12),
+                            ),
+                          )
+                        ],
                       ),
-                    )
-                  ],
+                      Expanded(
+                          child: Align(
+                              alignment: Alignment.centerRight,
+                              child: Container(
+                                margin: EdgeInsets.only(right: 20),
+                                child: Image.asset(
+                                  Constant.ASSETS_IMG + 'icon_right_arrow.png',
+                                  width: 15.0,
+                                  height: 30.0,
+                                ),
+                              )))
+                    ],
+                  ),
                 ),
-              ),
-
-              Container(
-
-
-                margin: EdgeInsets.only(top: 5),
-                child: Text(
-
-
-                  (UserUtil.getUserInfo() == null||UserUtil.getUserInfo().decs==null)
-                      ? ""
-                      : UserUtil.getUserInfo().decs,
-                  style: TextStyle(letterSpacing:0,color: Colors.grey, fontSize: 12),
-                ),
-              )
-            ],
-          ),
-          Expanded(
-              child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Container(
-                    margin: EdgeInsets.only(right: 20),
-                    child: Image.asset(
-                      Constant.ASSETS_IMG + 'icon_right_arrow.png',
-                      width: 15.0,
-                      height: 30.0,
-                    ),
-                  )))
-        ],
-      ),
-    ),
-    onTap: (){
-
-          Routes.navigateTo(context, Routes.personinfoPage,params: {
-            'userid':     UserUtil.getUserInfo().id,
-          } );
-
-    },)
-          ),
+                onTap: () {
+                  Routes.navigateTo(context, Routes.personinfoPage, params: {
+                    'userid': UserUtil.getUserInfo().id,
+                  });
+                },
+              )),
           Container(
-             height: 0.5,
-             color: Color(0xffE2E2E2),
+            height: 0.5,
+            color: Color(0xffE2E2E2),
           ),
           Row(
             children: <Widget>[
@@ -351,10 +328,8 @@ class _MinePageState extends State<MinePage> {
                     ),
                     onTap: () {
                       print("点击关注");
-                      Routes .navigateTo(context, Routes.personMyFollowPage, transition: TransitionType.fadeIn);
-
-
-
+                      Routes.navigateTo(context, Routes.personMyFollowPage,
+                          transition: TransitionType.fadeIn);
                     },
                   ),
                 ),
@@ -384,10 +359,8 @@ class _MinePageState extends State<MinePage> {
                       ],
                     ),
                     onTap: () {
-                       Routes .navigateTo(context, Routes.personFanPage, transition: TransitionType.fadeIn);
-
-
-
+                      Routes.navigateTo(context, Routes.personFanPage,
+                          transition: TransitionType.fadeIn);
                     },
                   ),
                 ),
@@ -532,7 +505,8 @@ class _MinePageState extends State<MinePage> {
                         ],
                       ),
                       onTap: () {
-                        Routes .navigateTo(context, Routes.personFanPage, transition: TransitionType.fadeIn);
+                        Routes.navigateTo(context, Routes.personFanPage,
+                            transition: TransitionType.fadeIn);
                       },
                     ),
                   ),
@@ -780,12 +754,7 @@ class _MinePageState extends State<MinePage> {
                     ],
                   ),
                 ),
-                onTap: () {
-
-
-
-
-                },
+                onTap: () {},
               ),
             )
           ],

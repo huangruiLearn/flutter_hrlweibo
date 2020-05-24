@@ -1,11 +1,7 @@
 import "package:dio/dio.dart";
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hrlweibo/public.dart';
-import 'package:flutter/cupertino.dart';
-
-
-
-
 
 class FFRecommendPage extends StatefulWidget {
   @override
@@ -14,14 +10,14 @@ class FFRecommendPage extends StatefulWidget {
 
 class _FFRecommendPageState extends State<FFRecommendPage> {
   ScrollController mListController = new ScrollController();
-  List<FanFollowModel> mRecommendList ;
+  List<FanFollowModel> mRecommendList;
+
   num curPage = 1;
   bool isloadingMore = false; //是否显示加载中
   bool ishasMore = true; //是否还有更多
 
   //下拉刷新
-  Future  _pullToRefresh() async {
-
+  Future _pullToRefresh() async {
     getRecommendList(true);
   }
 
@@ -51,89 +47,48 @@ class _FFRecommendPageState extends State<FFRecommendPage> {
 
   //获取数据
   getRecommendList(bool isRefresh) {
-     if(isRefresh){
-       isloadingMore = false;
-       ishasMore = true;
-       curPage = 1;
-       FormData params = FormData.from({
-         'userId': UserUtil.getUserInfo().id,
-         'pageNum': "$curPage",
-         "pageSize": Constant.PAGE_SIZE,
-       });
-       DioManager.getInstance().post(ServiceUrl.getFanFollowRecommend, params,
-              (data) {
-                List<FanFollowModel> list = List();
-                data['data']['list'].forEach((data) {
-                  list.add(FanFollowModel.fromJson(data));
-                });
-                mRecommendList=[];
-                mRecommendList = list;
-            setState(() {});
-          }, (error) {});
-    }else{
+    if (isRefresh) {
+      isloadingMore = false;
+      ishasMore = true;
+      curPage = 1;
       FormData params = FormData.from({
         'userId': UserUtil.getUserInfo().id,
         'pageNum': "$curPage",
         "pageSize": Constant.PAGE_SIZE,
       });
-       DioManager.getInstance().post(ServiceUrl.getFanFollowRecommend, params,
-              (data) {
-                List<FanFollowModel> list = List();
-                data['data']['list'].forEach((data) {
-                  list.add(FanFollowModel.fromJson(data));
-                });
-                mRecommendList.addAll(list);
-                isloadingMore = false;
-                ishasMore = list.length >= Constant.PAGE_SIZE;
-                 setState(() {});
-          }, (error) {
-             setState(() {
-               isloadingMore = false;
-               ishasMore = false;
-             });
-           });
-     }
-
-
-
-
-
-
-
-    /*
-     FormData params = FormData.from({
-      'userId': UserUtil.getUserInfo().id,
-      'pageNum': "$curPage",
-      'pageSize': "10"
-    });
-     DioManager.getInstance().post(ServiceUrl.getFanFollowRecommend, params, (data) {
-      if (isRefresh) {
+      DioManager.getInstance().post(ServiceUrl.getFanFollowRecommend, params,
+          (data) {
         List<FanFollowModel> list = List();
         data['data']['list'].forEach((data) {
           list.add(FanFollowModel.fromJson(data));
         });
+        mRecommendList = [];
         mRecommendList = list;
-      } else {
+        setState(() {});
+      }, (error) {});
+    } else {
+      FormData params = FormData.from({
+        'userId': UserUtil.getUserInfo().id,
+        'pageNum': "$curPage",
+        "pageSize": Constant.PAGE_SIZE,
+      });
+      DioManager.getInstance().post(ServiceUrl.getFanFollowRecommend, params,
+          (data) {
         List<FanFollowModel> list = List();
-        list.addAll(mRecommendList);
         data['data']['list'].forEach((data) {
           list.add(FanFollowModel.fromJson(data));
         });
-        mRecommendList = list;
-      }
-      setState(() {
-        loading = false;
+        mRecommendList.addAll(list);
+        isloadingMore = false;
+        ishasMore = list.length >= Constant.PAGE_SIZE;
+        setState(() {});
+      }, (error) {
+        setState(() {
+          isloadingMore = false;
+          ishasMore = false;
+        });
       });
-    }, (error) {
-      if (isRefresh) {
-        mRecommendList = new List<FanFollowModel>();
-      } else {
-        mRecommendList.addAll(new List<FanFollowModel>());
-      }
-      setState(() {
-        loading = false;
-      });
-    });*/
+    }
   }
 
   Widget mRecommendPage() {
@@ -203,10 +158,10 @@ class _FFRecommendPageState extends State<FFRecommendPage> {
   Widget mRecommendItem(i) {
     if (i == 0) {
       return mRecommendTop();
-    } else  if (i == mRecommendList.length+1) {
+    } else if (i == mRecommendList.length + 1) {
       return _buildLoadMore();
     } else {
-      FanFollowModel mModel =  mRecommendList[i - 1] ;
+      FanFollowModel mModel = mRecommendList[i - 1];
       return Column(
         children: <Widget>[
           Container(
@@ -248,11 +203,11 @@ class _FFRecommendPageState extends State<FFRecommendPage> {
                   ],
                 ),
                 Expanded(
-                    child: new Align(
-                  alignment: FractionalOffset.centerRight,
-                  child: mFollowBtnWidget(mModel, i - 1),
+                  child: new Align(
+                    alignment: FractionalOffset.centerRight,
+                    child: mFollowBtnWidget(mModel, i - 1),
                   ),
-                 )
+                )
               ],
             ),
           ),
@@ -269,37 +224,37 @@ class _FFRecommendPageState extends State<FFRecommendPage> {
   Widget _buildLoadMore() {
     return isloadingMore
         ? Container(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 5, bottom: 5),
-          child: Center(
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(right: 10),
-                    child: SizedBox(
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                      ),
-                      height: 12.0,
-                      width: 12.0,
+            child: Padding(
+            padding: const EdgeInsets.only(top: 5, bottom: 5),
+            child: Center(
+                child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(right: 10),
+                  child: SizedBox(
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
                     ),
+                    height: 12.0,
+                    width: 12.0,
                   ),
-                  Text("加载中..."),
-                ],
-              )),
-        ))
+                ),
+                Text("加载中..."),
+              ],
+            )),
+          ))
         : new Container(
-      child: ishasMore
-          ? new Container()
-          : Center(
-          child: Container(
-              margin: EdgeInsets.only(top: 5, bottom: 5),
-              child: Text(
-                "没有更多数据",
-                style: TextStyle(fontSize: 14, color: Colors.grey),
-              ))),
-    );
+            child: ishasMore
+                ? new Container()
+                : Center(
+                    child: Container(
+                        margin: EdgeInsets.only(top: 5, bottom: 5),
+                        child: Text(
+                          "没有更多数据",
+                          style: TextStyle(fontSize: 14, color: Colors.grey),
+                        ))),
+          );
   }
 
   Widget mFollowBtnWidget(FanFollowModel mModel, int position) {
@@ -348,23 +303,18 @@ class _FFRecommendPageState extends State<FFRecommendPage> {
                 style: TextStyle(color: Colors.orange, fontSize: 12)),
           ),
           onTap: () {
-
             FormData params = FormData.from({
               'userid': UserUtil.getUserInfo().id,
               'otheruserid': mModel.id,
             });
-            DioManager.getInstance()
-                .post(ServiceUrl.followOther, params, (data) {
-               int mRelation = data['data']['relation'];
+            DioManager.getInstance().post(ServiceUrl.followOther, params,
+                (data) {
+              int mRelation = data['data']['relation'];
               (mRecommendList[position]).relation = mRelation;
               setState(() {});
             }, (error) {
               ToastUtil.show(error);
             });
-
-
-
-
           },
         ),
       );

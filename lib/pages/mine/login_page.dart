@@ -1,22 +1,14 @@
+import "package:dio/dio.dart";
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hrlweibo/constant/constant.dart';
-import '../../widget/TextFieldAccount.dart';
-import '../../widget/TextFieldPwd.dart';
 import 'package:flutter_hrlweibo/http/service_method.dart';
-import 'package:flutter_hrlweibo/model/UserModel.dart';
-import 'dart:convert';
-import 'package:flutter_hrlweibo/util/toast_util.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter_hrlweibo/public.dart';
 import 'package:flutter_hrlweibo/util/sp_util.dart';
- import 'package:flutter_hrlweibo/public.dart';
-import "package:dio/dio.dart";
-import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
+import 'package:flutter_hrlweibo/util/toast_util.dart';
 
-
-
-
-
+import '../../widget/textfield/TextFieldAccount.dart';
+import '../../widget/textfield/TextFieldPwd.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -26,26 +18,15 @@ class LoginPage extends StatefulWidget {
 String _inputAccount = "";
 String _inputPwd = "";
 
-
-
-
-
-
-
-
-
 class _LoginPageState extends State<LoginPage> {
-
-
-
   @override
   Widget build(BuildContext context) {
-      //登录时保存软键盘高度,在聊天界面第一次弹出底部布局时使用
-      final keyHeight = MediaQuery.of(context).viewInsets.bottom;
-      if (keyHeight != 0) {
-        print("键盘高度是:"+keyHeight.toString());
-        SpUtil.putDouble(Constant.SP_KEYBOARD_HEGIHT, keyHeight);
-     }
+    //登录时保存软键盘高度,在聊天界面第一次弹出底部布局时使用
+    final keyHeight = MediaQuery.of(context).viewInsets.bottom;
+    if (keyHeight != 0) {
+      print("键盘高度是:" + keyHeight.toString());
+      SpUtil.putDouble(Constant.SP_KEYBOARD_HEGIHT, keyHeight);
+    }
 
     return new Material(
       child: new Scaffold(
@@ -84,9 +65,6 @@ class _LoginPageState extends State<LoginPage> {
                 buildLoginBtn(),
                 buildRegistForget(),
                 buildOtherLoginWay(),
-                /*  _buildTips(),
-            _buildThirdPartLogin(),
-            _buildProtocol(),*/
               ],
             ),
           )),
@@ -133,22 +111,20 @@ class _LoginPageState extends State<LoginPage> {
         elevation: 0,
         disabledElevation: 0,
         highlightElevation: 0,
-         onPressed: (_inputAccount.isEmpty || _inputPwd.isEmpty)
+        onPressed: (_inputAccount.isEmpty || _inputPwd.isEmpty)
             ? null
             : () {
-
-
-                 FormData params = FormData.from(
+                FormData params = FormData.from(
                     {'username': _inputAccount, 'password': _inputPwd});
-                  DioManager.getInstance().post(ServiceUrl.login, params, (data) {
-                     UserUtil.saveUserInfo(data['data']);
+                DioManager.getInstance().post(ServiceUrl.login, params, (data) {
+                  UserUtil.saveUserInfo(data['data']);
                   ToastUtil.show('登录成功!');
                   Navigator.pop(context);
-                  Routes .navigateTo(context, Routes.indexPage );
-                 }, (error) {
-                     ToastUtil.show(error);
+                  Routes.navigateTo(context, Routes.indexPage);
+                }, (error) {
+                  ToastUtil.show(error);
                 });
-               },
+              },
         child: new Padding(
           padding: new EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
           child: new Text(
@@ -182,10 +158,8 @@ class _LoginPageState extends State<LoginPage> {
                 style: new TextStyle(fontSize: 13.0, color: Color(0xff6B91BB)),
               )),
           onTap: () {
-
-            Routes .navigateTo(context, Routes.chatPage, transition: TransitionType.fadeIn);
-
-
+            Routes.navigateTo(context, Routes.chatPage,
+                transition: TransitionType.fadeIn);
           },
         ),
       ],

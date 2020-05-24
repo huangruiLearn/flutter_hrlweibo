@@ -1,9 +1,8 @@
 import 'dart:io';
 
-import 'package:flutter_hrlweibo/public.dart';
-import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:flutter_hrlweibo/public.dart';
 import 'package:flutter_hrlweibo/util/toast_util.dart';
 import 'package:path/path.dart';
 
@@ -20,7 +19,7 @@ class SettingHead extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     return Material(
+    return Material(
       color: Colors.white,
       child: InkWell(
           onTap: onPressed,
@@ -146,7 +145,6 @@ class _SettingPageState extends State<SettingPage> {
         print("接收更换个人信息的消息");
       });
     });
-
   }
 
   @override
@@ -193,47 +191,40 @@ class _SettingPageState extends State<SettingPage> {
                       });
                     });
               }),
-
               SettingCommon(
                   title: "用户昵称",
                   content: UserUtil.getUserInfo().nick,
                   onPressed: () {
-                    Routes
-                        .navigateTo(context, '${Routes.changeNickNamePage}');
+                    Routes.navigateTo(context, '${Routes.changeNickNamePage}');
                   }),
               SettingCommon(
                   title: "个性签名",
                   content: "",
                   onPressed: () {
-                    Routes
-                        .navigateTo(context, '${Routes.changeDescPage}');
+                    Routes.navigateTo(context, '${Routes.changeDescPage}');
                   }),
               SettingCommon(
                   title: "生日",
                   content: "",
                   onPressed: () {
-                  //  ToastUtil.show('暂未开发!');
+                    //  ToastUtil.show('暂未开发!');
                   }),
               SettingCommon(
                   title: "所在区域",
                   content: "",
                   onPressed: () {
-                   // ToastUtil.show('暂未开发!');
+                    // ToastUtil.show('暂未开发!');
                   }),
               Container(
                 height: 30,
                 color: Color(0xffF2F2F2),
                 //  margin: EdgeInsets.only(left: 60),
               ),
-
-              //
-
               SettingCommon(
                 title: "意见反馈",
                 content: "",
                 onPressed: () {
-                  Routes
-                      .navigateTo(context, '${Routes.feedbackPage}');
+                  Routes.navigateTo(context, '${Routes.feedbackPage}');
                 },
               ),
               SettingCommon(title: "关于微博", content: ""),
@@ -253,33 +244,34 @@ class _SettingPageState extends State<SettingPage> {
                         barrierDismissible: true, // user must tap button!
                         builder: (BuildContext context) {
                           return AlertDialog(
-                             content:Text('退出登录?'),
-                            actions:<Widget>[
+                            content: Text('退出登录?'),
+                            actions: <Widget>[
                               FlatButton(
                                 child: Text('确定'),
-                                onPressed: (){
-                                   UserUtil.loginout();
-                                   Navigator.of(context).pop();
-                                   Routes.navigateTo(context, '${Routes.loginPage}',clearStack: true,transition: TransitionType.fadeIn);
-                                 },
+                                onPressed: () {
+                                  UserUtil.loginout();
+                                  Navigator.of(context).pop();
+                                  Routes.navigateTo(
+                                      context, '${Routes.loginPage}',
+                                      clearStack: true,
+                                      transition: TransitionType.fadeIn);
+                                },
                               ),
                               FlatButton(
                                 child: Text('取消'),
-                                onPressed: (){
-                                   Navigator.of(context).pop();
+                                onPressed: () {
+                                  Navigator.of(context).pop();
                                 },
                               ),
                             ],
-                            backgroundColor:Colors.white,
+                            backgroundColor: Colors.white,
                             elevation: 20,
-                             // 设置成 圆角
-                            shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                            // 设置成 圆角
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
                           );
                         },
                       );
-
-
-
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
@@ -291,24 +283,10 @@ class _SettingPageState extends State<SettingPage> {
                       ),
                     )),
               ),
-              /*new GestureDetector(
-               onTap:(){} ,
-               child: Container(
-                 height: 50,
-                 color: Colors.white,
-                 child: Center(
-                   child: Text('账号与安全', style: TextStyle(fontSize: 16, color: Colors.black)),
-                 ),
-               ),
-             )*/
             ],
           ),
         ),
       )),
     );
-
-
-
-
   }
 }

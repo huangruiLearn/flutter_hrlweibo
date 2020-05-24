@@ -1,3 +1,4 @@
+import 'dart:convert' as convert;
 import 'dart:math' as math;
 
 import "package:dio/dio.dart";
@@ -13,10 +14,9 @@ import 'package:flutter_hrlweibo/util/date_util.dart';
 import 'package:flutter_hrlweibo/widget/likebutton/like_button.dart';
 import 'package:flutter_hrlweibo/widget/likebutton/utils/like_button_model.dart';
 
-import '../../widget/WeiBoDetailTop.dart';
+import '../../widget/weiboitem/WeiBoDetailTop.dart';
 import 'wd_head.dart';
 import 'weibo_comment_page.dart';
-import 'dart:convert' as convert;
 
 class WeiBoDetailPage extends StatefulWidget {
   final WeiBoModel mModel;
@@ -54,63 +54,6 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> {
       length: _tabValues.length, //Tab页数量
       vsync: ScrollableState(), //动画效果的异步处理
     );
-
-    /*mCommentScrollController.addListener(() {
-      if (mCommentScrollController.position.pixels ==
-          mCommentScrollController.position.maxScrollExtent) {
-        print("滑动到底部:isForwardloadingMore  " +
-            isForwardloadingMore.toString() +
-            "   isForwarhasMore: " +
-            isForwarhasMore.toString() +
-            "    _controller.index:" +
-            _controller.index.toString());
-        print("滑动到底部:isCommentloadingMore" +
-            isCommentloadingMore.toString() +
-            "  isCommenthasMore:" +
-            isCommenthasMore.toString() +
-            "_controller.index:" +
-            _controller.index.toString());
-
-        switch (_controller.index) {
-          case 0:
-            if (!isForwardloadingMore) {
-              if (isForwarhasMore) {
-                setState(() {
-                  isForwardloadingMore = true;
-                  mForwardCurPage += 1;
-                });
-                Future.delayed(Duration(seconds: 3), () {
-                  getForwardDataLoadMore(
-                      mForwardCurPage, widget.mModel.weiboId);
-                });
-              } else {
-                setState(() {
-                  isForwarhasMore = false;
-                });
-              }
-            }
-            break;
-          case 1:
-            if (!isCommentloadingMore) {
-              if (isCommenthasMore) {
-                setState(() {
-                  isCommentloadingMore = true;
-                  mCommentCurPage += 1;
-                });
-                Future.delayed(Duration(seconds: 3), () {
-                  getCommentDataLoadMore(
-                      mCommentCurPage, widget.mModel.weiboId);
-                });
-              } else {
-                setState(() {
-                  isCommenthasMore = false;
-                });
-              }
-            }
-            break;
-        }
-      }
-    });*/
   }
 
   Future getWeiBoDeatilData() async {
@@ -120,14 +63,14 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> {
     DioManager.getInstance().post(ServiceUrl.getWeiBoDetail, params, (data) {
       mForwardList.clear();
       mForwardList.addAll(WeiBoDetail.fromJson(data['data']).forward);
-       mCommentList.clear();
+      mCommentList.clear();
       mCommentList.addAll(WeiBoDetail.fromJson(data['data']).comment);
-        isCommentloadingMore = false; //是否显示加载中
-        isCommenthasMore = true; //是否还有更多
-        mCommentCurPage = 1;
-        isForwardloadingMore = false; //是否显示加载中
-        isForwarhasMore = true; //是否还有更多
-        mForwardCurPage = 1;
+      isCommentloadingMore = false; //是否显示加载中
+      isCommenthasMore = true; //是否还有更多
+      mCommentCurPage = 1;
+      isForwardloadingMore = false; //是否显示加载中
+      isForwarhasMore = true; //是否还有更多
+      mForwardCurPage = 1;
       setState(() {});
     }, (error) {});
   }
@@ -213,18 +156,14 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return  SafeArea(
-        child:
-        Scaffold(
+    return SafeArea(
+        child: Scaffold(
             backgroundColor: Colors.white,
             body: Column(
               children: <Widget>[
-                Container(
-                      child: WdHeadWidget("微博正文"),
-                     color: Colors.white),
+                Container(child: WdHeadWidget("微博正文"), color: Colors.white),
                 Expanded(
                   child: new NestedScrollView(
-
                     //controller: mCommentScrollController,
                     headerSliverBuilder: (context, bool) {
                       return [
@@ -342,14 +281,11 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> {
                   color: Color(0xffF9F9F9),
                 )
               ],
-            )
-
-             )
-            );
+            )));
   }
 
   Widget mForwardWidget() {
-    return  NotificationListener<ScrollNotification>(
+    return NotificationListener<ScrollNotification>(
       child: new ListView.builder(
         physics: ClampingScrollPhysics(),
         padding: new EdgeInsets.all(0.0),
@@ -359,7 +295,7 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> {
         },
         itemCount: mForwardList.length + 1,
         //  controller: mCommentScrollController,
-       ),
+      ),
       onNotification: (ScrollNotification scrollInfo) =>
           _onScrollNotification(scrollInfo),
     );
@@ -377,8 +313,7 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> {
             mForwardCurPage += 1;
           });
           Future.delayed(Duration(seconds: 3), () {
-            getForwardDataLoadMore(
-                mForwardCurPage, widget.mModel.weiboId);
+            getForwardDataLoadMore(mForwardCurPage, widget.mModel.weiboId);
           });
         } else {
           setState(() {
@@ -402,7 +337,7 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> {
       ),
       onNotification: (ScrollNotification scrollInfo) =>
           _onScrollNotification2(scrollInfo),
-    ) ;
+    );
   }
 
   _onScrollNotification2(ScrollNotification scrollInfo) {
@@ -416,8 +351,7 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> {
             mCommentCurPage += 1;
           });
           Future.delayed(Duration(seconds: 3), () {
-            getCommentDataLoadMore(
-                mCommentCurPage, widget.mModel.weiboId);
+            getCommentDataLoadMore(mCommentCurPage, widget.mModel.weiboId);
           });
         } else {
           setState(() {
@@ -432,7 +366,6 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> {
     if (index == mForwardList.length) {
       return buildForwardLoadMore();
     }
-
 
     return Container(
       margin: EdgeInsets.only(top: 5),
@@ -648,7 +581,7 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> {
                               fontSize: 12.0, color: Color(0xff333333)),
                         )
                       ]))),
-             ],
+            ],
           ));
     } else {
       mCommentReplyWidget = new Container(
@@ -798,11 +731,14 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> {
                 ),
                 Container(
                   child: InkWell(
-                    onTap: (){
-                      Routes.navigateTo(context, Routes.weiboCommentDetailPage  ,  params: {
-                         'comment':   convert.jsonEncode(mCommentList[index - 1]) ,
-                        },transition: TransitionType.fadeIn);
-                     },
+                    onTap: () {
+                      Routes.navigateTo(context, Routes.weiboCommentDetailPage,
+                          params: {
+                            'comment':
+                                convert.jsonEncode(mCommentList[index - 1]),
+                          },
+                          transition: TransitionType.fadeIn);
+                    },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -810,7 +746,8 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> {
                           margin: EdgeInsets.only(top: 3),
                           child: Text(
                             mCommentList[index - 1].content,
-                            style: TextStyle(color: Color(0xff333333), fontSize: 13),
+                            style: TextStyle(
+                                color: Color(0xff333333), fontSize: 13),
                           ),
                         ),
                         Container(
@@ -819,10 +756,13 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> {
                             //背景
                             color: Color(0xffF7F7F7),
                             //设置四周圆角 角度
-                            borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(4.0)),
                           ),
                           margin: EdgeInsets.only(
-                              top: mCommentList[index - 1].commentreplynum == 0 ? 0 : 5,
+                              top: mCommentList[index - 1].commentreplynum == 0
+                                  ? 0
+                                  : 5,
                               right: 15),
                           child: mCommentReplyWidget,
                         ),
@@ -831,15 +771,15 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top:7),
+                  margin: EdgeInsets.only(top: 7),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Container(
                         child: Text(
                           DateUtil.getFormatTime2(
-                              DateTime.fromMillisecondsSinceEpoch(
-                                  mCommentList[index - 1].createtime))
+                                  DateTime.fromMillisecondsSinceEpoch(
+                                      mCommentList[index - 1].createtime))
                               .toString(),
                           style:
                               TextStyle(color: Color(0xff909090), fontSize: 11),
@@ -1011,20 +951,17 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> {
         new Flexible(
           child: InkWell(
             onTap: () {
-
               Navigator.of(context).push(PageRouteBuilder(
                   opaque: false,
                   pageBuilder: (context, animation, secondaryAnimation) {
-                    return CommentDialogPage  (weiboItem.weiboId ,true,  (){
-                         //评论成功从新获取数据
+                    return CommentDialogPage(weiboItem.weiboId, true, () {
+                      //评论成功从新获取数据
                       mCommentScrollController.animateTo(.0,
                           duration: Duration(milliseconds: 100),
-                          curve: Curves.ease
-                      );
+                          curve: Curves.ease);
                       getWeiBoDeatilData();
-                    } );
+                    });
                   }));
-
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
