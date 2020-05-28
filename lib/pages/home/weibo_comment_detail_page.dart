@@ -58,7 +58,7 @@ class _WeiBoCommentDetailPageState extends State<WeiBoCommentDetailPage> {
     ishasMore = true;
     mCurPage = 1;
 
-    FormData formData = FormData.from({
+    FormData formData = FormData.fromMap({
       'commentid': widget.mCommentTop.commentid,
       "pageNum": "1",
       "pageSize": Constant.PAGE_SIZE,
@@ -73,7 +73,7 @@ class _WeiBoCommentDetailPageState extends State<WeiBoCommentDetailPage> {
   }
 
   Future getSubDataLoadMore(int page) async {
-    FormData formData = FormData.from({
+    FormData formData = FormData.fromMap({
       'commentid': widget.mCommentTop.commentid,
       "pageNum": page,
       "pageSize": Constant.PAGE_SIZE,

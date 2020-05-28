@@ -27,7 +27,7 @@ class _VideoRecommendPageState extends State<VideoRecommendPage> {
       ishasMore = true;
       mCurPage = 1;
       FormData params =
-          FormData.from({'pageNum': "$mCurPage", 'pageSize': "10"});
+          FormData.fromMap({'pageNum': "$mCurPage", 'pageSize': "10"});
       DioManager.getInstance().post(ServiceUrl.getVideoRecommendList, params,
           (data) {
         List<VideoModel> list = List();
@@ -40,7 +40,7 @@ class _VideoRecommendPageState extends State<VideoRecommendPage> {
       }, (error) {});
     } else {
       FormData params =
-          FormData.from({'pageNum': "$mCurPage", 'pageSize': "10"});
+          FormData.fromMap({'pageNum': "$mCurPage", 'pageSize': "10"});
       DioManager.getInstance().post(ServiceUrl.getVideoRecommendList, params,
           (data) {
         List<VideoModel> list = List();

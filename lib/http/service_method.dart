@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -50,13 +51,14 @@ class DioManager {
     Response response;
     try {
       if (method == 'get') {
-        if (params != null && params.isNotEmpty) {
-          response = await dio.get(url, queryParameters: params);
+        if (params != null) {
+          response = await dio.get(url,
+              queryParameters: Map.fromEntries(params.fields));
         } else {
           response = await dio.get(url);
         }
       } else if (method == 'post') {
-        if (params != null && params.isNotEmpty) {
+        if (params != null && params.fields.isNotEmpty) {
           response = await dio.post(url, data: params);
         } else {
           response = await dio.post(url);
@@ -108,7 +110,8 @@ class DioManager {
 Future request(url, {formData}) async {
   Response response;
   Dio dio = new Dio();
-  dio.options.contentType = ContentType.parse("application/json;charset=UTF-8");
+  dio.options.contentType =
+      ContentType.parse("application/json;charset=UTF-8").toString();
   if (formData == null) {
     response = await dio.post(url);
   } else {

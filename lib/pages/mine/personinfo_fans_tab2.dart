@@ -51,7 +51,7 @@ class FanListPageState extends State<FanListPage> {
       isloadingMore = false;
       ishasMore = true;
       curPage = 1;
-      FormData params = FormData.from({
+      FormData params = FormData.fromMap({
         'mcurrentuserId': UserUtil.getUserInfo().id,
         'mqueryuseid': UserUtil.getUserInfo().id,
         'pageNum': "$curPage",
@@ -67,7 +67,7 @@ class FanListPageState extends State<FanListPage> {
         setState(() {});
       }, (error) {});
     } else {
-      FormData params = FormData.from({
+      FormData params = FormData.fromMap({
         'mcurrentuserId': UserUtil.getUserInfo().id,
         'mqueryuseid': UserUtil.getUserInfo().id,
         'pageNum': "$curPage",
@@ -314,7 +314,7 @@ class FanListPageState extends State<FanListPage> {
                 style: TextStyle(color: Colors.orange, fontSize: 12)),
           ),
           onTap: () {
-            FormData params = FormData.from({
+            FormData params = FormData.fromMap({
               'userid': UserUtil.getUserInfo().id,
               'otheruserid': mModel.id,
             });
@@ -387,7 +387,7 @@ class FanListPageState extends State<FanListPage> {
                   style: TextStyle(fontSize: 12, color: Colors.deepOrange),
                 ),
                 onPressed: () {
-                  FormData params = FormData.from({
+                  FormData params = FormData.fromMap({
                     'userid': UserUtil.getUserInfo().id,
                     'otheruserid': mModel.id,
                   });

@@ -57,7 +57,7 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> {
   }
 
   Future getWeiBoDeatilData() async {
-    FormData params = FormData.from({
+    FormData params = FormData.fromMap({
       'weiboid': mWeiboTopData.weiboId,
     });
     DioManager.getInstance().post(ServiceUrl.getWeiBoDetail, params, (data) {
@@ -76,7 +76,7 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> {
   }
 
   Future getCommentDataLoadMore(int page, String weiboId) async {
-    FormData formData = FormData.from(
+    FormData formData = FormData.fromMap(
         {"pageNum": page, "pageSize": Constant.PAGE_SIZE, "weiboid": weiboId});
     DioManager.getInstance().post(ServiceUrl.getWeiBoDetailComment, formData,
         (data) {
@@ -95,7 +95,7 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> {
   }
 
   Future getForwardDataLoadMore(int page, String weiboId) async {
-    FormData formData = FormData.from(
+    FormData formData = FormData.fromMap(
         {"pageNum": page, "pageSize": Constant.PAGE_SIZE, "weiboid": weiboId});
     DioManager.getInstance().post(ServiceUrl.getWeiBoDetailForward, formData,
         (data) {
@@ -117,7 +117,7 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> {
   Future<bool> onLikeButtonTapped(bool isLiked, WeiBoModel weiboItem) async {
     final Completer<bool> completer = new Completer<bool>();
 
-    FormData formData = FormData.from({
+    FormData formData = FormData.fromMap({
       "weiboId": weiboItem.weiboId,
       "userId": UserUtil.getUserInfo().id,
       "status": weiboItem.zanStatus == 0 ? 1 : 0, //1点赞,0取消点赞

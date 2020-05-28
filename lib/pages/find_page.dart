@@ -1,7 +1,8 @@
 import 'dart:math' as math;
 
 import "package:dio/dio.dart";
-import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart' hide NestedScrollView;
+import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart'
+    hide NestedScrollView;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_hrlweibo/constant/constant.dart';
@@ -24,8 +25,8 @@ class FindPage extends StatefulWidget {
 
 class _FindPageState extends State<FindPage> {
   //活动导航
-   bool isFindKindVisible = false;
-   final List<String> _tabValues = [
+  bool isFindKindVisible = false;
+  final List<String> _tabValues = [
     '热点',
     '本地',
     '话题',
@@ -56,12 +57,12 @@ class _FindPageState extends State<FindPage> {
       length: _tabValues.length, //Tab页数量
       vsync: ScrollableState(), //动画效果的异步处理
     );
-     getFindInfoDate();
+    getFindInfoDate();
   }
 
   //获取发现页信息
   Future<Null> getFindInfoDate() async {
-    FormData formData = FormData.from({"userId": UserUtil.getUserInfo().id});
+    FormData formData = FormData.fromMap({"userId": UserUtil.getUserInfo().id});
     DioManager.getInstance().post(ServiceUrl.getFindHomeInfo, formData, (data) {
       print("返回的正确数据:${data}");
       FindHomeModel mModel = FindHomeModel.fromJson(data['data']);
@@ -371,7 +372,7 @@ class _FindPageState extends State<FindPage> {
                                   size: 7,
                                   space: 5,
                                   activeSize: 7,
-                                   color: Color(0xffF0F0F0),
+                                  color: Color(0xffF0F0F0),
                                   activeColor: Color(0xffD8D8D8),
                                 ),
                                 margin: EdgeInsets.all(0)),

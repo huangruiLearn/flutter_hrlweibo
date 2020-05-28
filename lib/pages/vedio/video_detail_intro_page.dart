@@ -21,7 +21,7 @@ class _VideoDetailIntroPageState extends State<VideoDetailIntroPage> {
   List<VideoModel> mRecommendVideoList = new List();
 
   Future getmRecommendVideoList() async {
-    FormData params = FormData.from({
+    FormData params = FormData.fromMap({
       'videoid': widget.mVideo.id,
     });
     DioManager.getInstance()

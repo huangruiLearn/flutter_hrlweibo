@@ -88,7 +88,7 @@ class _ChangeNickNamePageState extends State<ChangeNickNamePage> {
                         ToastUtil.show('昵称不能为空!');
                         return;
                       }
-                      FormData params = FormData.from({
+                      FormData params = FormData.fromMap({
                         'userId': UserUtil.getUserInfo().id,
                         'nick': _mEtController.text
                       });

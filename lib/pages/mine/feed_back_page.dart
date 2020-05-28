@@ -15,7 +15,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
   TextEditingController _mEtController = new TextEditingController();
   List<File> mFileList = List();
   File mSelectedImageFile;
-  List<UploadFileInfo> mSubmitFileList = List();
+  List<MultipartFile> mSubmitFileList = List();
 
   @override
   Widget build(BuildContext context) {
@@ -168,11 +168,10 @@ class _FeedBackPageState extends State<FeedBackPage> {
                 onTap: () {
                   mSubmitFileList.clear();
                   for (int i = 0; i < mFileList.length; i++) {
-                    mSubmitFileList.add(new UploadFileInfo(
-                        mFileList.elementAt(i),
-                        basename(mFileList.elementAt(i).path)));
+                    mSubmitFileList.add(MultipartFile.fromFileSync(
+                        mFileList.elementAt(i).path));
                   }
-                  FormData formData = FormData.from({
+                  FormData formData = FormData.fromMap({
                     "description": _mEtController.text,
                     "files": mSubmitFileList
                   });

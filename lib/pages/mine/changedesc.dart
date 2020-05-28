@@ -42,7 +42,7 @@ class _ChangeDescPageState extends State<ChangeDescPage> {
                     ToastUtil.show('内容不能为空!');
                     return;
                   }
-                  FormData params = FormData.from({
+                  FormData params = FormData.fromMap({
                     'userId': UserUtil.getUserInfo().id,
                     'personSign': _mEtController.text
                   });

@@ -25,7 +25,7 @@ class _MsgZanPageState extends State<MsgZanPage> {
     isloadingMore = false;
     ishasMore = true;
     mCurPage = 1;
-    FormData formData = FormData.from({
+    FormData formData = FormData.fromMap({
       "pageNum": "1",
       "pageSize": Constant.PAGE_SIZE,
     });
@@ -40,7 +40,7 @@ class _MsgZanPageState extends State<MsgZanPage> {
   }
 
   Future getSubDataLoadMore(int page) async {
-    FormData formData = FormData.from({
+    FormData formData = FormData.fromMap({
       "pageNum": page,
       "pageSize": Constant.PAGE_SIZE,
     });

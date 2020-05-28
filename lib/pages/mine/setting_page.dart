@@ -169,10 +169,9 @@ class _SettingPageState extends State<SettingPage> {
                     builder: (context) {
                       return HeadChooseWidget(
                           chooseImgCallBack: (File mHeadFile) {
-                        FormData formData = FormData.from({
+                        FormData formData = FormData.fromMap({
                           "userId": UserUtil.getUserInfo().id,
-                          "headFile": new UploadFileInfo(
-                              mHeadFile, basename(mHeadFile.path))
+                          "headFile": MultipartFile.fromFileSync(mHeadFile.path)
                         });
                         request(ServiceUrl.updateHead, formData: formData)
                             .then((val) {

@@ -27,7 +27,7 @@ class _VideoHotPageState extends State<VideoHotPage> {
       ishasMore = true;
       mCurPage = 1;
       FormData params =
-          FormData.from({'pageNum': "$mCurPage", 'pageSize': "10"});
+          FormData.fromMap({'pageNum': "$mCurPage", 'pageSize': "10"});
       DioManager.getInstance().post(ServiceUrl.getVideoHotList, params, (data) {
         List<VideoModel> list = List();
         data['data']['list'].forEach((data) {
@@ -50,7 +50,7 @@ class _VideoHotPageState extends State<VideoHotPage> {
       }, (error) {});
     } else {
       FormData params =
-          FormData.from({'pageNum': "$mCurPage", 'pageSize': "10"});
+          FormData.fromMap({'pageNum': "$mCurPage", 'pageSize': "10"});
       DioManager.getInstance().post(ServiceUrl.getVideoHotList, params, (data) {
         List<VideoModel> list = List();
         data['data']['list'].forEach((data) {

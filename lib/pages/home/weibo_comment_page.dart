@@ -119,7 +119,7 @@ class _CommentDialogPageState extends State<CommentDialogPage> {
 
                       if (widget.isReplyWeiBo) {
                         //如果是评论微博
-                        FormData formData = FormData.from({
+                        FormData formData = FormData.fromMap({
                           "userId": UserUtil.getUserInfo().id,
                           "content": _inputController.text.toString(),
                           "weiboId": widget.mWeiBoOrCommentId
@@ -134,7 +134,7 @@ class _CommentDialogPageState extends State<CommentDialogPage> {
                         });
                       } else {
                         //如果是评论微博的回复
-                        FormData formData = FormData.from({
+                        FormData formData = FormData.fromMap({
                           "userId": UserUtil.getUserInfo().id,
                           "content": _inputController.text.toString(),
                           "commentid": widget.mWeiBoOrCommentId

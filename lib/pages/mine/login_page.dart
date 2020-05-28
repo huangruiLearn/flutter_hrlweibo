@@ -114,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
         onPressed: (_inputAccount.isEmpty || _inputPwd.isEmpty)
             ? null
             : () {
-                FormData params = FormData.from(
+                FormData params = FormData.fromMap(
                     {'username': _inputAccount, 'password': _inputPwd});
                 DioManager.getInstance().post(ServiceUrl.login, params, (data) {
                   UserUtil.saveUserInfo(data['data']);
