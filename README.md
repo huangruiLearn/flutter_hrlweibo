@@ -33,9 +33,9 @@ apk下载地址   https://www.pgyer.com/g95X   密码 123456
 
 **基础环境**
 
-Flutter 1.12.13+hotfix.7 • channel stable 
+Flutter version 1.17.1
 
-Dart 2.7.0
+Dart version 2.8.2
 <br/>
 <br/>
  <br/>
