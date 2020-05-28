@@ -133,7 +133,7 @@ class _RetWeetPageState extends State<RetWeetPage> {
                     ToastUtil.show("内容不能为空!");
                     return;
                   }
-                  FormData formData = FormData.from({
+                  FormData formData = FormData.fromMap({
                     "userId": UserUtil.getUserInfo().id,
                     "zfContent": mEtController.text,
                     "zfWeiBoId": widget.mModel.weiboId

@@ -14,8 +14,6 @@ class WeiBoPublishTopicPage extends StatefulWidget {
 }
 
 class WeiBoPublishTopicPageState extends State<WeiBoPublishTopicPage> {
-
-
   List<WeiBoTopicType> mLeftTopicTypeList = new List();
   List<WeiBoTopic> mRightTopicList = new List();
   int _selectCount = 0;
@@ -46,7 +44,7 @@ class WeiBoPublishTopicPageState extends State<WeiBoPublishTopicPage> {
   }
 
   void loadRightTopicData(String type) async {
-    FormData params = FormData.from({
+    FormData params = FormData.fromMap({
       'topicType': type,
     });
     DioManager.getInstance().post(ServiceUrl.getWeiBoTopicList, params, (data) {

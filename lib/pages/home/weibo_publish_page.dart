@@ -33,7 +33,7 @@ class _WeiBoPublishPageState extends State<WeiBoPublishPage> {
       new KeyboardVisibilityNotification();
   List<File> mFileList = List();
   File mSelectedImageFile;
-  List<UploadFileInfo> mSubmitFileList = List();
+  List<MultipartFile> mSubmitFileList = List();
 
   MySpecialTextSpanBuilder _mySpecialTextSpanBuilder =
       MySpecialTextSpanBuilder();
@@ -152,11 +152,10 @@ class _WeiBoPublishPageState extends State<WeiBoPublishPage> {
                   }
                   mSubmitFileList.clear();
                   for (int i = 0; i < mFileList.length; i++) {
-                    mSubmitFileList.add(new UploadFileInfo(
-                        mFileList.elementAt(i),
-                        path.basename(mFileList.elementAt(i).path)));
+                    mSubmitFileList.add(MultipartFile.fromFileSync(
+                        mFileList.elementAt(i).path));
                   }
-                  FormData formData = FormData.from({
+                  FormData formData = FormData.fromMap({
                     "userId": "1",
                     "content": _mEtController.text,
                     "files": mSubmitFileList

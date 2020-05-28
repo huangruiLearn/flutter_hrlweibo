@@ -1,8 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'regex_options.dart';
 import 'match_text.dart';
-
 
 /// Parse text and make them into multiple Flutter Text widgets
 class ParsedText extends StatelessWidget {
@@ -61,7 +59,7 @@ class ParsedText extends StatelessWidget {
   final TextWidthBasis textWidthBasis;
 
   /// Make this text selectable.
-  /// 
+  ///
   /// SelectableText does not support softwrap, overflow, textScaleFactor
   final bool selectable;
 
@@ -97,10 +95,9 @@ class ParsedText extends StatelessWidget {
     // Parse the whole text and adds "%%%%" before and after the
     // each matched text this will be used to split the text affectively
     parse.forEach((e) {
-         RegExp regExp = RegExp(e.pattern);
-        newString = newString.splitMapJoin(regExp,
-            onMatch: (m) => "%%%%${m.group(0)}%%%%", onNonMatch: (m) => "$m");
-
+      RegExp regExp = RegExp(e.pattern);
+      newString = newString.splitMapJoin(regExp,
+          onMatch: (m) => "%%%%${m.group(0)}%%%%", onNonMatch: (m) => "$m");
     });
 
     // splits the modified text at "%%%%"
@@ -132,7 +129,7 @@ class ParsedText extends StatelessWidget {
                 style: e.style != null ? e.style : style,
                 text: "${result['display']}",
                 recognizer: TapGestureRecognizer()
-                  ..onTap = () => e.onTap(result['display'],result['value']),
+                  ..onTap = () => e.onTap(result['display'], result['value']),
               );
             } else {
               widget = TextSpan(

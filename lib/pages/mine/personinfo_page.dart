@@ -61,7 +61,7 @@ class _PersonInfoPageState extends State<PersonInfoPage>
   }
 
   Future<void> fetchData() async {
-    FormData params = FormData.from({
+    FormData params = FormData.fromMap({
       'muserId': UserUtil.getUserInfo().id,
       'otheruserId': widget.mOtherUserId,
     });
@@ -219,7 +219,7 @@ class _PersonInfoPageState extends State<PersonInfoPage>
                 style: TextStyle(color: Colors.black, fontSize: 14)),
           ),
           onTap: () {
-            FormData params = FormData.from({
+            FormData params = FormData.fromMap({
               'userid': UserUtil.getUserInfo().id,
               'otheruserid': mUser.id,
             });
@@ -287,7 +287,7 @@ class _PersonInfoPageState extends State<PersonInfoPage>
                   style: TextStyle(fontSize: 12, color: Colors.deepOrange),
                 ),
                 onPressed: () {
-                  FormData params = FormData.from({
+                  FormData params = FormData.fromMap({
                     'userid': UserUtil.getUserInfo().id,
                     'otheruserid': mUser.id,
                   });

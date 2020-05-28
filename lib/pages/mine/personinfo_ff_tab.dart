@@ -51,7 +51,7 @@ class _FFRecommendPageState extends State<FFRecommendPage> {
       isloadingMore = false;
       ishasMore = true;
       curPage = 1;
-      FormData params = FormData.from({
+      FormData params = FormData.fromMap({
         'userId': UserUtil.getUserInfo().id,
         'pageNum': "$curPage",
         "pageSize": Constant.PAGE_SIZE,
@@ -67,7 +67,7 @@ class _FFRecommendPageState extends State<FFRecommendPage> {
         setState(() {});
       }, (error) {});
     } else {
-      FormData params = FormData.from({
+      FormData params = FormData.fromMap({
         'userId': UserUtil.getUserInfo().id,
         'pageNum': "$curPage",
         "pageSize": Constant.PAGE_SIZE,
@@ -303,7 +303,7 @@ class _FFRecommendPageState extends State<FFRecommendPage> {
                 style: TextStyle(color: Colors.orange, fontSize: 12)),
           ),
           onTap: () {
-            FormData params = FormData.from({
+            FormData params = FormData.fromMap({
               'userid': UserUtil.getUserInfo().id,
               'otheruserid': mModel.id,
             });
@@ -376,7 +376,7 @@ class _FFRecommendPageState extends State<FFRecommendPage> {
                   style: TextStyle(fontSize: 12, color: Colors.deepOrange),
                 ),
                 onPressed: () {
-                  FormData params = FormData.from({
+                  FormData params = FormData.fromMap({
                     'userid': UserUtil.getUserInfo().id,
                     'otheruserid': mModel.id,
                   });
