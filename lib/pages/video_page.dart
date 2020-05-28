@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hrlweibo/http/service_method.dart';
 import 'package:flutter_hrlweibo/model/VedioCategory.dart';
@@ -110,5 +111,10 @@ class _VideoPageState extends State<VideoPage> with TickerProviderStateMixin {
         ),
       ),
     );
+  }
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<TabController>('mTabController', mTabController));
   }
 }

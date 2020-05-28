@@ -25,13 +25,13 @@ class _MinePageState extends State<MinePage> {
     }
   }
 
-  @override
+  //TODO
+   @override
   void deactivate() {
     super.deactivate();
-    //从其他页面返回时刷新页面
-    var isTopRoute = ModalRoute.of(context).isCurrent;
+     var isTopRoute = ModalRoute.of(context).isCurrent;
     if (isTopRoute) {
-      if (UserUtil.isLogin()) {
+       if (UserUtil.isLogin()) {
         FormData params = FormData.fromMap({
           'muserId': UserUtil.getUserInfo().id,
           'otheruserId': UserUtil.getUserInfo().id,
