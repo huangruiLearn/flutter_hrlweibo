@@ -110,7 +110,8 @@ class DioManager {
 Future request(url, {formData}) async {
   Response response;
   Dio dio = new Dio();
-  // dio.options.contentType = ContentType.parse("application/json;charset=UTF-8");
+  dio.options.contentType =
+      ContentType.parse("application/json;charset=UTF-8").toString();
   if (formData == null) {
     response = await dio.post(url);
   } else {
