@@ -81,7 +81,7 @@ Dart version 2.8.2
 | dio  | 网络请求 | https://github.com/flutterchina/dio|
 | flutter_swiper  | 轮播图 | https://github.com/best-flutter/flutter_swiper |
 | video_player  | 视频播发 |https://github.com/flutter/plugins/tree/master/packages/video_player|
-| chewie  | 视频播放 | https://github:com/brianegan/chewie |
+| chewie  | 视频播放 | https://github.com/brianegan/chewie |
 |  fluro  | 路由跳转 | https://github.com/theyakka/fluro |
 | permission_handler  | 权限处理 | https://github.com/Baseflow/flutter-permission-handler|
 | keyboard_visibility  | 键盘显示隐藏 |https://github.com/adee42/flutter_keyboard_visibility|
