@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
- import 'package:flutter_hrlweibo/constant/constant.dart';
+import 'package:flutter_hrlweibo/constant/constant.dart';
 import 'package:video_player/video_player.dart';
 
 
