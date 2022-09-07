@@ -6,7 +6,7 @@ class FanPage extends StatefulWidget {
   _FanPageState createState() => _FanPageState();
 }
 
-class _FanPageState extends State<FanPage> {
+class _FanPageState extends State<FanPage> with SingleTickerProviderStateMixin{
   TabController mTabcontroller;
   ScrollController mListController = new ScrollController();
   List mRecommendList;
@@ -15,7 +15,7 @@ class _FanPageState extends State<FanPage> {
   void initState() {
     super.initState();
     mTabcontroller =
-        TabController(vsync: ScrollableState(), initialIndex: 0, length: 2);
+        TabController(vsync:this, initialIndex: 0, length: 2);
   }
 
   @override
@@ -32,7 +32,8 @@ class _FanPageState extends State<FanPage> {
             }),
         title: Text(
           '粉丝',
-          style: TextStyle(fontSize: 16),
+          style: TextStyle(fontSize: 16,color:Color(0xff000000) ),
+
         ),
         elevation: 0.5,
         centerTitle: true,

@@ -16,7 +16,7 @@ class VideoDetailPage extends StatefulWidget {
   _VideoDetailPageState createState() => _VideoDetailPageState();
 }
 
-class _VideoDetailPageState extends State<VideoDetailPage> {
+class _VideoDetailPageState extends State<VideoDetailPage> with SingleTickerProviderStateMixin{
   List<String> mTabList = ["简介", "评论"];
   TabController mTabController;
   VideoPlayerController videoPlayerController;
@@ -27,7 +27,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
      super.initState();
     mTabController = TabController(
       length: mTabList.length,
-      vsync: ScrollableState(), //动画效果的异步处理
+      vsync: this,
     );
     videoPlayerController =
         VideoPlayerController.network(Constant.baseUrl + "file/weibo3.mp4");

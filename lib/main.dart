@@ -19,14 +19,21 @@ void main() {
      SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   }
 
+
+
 }
 
+
 class MyApp extends StatelessWidget {
+
+
+
   @override
   Widget build(BuildContext context) {
-    final router = Router();
+    final router = FluroRouter();
     Routes.configureRoutes(router);
     Routes.router = router;
+
 
     return Container(
       child: MaterialApp(

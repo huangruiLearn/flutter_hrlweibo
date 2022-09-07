@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 import 'weibo_homelist_page.dart';
 
-class WeiBoHotPage extends StatefulWidget {
+class WeiBoHotPage extends StatefulWidget  {
   @override
   _WeiBoHotPageState createState() => _WeiBoHotPageState();
 }
 
-class _WeiBoHotPageState extends State<WeiBoHotPage> {
+class _WeiBoHotPageState extends State<WeiBoHotPage> with SingleTickerProviderStateMixin{
   final List<String> _tabValues = ['推荐', '附近', '榜单', '明星', '搞笑', '社会', '测试'];
   TabController _controller;
 
@@ -15,10 +15,7 @@ class _WeiBoHotPageState extends State<WeiBoHotPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _controller = TabController(
-      length: _tabValues.length, //Tab页数量
-      vsync: ScrollableState(), //动画效果的异步处理
-    );
+    _controller = TabController(vsync: this, length: _tabValues.length);
   }
 
   @override
@@ -99,4 +96,6 @@ class _WeiBoHotPageState extends State<WeiBoHotPage> {
       ),
     );
   }
+
+ 
 }

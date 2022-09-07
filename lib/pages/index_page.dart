@@ -80,15 +80,17 @@ class _IndexPageState extends State<IndexPage> {
     MinePage()
   ];
 
+
+
   @override
   Widget build(BuildContext context) {
     initData();
     final List<BottomNavigationBarItem> bottomTabs = [
-      BottomNavigationBarItem(icon: getTabIcon(0), title: getTabTitle(0)),
-      BottomNavigationBarItem(icon: getTabIcon(1), title: getTabTitle(1)),
-      BottomNavigationBarItem(icon: getTabIcon(2), title: getTabTitle(2)),
-      BottomNavigationBarItem(icon: getTabIcon(3), title: getTabTitle(3)),
-      BottomNavigationBarItem(icon: getTabIcon(4), title: getTabTitle(4)),
+      BottomNavigationBarItem(icon: getTabIcon(0), label:appBarTitles[0]),
+      BottomNavigationBarItem(icon: getTabIcon(1), label: appBarTitles[1]),
+      BottomNavigationBarItem(icon: getTabIcon(2), label: appBarTitles[2]),
+      BottomNavigationBarItem(icon: getTabIcon(3), label: appBarTitles[3]),
+      BottomNavigationBarItem(icon: getTabIcon(4), label: appBarTitles[4]),
     ];
 
     return SafeArea(
@@ -100,9 +102,11 @@ class _IndexPageState extends State<IndexPage> {
             currentIndex: _tabIndex,
             items: bottomTabs,
             onTap: (index) async {
+              _tabIndex = index;
+
               setState(() {
-                _tabIndex = index;
-                currentPage = tabBodies[_tabIndex];
+              //  _tabIndex = index;
+              //  currentPage = tabBodies[_tabIndex];
               });
             },
           ),

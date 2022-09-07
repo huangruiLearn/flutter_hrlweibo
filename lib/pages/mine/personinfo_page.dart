@@ -332,7 +332,7 @@ class _PersonInfoPageState extends State<PersonInfoPage>
                       SliverOverlapAbsorber(
                         handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
                             context),
-                        child: SliverAppBar(
+                        sliver: SliverAppBar(
                           leading: new Container(
                             margin: EdgeInsets.only(top: 20, bottom: 10),
                             child: isShowBlackTitle

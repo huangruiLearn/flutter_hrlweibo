@@ -5,7 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hrlweibo/widget/likebutton/painter/circle_painter.dart';
 import 'package:flutter_hrlweibo/widget/likebutton/painter/bubbles_painter.dart';
- import 'package:flutter_hrlweibo/widget/likebutton/utils/like_button_model.dart';
+import 'package:flutter_hrlweibo/widget/likebutton/utils/like_button_model.dart';
 import 'package:flutter_hrlweibo/widget/likebutton/utils/like_button_util.dart';
 import 'package:flutter_hrlweibo/widget/likebutton/utils/like_button_typedef.dart';
 
@@ -74,36 +74,36 @@ class LikeButton extends StatefulWidget {
 
   const LikeButton(
       {Key key,
-      this.size: 30.0,
-      this.likeBuilder,
-      this.countBuilder,
-      double bubblesSize,
-      double circleSize,
-      this.likeCount,
-      this.isLiked: false,
-      this.mainAxisAlignment: MainAxisAlignment.center,
-      this.crossAxisAlignment: CrossAxisAlignment.center,
-      this.animationDuration = const Duration(milliseconds: 1000),
-      this.likeCountAnimationType = LikeCountAnimationType.part,
-      this.likeCountAnimationDuration = const Duration(milliseconds: 500),
-      this.likeCountPadding = const EdgeInsets.only(left: 3.0),
-      this.bubblesColor = const BubblesColor(
-        dotPrimaryColor: const Color(0xFFFFC107),
-        dotSecondaryColor: const Color(0xFFFF9800),
-        dotThirdColor: const Color(0xFFFF5722),
-        dotLastColor: const Color(0xFFF44336),
-      ),
-      this.circleColor = const CircleColor(
-          start: const Color(0xFFFF5722), end: const Color(0xFFFFC107)),
-      this.onTap,
-      this.countPostion: CountPostion.right,
-      this.padding,
-      this.countDecoration})
+        this.size: 30.0,
+        this.likeBuilder,
+        this.countBuilder,
+        double bubblesSize,
+        double circleSize,
+        this.likeCount,
+        this.isLiked: false,
+        this.mainAxisAlignment: MainAxisAlignment.center,
+        this.crossAxisAlignment: CrossAxisAlignment.center,
+        this.animationDuration = const Duration(milliseconds: 1000),
+        this.likeCountAnimationType = LikeCountAnimationType.part,
+        this.likeCountAnimationDuration = const Duration(milliseconds: 500),
+        this.likeCountPadding = const EdgeInsets.only(left: 3.0),
+        this.bubblesColor = const BubblesColor(
+          dotPrimaryColor: const Color(0xFFFFC107),
+          dotSecondaryColor: const Color(0xFFFF9800),
+          dotThirdColor: const Color(0xFFFF5722),
+          dotLastColor: const Color(0xFFF44336),
+        ),
+        this.circleColor = const CircleColor(
+            start: const Color(0xFFFF5722), end: const Color(0xFFFFC107)),
+        this.onTap,
+        this.countPostion: CountPostion.right,
+        this.padding,
+        this.countDecoration})
       : assert(size != null),
         assert(animationDuration != null),
         assert(circleColor != null),
         assert(bubblesColor != null),
-        //assert(isLiked != null),
+  //assert(isLiked != null),
         assert(mainAxisAlignment != null),
         assert(crossAxisAlignment != null),
         bubblesSize = bubblesSize ?? size * 2.0,
@@ -187,7 +187,7 @@ class _LikeButtonState extends State<LikeButton> with TickerProviderStateMixin {
           var likeWidget = widget.likeBuilder?.call((_isLiked ?? true)) ??
               defaultWidgetBuilder((_isLiked ?? true), widget.size);
           return Stack(
-            overflow: Overflow.visible,
+          //   overflow: Overflow.visible,
             children: <Widget>[
               Positioned(
                 top: (widget.size - widget.bubblesSize) / 2.0,
@@ -242,17 +242,17 @@ class _LikeButtonState extends State<LikeButton> with TickerProviderStateMixin {
       children = children.reversed.toList();
     }
     Widget result = (widget.countPostion == CountPostion.left ||
-            widget.countPostion == CountPostion.right)
+        widget.countPostion == CountPostion.right)
         ? Row(
-            mainAxisAlignment: widget.mainAxisAlignment,
-            crossAxisAlignment: widget.crossAxisAlignment,
-            children: children,
-          )
+      mainAxisAlignment: widget.mainAxisAlignment,
+      crossAxisAlignment: widget.crossAxisAlignment,
+      children: children,
+    )
         : Column(
-            mainAxisAlignment: widget.mainAxisAlignment,
-            crossAxisAlignment: widget.crossAxisAlignment,
-            children: children,
-          );
+      mainAxisAlignment: widget.mainAxisAlignment,
+      crossAxisAlignment: widget.crossAxisAlignment,
+      children: children,
+    );
 
     if (widget.padding != null) {
       result = Padding(
@@ -295,13 +295,13 @@ class _LikeButtonState extends State<LikeButton> with TickerProviderStateMixin {
       var preText = preLikeCount.substring(didIndex, preLikeCount.length);
       var text = likeCount.substring(didIndex, likeCount.length);
       var preSameWidget =
-          _createLikeCountWidget(_preLikeCount, !(_isLiked ?? true), samePart);
+      _createLikeCountWidget(_preLikeCount, !(_isLiked ?? true), samePart);
       var currentSameWidget =
-          _createLikeCountWidget(_likeCount, (_isLiked ?? true), samePart);
+      _createLikeCountWidget(_likeCount, (_isLiked ?? true), samePart);
       var preWidget =
-          _createLikeCountWidget(_preLikeCount, !(_isLiked ?? true), preText);
+      _createLikeCountWidget(_preLikeCount, !(_isLiked ?? true), preText);
       var currentWidget =
-          _createLikeCountWidget(_likeCount, (_isLiked ?? true), text);
+      _createLikeCountWidget(_likeCount, (_isLiked ?? true), text);
 
       result = AnimatedBuilder(
           animation: _likeCountController,
@@ -312,7 +312,7 @@ class _LikeButtonState extends State<LikeButton> with TickerProviderStateMixin {
               children: <Widget>[
                 Stack(
                   fit: StackFit.passthrough,
-                  overflow: Overflow.clip,
+                  //overflow: Overflow.clip,
                   children: <Widget>[
                     Opacity(
                       child: currentSameWidget,
@@ -326,7 +326,7 @@ class _LikeButtonState extends State<LikeButton> with TickerProviderStateMixin {
                 ),
                 Stack(
                   fit: StackFit.passthrough,
-                  overflow: Overflow.clip,
+                 // overflow: Overflow.clip,
                   children: <Widget>[
                     FractionalTranslation(
                         translation: _preLikeCount > _likeCount
@@ -349,7 +349,7 @@ class _LikeButtonState extends State<LikeButton> with TickerProviderStateMixin {
         builder: (b, w) {
           return Stack(
             fit: StackFit.passthrough,
-            overflow: Overflow.clip,
+           // overflow: Overflow.clip,
             children: <Widget>[
               FractionalTranslation(
                   translation: _preLikeCount > _likeCount

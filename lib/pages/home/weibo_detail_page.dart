@@ -27,7 +27,7 @@ class WeiBoDetailPage extends StatefulWidget {
   _WeiBoDetailState createState() => _WeiBoDetailState(mWeiboTopData: mModel);
 }
 
-class _WeiBoDetailState extends State<WeiBoDetailPage> {
+class _WeiBoDetailState extends State<WeiBoDetailPage> with SingleTickerProviderStateMixin{
   final List<String> _tabValues = [
     '转发',
     '评论',
@@ -52,7 +52,7 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> {
     getWeiBoDeatilData();
     _controller = TabController(
       length: _tabValues.length, //Tab页数量
-      vsync: ScrollableState(), //动画效果的异步处理
+      vsync: this,
     );
   }
 

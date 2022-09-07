@@ -31,7 +31,7 @@ class TabBarWidget extends StatefulWidget {
   _TabBarWidgetState createState() => _TabBarWidgetState();
 }
 
-class _TabBarWidgetState extends State<TabBarWidget> {
+class _TabBarWidgetState extends State<TabBarWidget> with SingleTickerProviderStateMixin{
   final List<String> _tabValues = [
     '动态',
     '消息',
@@ -43,7 +43,7 @@ class _TabBarWidgetState extends State<TabBarWidget> {
     super.initState();
     _tabController = TabController(
       length: _tabValues.length, //Tab页数量
-      vsync: ScrollableState(), //动画效果的异步处理
+      vsync: this,
     );
     _tabController.addListener(() {
       print("_tabController.index的值:" + _tabController.index.toString());

@@ -34,7 +34,7 @@ class TabBarWidget extends StatefulWidget {
   _TabBarWidgetState createState() => _TabBarWidgetState();
 }
 
-class _TabBarWidgetState extends State<TabBarWidget> {
+class _TabBarWidgetState extends State<TabBarWidget>  with SingleTickerProviderStateMixin{
   final List<String> _tabValues = [
     '关注',
     '热门',
@@ -45,8 +45,9 @@ class _TabBarWidgetState extends State<TabBarWidget> {
     // TODO: implement initState
     super.initState();
     _controller = TabController(
+
       length: _tabValues.length, //Tab页数量
-      vsync: ScrollableState(), //动画效果的异步处理
+      vsync:this,
     );
   }
 

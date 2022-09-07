@@ -87,7 +87,7 @@ class _ITextFieldState extends State<ITextField> {
   List<TextInputFormatter> _getTextInputFormatter() {
     return _isNumber
         ? <TextInputFormatter>[
-      WhitelistingTextInputFormatter.digitsOnly,
+      FilteringTextInputFormatter.digitsOnly,
     ]
         : null;
   }

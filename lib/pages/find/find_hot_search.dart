@@ -146,7 +146,7 @@ class _HotSearchPageState extends State<HotSearchPage> {
                   SliverOverlapAbsorber(
                     handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
                         context),
-                    child: SliverAppBar(
+                    sliver: SliverAppBar(
                       leading:
                           /*new IconButton(
                         icon: Icon(Icons.arrow_back),
