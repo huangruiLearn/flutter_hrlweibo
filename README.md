@@ -16,7 +16,7 @@
 
 账号5:test5  密码:123
 
-apk下载地址   https://www.pgyer.com/g95X   密码 123456
+apk下载地址   https://www.pgyer.com/lrhP
 
 或者直接下载完项目找到apk目录下app-release.apk来安装
                    
@@ -24,6 +24,10 @@ apk下载地址   https://www.pgyer.com/g95X   密码 123456
 
 感觉有帮助的话就给个start吧，我会持续更新完善这个项目！
 
+欢迎微信扫描下方二维码进行打赏
+
+
+<img src="https://img-blog.csdnimg.cn/b323aa9f40dc4b13a354855fdad19430.png" width=250 height=350/> 
 
  <br/>
  <br/>
@@ -89,6 +93,10 @@ Flutter version 3.0.5
 | extended_text_field  | @ #在textfield中的处理 | https://github.com/fluttercandies/extended_text_field |
 
 
+qq交流群:747425162
+
+
+![技术交流群群聊二维码](https://user-images.githubusercontent.com/30585790/188896909-14772213-0a4e-4f40-aa94-d0c4806e5523.png)
 
 
 
