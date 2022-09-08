@@ -27,8 +27,7 @@ apk下载地址   https://www.pgyer.com/lrhP
 欢迎微信扫描下方二维码进行打赏
 
 
-<img src="https://img-blog.csdnimg.cn/b323aa9f40dc4b13a354855fdad19430.png" width=250 height=350/> 
-
+<img src="assets/images/shoukuan.png" width = "300" height = "400" alt="图片名称" align=center />
  <br/>
  <br/>
  <br/>
