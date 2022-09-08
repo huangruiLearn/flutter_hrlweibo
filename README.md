@@ -24,6 +24,9 @@ apk下载地址   https://www.pgyer.com/lrhP
 
 感觉有帮助的话就给个start吧，我会持续更新完善这个项目！
 
+
+本地编译的话可以把android ios目录删掉 重新执行flutter create . 从新创建一下
+
 欢迎微信扫描下方二维码进行打赏
 
 

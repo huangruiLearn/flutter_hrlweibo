@@ -174,10 +174,8 @@ class _ChatPageState extends State<ChatPage> {
                                         mPalyingPosition = "";
                                         setState(() {});
                                       } else {
-                                        Future<int> result = mAudioPlayer
-                                            .play(str, isLocal: true);
-                                        mAudioPlayer.onPlayerCompletion
-                                            .listen((event) {
+                                        Future<void> result = mAudioPlayer .play(DeviceFileSource(str));
+                                        mAudioPlayer.onPlayerComplete   .listen((event) {
                                           mMessageItemKey.currentState
                                               ?.methodInChild(
                                                   false, mPalyingPosition);
