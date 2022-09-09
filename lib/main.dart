@@ -1,47 +1,30 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hrlweibo/pages/splash_page.dart';
 import 'package:flutter_hrlweibo/public.dart';
 
-void main() {
+Future<void> main() async {
   runApp(new MyApp());
-  if (Platform.isAndroid) {
-      SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       systemNavigationBarColor: Color(0xffffffff),
       systemNavigationBarIconBrightness: Brightness.dark,
-      systemNavigationBarDividerColor: Color(0xffffffff),
-      statusBarColor: Colors.black,
+      statusBarColor: Color(0x333333),
       statusBarIconBrightness: Brightness.light,
-      statusBarBrightness: Brightness.light,
-    );
-     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
-  }
-
-
-
+      statusBarBrightness: Brightness.light));
+  Routes.configureRoutes(Routes.router);
+  await SpUtil.getInstance();
 }
 
-
 class MyApp extends StatelessWidget {
-
-
-
   @override
   Widget build(BuildContext context) {
-    final router = FluroRouter();
-    Routes.configureRoutes(router);
-    Routes.router = router;
-
-
-    return Container(
-      child: MaterialApp(
-          title: "HRL微博",
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(primaryColor: Colors.white),
-          onGenerateRoute: Routes.router.generator,
-          home: SplashPage()),
-    );
+    return MaterialApp(
+        title: "HRL微博",
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primaryColor: Colors.white,
+        ),
+        onGenerateRoute: Routes.router.generator,
+        home: SplashPage());
   }
 }

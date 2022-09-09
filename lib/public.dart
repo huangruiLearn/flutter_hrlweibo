@@ -26,7 +26,6 @@ export 'package:flutter_hrlweibo/pages/mine/personinfo_page_tabpic.dart';
 export 'package:flutter_hrlweibo/pages/mine/personinfo_page_tabweibo.dart';
 export 'package:flutter_hrlweibo/pages/mine/setting_page.dart';
 export 'package:flutter_hrlweibo/pages/vedio/video_detail_page.dart';
-export 'package:flutter_hrlweibo/routers/Application.dart';
 export 'package:flutter_hrlweibo/routers/router_handler.dart';
 export 'package:flutter_hrlweibo/routers/routers.dart';
 export 'package:flutter_hrlweibo/util/sp_util.dart';

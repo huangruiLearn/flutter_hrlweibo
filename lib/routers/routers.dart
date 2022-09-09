@@ -3,7 +3,7 @@ import 'package:flutter_hrlweibo/public.dart';
 
 class Routes {
 // 路由管理
-  static FluroRouter router;
+  static FluroRouter router =FluroRouter();
   static String indexPage = '/indexpage';
   static String loginPage = '/loginpage';
   static String settingPage = '/settingpage';
@@ -25,13 +25,12 @@ class Routes {
   static String videoDetailPage = '/videoDetailPage';
 
   static void configureRoutes(FluroRouter router) {
-    // List widgetDemosList = new WidgetDemoList().getDemos();
-    router.notFoundHandler = new Handler(
+     router.notFoundHandler = new Handler(
         handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-      print('route not found!');
-    });
+         print('route not found!');
 
-    /*  router.define(home, handler: homeHandler);
+     });
+     /*  router.define(home, handler: homeHandler);
 
     router.define('/category/:type', handler: categoryHandler);
     router.define('/category/error/404', handler: widgetNotFoundHandler);*/
