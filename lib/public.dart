@@ -32,4 +32,5 @@ export 'package:flutter_hrlweibo/util/sp_util.dart';
 export 'package:flutter_hrlweibo/util/toast_util.dart';
 export 'package:flutter_hrlweibo/util/user_util.dart';
 export 'package:flutter_hrlweibo/widget/head_choose_widget.dart';
+export 'package:dio/dio.dart';
 export 'package:image_picker/image_picker.dart';

@@ -1,32 +1,21 @@
-import 'dart:async';
-import 'dart:convert';
-
-import 'dart:io';
-
-import 'package:dio/dio.dart';
 import 'package:flutter_hrlweibo/public.dart';
 
 class DioManager {
-  //写一个单例
-  //在 Dart 里，带下划线开头的变量是私有变量
-  static DioManager _instance;
 
-  static DioManager getInstance() {
-    if (_instance == null) {
-      _instance = DioManager();
-    }
-    return _instance;
-  }
+  static late final DioManager _instance = DioManager._internal();
 
-  Dio dio = new Dio();
+  factory DioManager() => _instance;
 
-  DioManager() {
-    dio.options.baseUrl = Constant.baseUrl;
-    dio.options.connectTimeout = 5000;
-    dio.options.receiveTimeout = 3000;
-    dio.interceptors.add(LogInterceptor(responseBody: true)); //是否开启请求日志
-    //  dio.interceptors.add(CookieManager(CookieJar()));//缓存相关类，具体设置见https://github.com/flutterchina/cookie_jar
-  }
+  static Dio dio = Dio();
+
+   DioManager._internal(){
+    dio.options
+       ..baseUrl =Constant.baseUrl
+       ..connectTimeout = 5000 //5s
+       ..receiveTimeout = 3000;
+     dio.interceptors.add(LogInterceptor(responseBody: true));//是否开启请求日志
+
+   }
 
 //get请求
   get(String url, FormData params, Function successCallBack,
@@ -47,8 +36,8 @@ class DioManager {
   }
 
   _requstHttp(String url, Function successCallBack,
-      [String method, FormData params, Function errorCallBack]) async {
-    Response response;
+      [String? method, FormData? params, Function? errorCallBack]) async {
+    Response? response;
     try {
       if (method == 'get') {
         if (params != null) {
@@ -66,11 +55,9 @@ class DioManager {
       }
     } on DioError catch (error) {
       // 请求错误处理
-      Response errorResponse;
+      Response? errorResponse;
       if (error.response != null) {
         errorResponse = error.response;
-      } else {
-        errorResponse = new Response(statusCode: 201);
       }
       // debug模式才打印
       if (Constant.ISDEBUG) {
@@ -91,7 +78,7 @@ class DioManager {
       }
     }
 
-    String dataStr = json.encode(response.data);
+    String dataStr = json.encode(response?.data);
     Map<String, dynamic> dataMap = json.decode(dataStr);
     if (dataMap == null || dataMap['status'] != 200) {
       _error(errorCallBack, dataMap['msg'].toString());
@@ -100,7 +87,7 @@ class DioManager {
     }
   }
 
-  _error(Function errorCallBack, String error) {
+  _error(Function? errorCallBack, String error) {
     if (errorCallBack != null) {
       errorCallBack(error);
     }
