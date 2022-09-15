@@ -1,3 +1,10 @@
+
+import 'package:json_annotation/json_annotation.dart';
+
+
+part 'OtherUserModel.g.dart';
+
+@JsonSerializable()
 class OtherUser {
   String id;
   String username;
@@ -13,51 +20,22 @@ class OtherUser {
   int createtime;
 
   OtherUser(
-      {this.id,
-        this.username,
-        this.nick,
-        this.headurl,
-        this.decs,
-        this.gender,
-        this.followCount,
-        this.fanCount,
-        this.ismember,
-        this.isvertify,
-        this.relation,
-        this.createtime});
-
-  OtherUser.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    username = json['username'];
-    nick = json['nick'];
-    headurl = json['headurl'];
-    decs = json['decs'];
-    gender = json['gender'];
-    followCount = json['followCount'];
-    fanCount = json['fanCount'];
-    ismember = json['ismember'];
-     isvertify = json['isvertify'];
-    relation = json['relation'];
-    createtime = json['createtime'];
+      {required this.id,
+        required  this.username,
+        required this.nick,
+        required this.headurl,
+        required  this.decs,
+        required this.gender,
+        required this.followCount,
+        required  this.fanCount,
+        required  this.ismember,
+        required this.isvertify,
+        required this.relation,
+        required this.createtime});
 
 
-  }
+  factory OtherUser.fromJson(Map<String, dynamic> json) => _$OtherUserFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['username'] = this.username;
-    data['nick'] = this.nick;
-    data['headurl'] = this.headurl;
-    data['decs'] = this.decs;
-    data['gender'] = this.gender;
-    data['followCount'] = this.followCount;
-    data['fanCount'] = this.fanCount;
-    data['ismember'] = this.ismember;
-    data['isvertify'] = this.isvertify;
-    data['relation'] = this.relation;
-    data['createtime'] = this.createtime;
+  Map<String, dynamic> toJson() => _$OtherUserToJson(this);
 
-    return data;
-  }
 }

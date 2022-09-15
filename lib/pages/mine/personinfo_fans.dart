@@ -7,9 +7,9 @@ class FanPage extends StatefulWidget {
 }
 
 class _FanPageState extends State<FanPage> with SingleTickerProviderStateMixin{
-  TabController mTabcontroller;
+  late TabController mTabcontroller;
   ScrollController mListController = new ScrollController();
-  List mRecommendList;
+  List mRecommendList=[];
 
   @override
   void initState() {

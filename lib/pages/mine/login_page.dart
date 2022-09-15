@@ -2,7 +2,7 @@ import "package:dio/dio.dart";
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hrlweibo/constant/constant.dart';
-import 'package:flutter_hrlweibo/http/service_method.dart';
+import 'package:flutter_hrlweibo/http/dio_manager.dart';
 import 'package:flutter_hrlweibo/public.dart';
 import 'package:flutter_hrlweibo/util/sp_util.dart';
 import 'package:flutter_hrlweibo/util/toast_util.dart';
@@ -116,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
             : () {
                 FormData params = FormData.fromMap(
                     {'username': _inputAccount, 'password': _inputPwd});
-                DioManager.getInstance().post(ServiceUrl.login, params, (data) {
+                DioManager.instance.post(ServiceUrl.login, params, (data) {
                   UserUtil.saveUserInfo(data['data']);
                   ToastUtil.show('登录成功!');
                   Navigator.pop(context);

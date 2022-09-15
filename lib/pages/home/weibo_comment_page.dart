@@ -124,7 +124,7 @@ class _CommentDialogPageState extends State<CommentDialogPage> {
                           "content": _inputController.text.toString(),
                           "weiboId": widget.mWeiBoOrCommentId
                         });
-                        DioManager.getInstance()
+                        DioManager.instance
                             .post(ServiceUrl.addComments, formData, (data) {
                           _inputController.clear();
                           ToastUtil.show('评论成功!');
@@ -139,7 +139,7 @@ class _CommentDialogPageState extends State<CommentDialogPage> {
                           "content": _inputController.text.toString(),
                           "commentid": widget.mWeiBoOrCommentId
                         });
-                        DioManager.getInstance().post(
+                        DioManager.instance.post(
                             ServiceUrl.addCommentsReply, formData, (data) {
                           _inputController.clear();
                           ToastUtil.show('评论成功!');

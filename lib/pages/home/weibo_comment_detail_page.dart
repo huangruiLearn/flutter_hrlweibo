@@ -22,7 +22,7 @@ class _WeiBoCommentDetailPageState extends State<WeiBoCommentDetailPage> {
   List<Comment> mCommentList = [];
   bool isloadingMore = false; //是否显示加载中
   bool ishasMore = true; //是否还有更多
-  num mCurPage = 1;
+  int mCurPage = 1;
   ScrollController _scrollController = new ScrollController();
 
   @override
@@ -64,7 +64,7 @@ class _WeiBoCommentDetailPageState extends State<WeiBoCommentDetailPage> {
       "pageSize": Constant.PAGE_SIZE,
     });
 
-    DioManager.getInstance().post(ServiceUrl.getWeiBoCommentReplyList, formData,
+    DioManager.instance.post(ServiceUrl.getWeiBoCommentReplyList, formData,
         (data) {
       mCommentList.clear();
       mCommentList.addAll(CommentList.fromJson(data['data']).list);
@@ -78,9 +78,9 @@ class _WeiBoCommentDetailPageState extends State<WeiBoCommentDetailPage> {
       "pageNum": page,
       "pageSize": Constant.PAGE_SIZE,
     });
-    await DioManager.getInstance()
+    await DioManager.instance
         .post(ServiceUrl.getWeiBoCommentReplyList, formData, (data) {
-      DioManager.getInstance()
+      DioManager.instance
           .post(ServiceUrl.getWeiBoCommentReplyList, formData, (data) {
         mCommentList.addAll(CommentList.fromJson(data['data']).list);
         isloadingMore = false;

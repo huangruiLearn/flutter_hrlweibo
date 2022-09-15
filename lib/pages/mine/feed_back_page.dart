@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hrlweibo/public.dart';
 import 'package:flutter_hrlweibo/util/toast_util.dart';
 import 'package:path/path.dart';
+import 'package:image_picker/image_picker.dart';
 
 class FeedBackPage extends StatefulWidget {
   @override
@@ -13,15 +14,15 @@ class FeedBackPage extends StatefulWidget {
 
 class _FeedBackPageState extends State<FeedBackPage> {
   TextEditingController _mEtController = new TextEditingController();
-  List<File> mFileList = List();
-  File mSelectedImageFile;
-  List<MultipartFile> mSubmitFileList = List();
+  List<File> mFileList = [];
+  File? mSelectedImageFile;
+  List<MultipartFile> mSubmitFileList = [];
 
   @override
   Widget build(BuildContext context) {
     print('fileList的内容: $mFileList');
     if (mSelectedImageFile != null) {
-      mFileList.add(mSelectedImageFile);
+      mFileList.add(mSelectedImageFile!);
     }
     mSelectedImageFile = null;
 
@@ -175,19 +176,17 @@ class _FeedBackPageState extends State<FeedBackPage> {
                     "description": _mEtController.text,
                     "files": mSubmitFileList
                   });
-                  request(ServiceUrl.feedback, formData: formData).then((val) {
-                    int code = val['status'];
-                    String msg = val['msg'];
-                    if (code == 200) {
-                      ToastUtil.show('提交成功!');
-                      setState(() {
-                        mFileList.clear();
-                        mSubmitFileList.clear();
-                        _mEtController.clear();
-                      });
-                    } else {
-                      ToastUtil.show(msg);
-                    }
+
+                  DioManager.instance.post(ServiceUrl.feedback, formData,
+                      (data) {
+                    ToastUtil.show('提交成功!');
+                    setState(() {
+                      mFileList.clear();
+                      mSubmitFileList.clear();
+                      _mEtController.clear();
+                    });
+                  }, (error) {
+                    ToastUtil.show(error);
                   });
                 },
               )

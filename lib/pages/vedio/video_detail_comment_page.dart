@@ -17,7 +17,7 @@ ScrollController mCommentScrollController = new ScrollController();
 List<Comment> mCommentList = [];
 bool isCommentloadingMore = false; //是否显示加载中
 bool isCommenthasMore = true; //是否还有更多
-num mCommentCurPage = 1;
+int mCommentCurPage = 1;
 
 class _VideoDetailCommentPageState extends State<VideoDetailCommentPage> {
   @override
@@ -123,7 +123,7 @@ class _VideoDetailCommentPageState extends State<VideoDetailCommentPage> {
   Future getCommentDataLoadMore(int page, String weiboId) async {
     FormData formData = FormData.fromMap(
         {"pageNum": page, "pageSize": Constant.PAGE_SIZE, "weiboid": weiboId});
-    DioManager.getInstance().post(ServiceUrl.getWeiBoDetailComment, formData,
+    DioManager.instance.post(ServiceUrl.getWeiBoDetailComment, formData,
         (data) {
       CommentList mComment = CommentList.fromJson(data['data']);
       setState(() {
@@ -171,7 +171,7 @@ Widget mCommentItem(BuildContext context, int index) {
     return buildCommentLoadMore();
   }
 
-  Widget mCommentReplyWidget;
+  Widget? mCommentReplyWidget;
   if (mCommentList[index - 1].commentreplynum == 0) {
   } else if (mCommentList[index - 1].commentreplynum == 1) {
     mCommentReplyWidget = new Container(

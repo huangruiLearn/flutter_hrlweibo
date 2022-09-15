@@ -7,7 +7,7 @@ class FollowPage extends StatefulWidget {
 }
 
 class _FollowPageState extends State<FollowPage> with SingleTickerProviderStateMixin{
-  TabController mTabcontroller;
+  TabController? mTabcontroller;
   ScrollController mListController = new ScrollController();
 
   @override

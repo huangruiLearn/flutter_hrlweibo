@@ -10,7 +10,7 @@ class EmojiText extends SpecialText {
   final bool showAtBackground;
 
   EmojiText(TextStyle textStyle, SpecialTextGestureTapCallback onTap,
-      {this.showAtBackground = false, this.start})
+      {this.showAtBackground = false,required this.start})
       : super(flag, ']', textStyle, onTap: onTap);
 
   @override
@@ -39,7 +39,7 @@ class EmojiText extends SpecialText {
             style: textStyle,
             recognizer: (TapGestureRecognizer()
               ..onTap = () {
-                if (onTap != null) onTap(str);
+                if (onTap != null) onTap!(str);
               }))
         : SpecialTextSpan(
         text:  String.fromCharCode(mEmojiNew),
@@ -48,7 +48,7 @@ class EmojiText extends SpecialText {
             style: textStyle,
             recognizer: (TapGestureRecognizer()
               ..onTap = () {
-                if (onTap != null) onTap(str);
+                if (onTap != null) onTap!(str);
               }));
   }
 }

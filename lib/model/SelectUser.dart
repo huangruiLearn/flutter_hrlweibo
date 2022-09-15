@@ -1,25 +1,25 @@
 import 'package:azlistview/azlistview.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+
+part 'SelectUser.g.dart';
+
+@JsonSerializable()
 class SelectUser extends ISuspensionBean {
   String name;
   String tagIndex;
   String namePinyin;
 
   SelectUser({
-    this.name,
-    this.tagIndex,
-    this.namePinyin,
+    required this.name,
+    required this.tagIndex,
+    required  this.namePinyin,
   });
 
-  SelectUser.fromJson(Map<String, dynamic> json)
-      : name = json['name'] == null ? "" : json['name'];
+  factory SelectUser.fromJson(Map<String, dynamic> json) => _$SelectUserFromJson(json);
 
-  Map<String, dynamic> toJson() => {
-    'name': name,
-    'tagIndex': tagIndex,
-    'namePinyin': namePinyin,
-    'isShowSuspension': isShowSuspension
-  };
+  Map<String, dynamic> toJson() => _$SelectUserToJson(this);
+
 
   @override
   String getSuspensionTag() => tagIndex;

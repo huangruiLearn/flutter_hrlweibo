@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 
 class VoiceAnimationImage extends StatefulWidget {
   final List<String> _assetList;
-  final double width;
-  final double height;
-  int interval = 200;
-  bool isStop = true;
+  final double? width;
+  final double? height;
+  int   interval = 200;
+  bool  isStop = true;
   var callStart;
-  VoiceAnimationImageState voiceAnimationImageState;
+  late VoiceAnimationImageState voiceAnimationImageState;
 
   VoiceAnimationImage(this._assetList,
-      {this.width, this.height, this.isStop, this.interval});
+      {this.width, this.height, this.isStop=true, this.interval=200});
 
   @override
   State<StatefulWidget> createState() {
@@ -32,8 +32,8 @@ class VoiceAnimationImage extends StatefulWidget {
 class VoiceAnimationImageState extends State<VoiceAnimationImage>
     with SingleTickerProviderStateMixin {
   // 动画控制
-  Animation<double> _animation;
-  AnimationController _controller;
+  late Animation<double> _animation;
+  late AnimationController _controller;
   int interval = 300;
 
   @override

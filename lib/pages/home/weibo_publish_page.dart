@@ -8,17 +8,18 @@ import 'package:flutter_hrlweibo/widget/extend_textfield/my_special_text_span_bu
 import 'package:flutter_hrlweibo/widget/messgae/emoji_widget.dart';
 import 'package:keyboard_visibility/keyboard_visibility.dart';
 import 'package:path/path.dart' as path;
+import 'package:image_picker/image_picker.dart';
 
 //发布微博界面
 class WeiBoPublishPage extends StatefulWidget {
-  WeiBoPublishPage({Key key}) : super(key: key);
+  WeiBoPublishPage({Key? key}) : super(key: key);
 
   @override
   _WeiBoPublishPageState createState() => _WeiBoPublishPageState();
 }
 
 class _WeiBoPublishPageState extends State<WeiBoPublishPage> {
-  _WeiBoPublishPageState({Key key});
+  _WeiBoPublishPageState({Key? key});
 
   TextEditingController _mEtController = new TextEditingController();
   String mWeiBoSubmitText = "";
@@ -31,9 +32,9 @@ class _WeiBoPublishPageState extends State<WeiBoPublishPage> {
   double _softKeyHeight = SpUtil.getDouble(Constant.SP_KEYBOARD_HEGIHT, 200);
   KeyboardVisibilityNotification _keyboardVisibility =
       new KeyboardVisibilityNotification();
-  List<File> mFileList = List();
-  File mSelectedImageFile;
-  List<MultipartFile> mSubmitFileList = List();
+  List<File?> mFileList =[];
+  File? mSelectedImageFile;
+  List<MultipartFile> mSubmitFileList =[];
 
   MySpecialTextSpanBuilder _mySpecialTextSpanBuilder =
       MySpecialTextSpanBuilder();
@@ -107,6 +108,7 @@ class _WeiBoPublishPageState extends State<WeiBoPublishPage> {
         } else {
           Navigator.pop(context);
         }
+        return Future(() => true);
       },
     ));
   }
@@ -136,7 +138,7 @@ class _WeiBoPublishPageState extends State<WeiBoPublishPage> {
                 children: <Widget>[
                   Text('发微博',
                       style: TextStyle(fontSize: 16, color: Colors.black)),
-                  Text(UserUtil.getUserInfo().nick,
+                  Text(UserUtil.getUserInfo().nick??"null",
                       style: TextStyle(fontSize: 12, color: Colors.grey))
                 ],
               ),
@@ -153,14 +155,14 @@ class _WeiBoPublishPageState extends State<WeiBoPublishPage> {
                   mSubmitFileList.clear();
                   for (int i = 0; i < mFileList.length; i++) {
                     mSubmitFileList.add(MultipartFile.fromFileSync(
-                        mFileList.elementAt(i).path));
+                        mFileList.elementAt(i)?.path??""));
                   }
                   FormData formData = FormData.fromMap({
                     "userId": "1",
                     "content": _mEtController.text,
                     "files": mSubmitFileList
                   });
-                  DioManager.getInstance()
+                  DioManager.instance
                       .post(ServiceUrl.publishWeiBo, formData, (data) {
                     ToastUtil.show('提交成功!');
                     setState(() {
@@ -270,7 +272,7 @@ class _WeiBoPublishPageState extends State<WeiBoPublishPage> {
                   children: <Widget>[
                     Center(
                       child: Image.file(
-                        mFileList[index],
+                        mFileList[index]!,
                         width: double.infinity,
                         height: double.infinity,
                         fit: BoxFit.cover,
@@ -319,9 +321,9 @@ class _WeiBoPublishPageState extends State<WeiBoPublishPage> {
   void _getWH() {
     if (globalKey == null) return;
     if (globalKey.currentContext == null) return;
-    if (globalKey.currentContext.size == null) return;
-    final containerWidth = globalKey.currentContext.size.width;
-    final containerHeight = globalKey.currentContext.size.height;
+    if (globalKey.currentContext!.size == null) return;
+    final containerWidth = globalKey.currentContext!.size!.width;
+    final containerHeight = globalKey.currentContext!.size!.height;
     print('Container widht is $containerWidth, height is $containerHeight');
   }
 

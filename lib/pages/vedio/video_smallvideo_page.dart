@@ -19,16 +19,16 @@ class _VideoSmallVideoPageState extends State<VideoSmallVideoPage> {
 
   VideoSmallVideoPageState() {}
 
-  Future getVideoList(bool isRefresh) {
+  Future? getVideoList(bool isRefresh) {
     if (isRefresh) {
       isloadingMore = false;
       ishasMore = true;
       mCurPage = 1;
       FormData params =
           FormData.fromMap({'pageNum': "$mCurPage", 'pageSize': "10"});
-      DioManager.getInstance().post(ServiceUrl.getVideoSmallList, params,
+      DioManager.instance.post(ServiceUrl.getVideoSmallList, params,
           (data) {
-        List<VideoModel> list = List();
+        List<VideoModel> list =[];
         data['data']['list'].forEach((data) {
           list.add(VideoModel.fromJson(data));
         });
@@ -39,9 +39,9 @@ class _VideoSmallVideoPageState extends State<VideoSmallVideoPage> {
     } else {
       FormData params =
           FormData.fromMap({'pageNum': "$mCurPage", 'pageSize': "10"});
-      DioManager.getInstance().post(ServiceUrl.getVideoSmallList, params,
+      DioManager.instance.post(ServiceUrl.getVideoSmallList, params,
           (data) {
-        List<VideoModel> list = List();
+        List<VideoModel> list =[];
         data['data']['list'].forEach((data) {
           list.add(VideoModel.fromJson(data));
         });

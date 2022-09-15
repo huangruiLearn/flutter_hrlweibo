@@ -6,8 +6,7 @@ import 'package:flutter_hrlweibo/model/MsgComZanModel.dart';
 import 'package:flutter_hrlweibo/util/date_util.dart';
 import 'package:flutter_hrlweibo/widget/weibo/match_text.dart';
 import 'package:flutter_hrlweibo/widget/weibo/parsed_text.dart';
-
-import '../../http/service_method.dart';
+import 'package:flutter_hrlweibo/public.dart';
 
 class MsgCommentPage extends StatefulWidget {
   @override
@@ -17,7 +16,7 @@ class MsgCommentPage extends StatefulWidget {
 class _MsgCommentPageState extends State<MsgCommentPage> {
   bool isloadingMore = false; //是否显示加载中
   bool ishasMore = true; //是否还有更多
-  num mCurPage = 1;
+  int mCurPage = 1;
   ScrollController _scrollController = new ScrollController();
   List<ComZanModel> mZanList = [];
 
@@ -29,7 +28,7 @@ class _MsgCommentPageState extends State<MsgCommentPage> {
       "pageNum": "1",
       "pageSize": Constant.PAGE_SIZE,
     });
-    DioManager.getInstance().post(ServiceUrl.getMsgCommentList, formData,
+    DioManager.instance.post(ServiceUrl.getMsgCommentList, formData,
         (data) {
       ComZanListModel mList = ComZanListModel.fromJson(data['data']);
       mZanList.clear();
@@ -45,7 +44,7 @@ class _MsgCommentPageState extends State<MsgCommentPage> {
       "pageNum": page,
       "pageSize": Constant.PAGE_SIZE,
     });
-    await DioManager.getInstance().post(ServiceUrl.getMsgCommentList, formData,
+    await DioManager.instance.post(ServiceUrl.getMsgCommentList, formData,
         (data) {
       ComZanListModel mList = ComZanListModel.fromJson(data['data']);
       mZanList.addAll(mList.list);
@@ -223,17 +222,17 @@ class _MsgCommentPageState extends State<MsgCommentPage> {
                                   color: Colors.grey,
                                   fontSize: 13,
                                 ),
-                                renderText: ({String str, String pattern}) {
+                                renderText: ({String? str, String? pattern}) {
                                   Map<String, String> map =
                                       Map<String, String>();
-                                  RegExp customRegExp = RegExp(pattern);
-                                  Match match = customRegExp.firstMatch(str);
-                                  map['display'] = match.group(1);
-                                  map['value'] = match.group(2);
+                                  RegExp customRegExp = RegExp(pattern!);
+                                  Match match = customRegExp.firstMatch(str!)!;
+                                  map['display'] = match.group(1)!;
+                                  map['value'] = match.group(2)!;
                                   print("正则:" +
-                                      match.group(1) +
+                                      match.group(1)! +
                                       "---" +
-                                      match.group(2));
+                                      match.group(2)!);
                                   return map;
                                 },
                                 onTap: (url) {
@@ -263,11 +262,11 @@ class _MsgCommentPageState extends State<MsgCommentPage> {
                                   color: Colors.grey,
                                   fontSize: 13,
                                 ),
-                                renderText: ({String str, String pattern}) {
+                                renderText: ({String? str, String? pattern}) {
                                   Map<String, String> map =
                                       Map<String, String>();
 
-                                  String idStr = str.substring(
+                                  String idStr = str!.substring(
                                       str.indexOf(":") + 1,
                                       str.lastIndexOf("#"));
                                   String showStr = str
@@ -306,12 +305,12 @@ class _MsgCommentPageState extends State<MsgCommentPage> {
                               style: TextStyle(
                                 fontSize: 13,
                               ),
-                              renderText: ({String str, String pattern}) {
+                              renderText: ({String? str, String? pattern}) {
                                 Map<String, String> map = Map<String, String>();
-                                print("表情的正则:" + str);
+                                print("表情的正则:" + str!);
                                 String mEmoji2 = "";
                                 try {
-                                  String mEmoji = str.replaceAll(
+                                  String mEmoji = str!.replaceAll(
                                       RegExp('(\\[/)|(\\])'), "");
                                   int mEmojiNew = int.parse(mEmoji);
                                   mEmoji2 = String.fromCharCode(mEmojiNew);
@@ -331,7 +330,7 @@ class _MsgCommentPageState extends State<MsgCommentPage> {
                                   color: Color(0xff5B778D),
                                   fontSize: 15,
                                 ),
-                                renderText: ({String str, String pattern}) {
+                                renderText: ({String? str, String? pattern}) {
                                   Map<String, String> map =
                                       Map<String, String>();
                                   map['display'] = '全文';

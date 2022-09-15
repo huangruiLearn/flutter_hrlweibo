@@ -67,19 +67,19 @@ class LikeButton extends StatefulWidget {
   final CountPostion countPostion;
 
   /// padding of like button
-  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry? padding;
 
   ///return count widget with decoration
-  final CountDecoration countDecoration;
+  final CountDecoration? countDecoration;
 
   const LikeButton(
-      {Key key,
+      {  Key? key,
         this.size: 30.0,
-        this.likeBuilder,
-        this.countBuilder,
-        double bubblesSize,
-        double circleSize,
-        this.likeCount,
+        required this.likeBuilder,
+        required this.countBuilder,
+        double? bubblesSize,
+        double? circleSize,
+        required  this.likeCount,
         this.isLiked: false,
         this.mainAxisAlignment: MainAxisAlignment.center,
         this.crossAxisAlignment: CrossAxisAlignment.center,
@@ -95,10 +95,10 @@ class LikeButton extends StatefulWidget {
         ),
         this.circleColor = const CircleColor(
             start: const Color(0xFFFF5722), end: const Color(0xFFFFC107)),
-        this.onTap,
+        required this.onTap,
         this.countPostion: CountPostion.right,
-        this.padding,
-        this.countDecoration})
+          this.padding,
+          this.countDecoration})
       : assert(size != null),
         assert(animationDuration != null),
         assert(circleColor != null),
@@ -115,19 +115,19 @@ class LikeButton extends StatefulWidget {
 }
 
 class _LikeButtonState extends State<LikeButton> with TickerProviderStateMixin {
-  AnimationController _controller;
-  Animation<double> _outerCircleAnimation;
-  Animation<double> _innerCircleAnimation;
-  Animation<double> _scaleAnimation;
-  Animation<double> _bubblesAnimation;
-  Animation<Offset> _slidePreValueAnimation;
-  Animation<Offset> _slideCurrentValueAnimation;
-  AnimationController _likeCountController;
-  Animation<double> _opacityAnimation;
+  late AnimationController _controller;
+  late  Animation<double> _outerCircleAnimation;
+  late  Animation<double> _innerCircleAnimation;
+  late  Animation<double> _scaleAnimation;
+  late  Animation<double> _bubblesAnimation;
+  late Animation<Offset> _slidePreValueAnimation;
+  late  Animation<Offset> _slideCurrentValueAnimation;
+  late  AnimationController _likeCountController;
+  late Animation<double> _opacityAnimation;
 
   bool _isLiked = false;
-  int _likeCount;
-  int _preLikeCount;
+  int _likeCount=0;
+  int _preLikeCount=0;
   @override
   void initState() {
     super.initState();
@@ -171,7 +171,7 @@ class _LikeButtonState extends State<LikeButton> with TickerProviderStateMixin {
     Widget likeCountWidget = _getLikeCountWidget();
     if (widget.countDecoration != null) {
       likeCountWidget =
-          widget.countDecoration(likeCountWidget) ?? likeCountWidget;
+          widget.countDecoration!(likeCountWidget) ?? likeCountWidget;
     }
     if (widget.likeCountPadding != null) {
       likeCountWidget = Padding(
@@ -196,10 +196,10 @@ class _LikeButtonState extends State<LikeButton> with TickerProviderStateMixin {
                   size: Size(widget.bubblesSize, widget.bubblesSize),
                   painter: BubblesPainter(
                     currentProgress: _bubblesAnimation.value,
-                    color1: widget.bubblesColor.dotPrimaryColor,
-                    color2: widget.bubblesColor.dotSecondaryColor,
-                    color3: widget.bubblesColor.dotThirdColorReal,
-                    color4: widget.bubblesColor.dotLastColorReal,
+                    color1: widget.bubblesColor.dotPrimaryColor??Colors.red,
+                    color2: widget.bubblesColor.dotSecondaryColor??Colors.red,
+                    color3: widget.bubblesColor.dotThirdColorReal??Colors.red,
+                    color4: widget.bubblesColor.dotLastColorReal??Colors.red,
                   ),
                 ),
               ),
@@ -256,7 +256,7 @@ class _LikeButtonState extends State<LikeButton> with TickerProviderStateMixin {
 
     if (widget.padding != null) {
       result = Padding(
-        padding: widget.padding,
+        padding: widget.padding as EdgeInsetsGeometry,
         child: result,
       );
     }
@@ -385,11 +385,11 @@ class _LikeButtonState extends State<LikeButton> with TickerProviderStateMixin {
   void _onTap() {
     if (_controller.isAnimating || _likeCountController.isAnimating) return;
     if (widget.onTap != null) {
-      widget.onTap((_isLiked ?? true)).then((isLiked) {
+      widget.onTap((_isLiked  )).then((isLiked) {
         _handleIsLikeChanged(isLiked);
       });
     } else {
-      _handleIsLikeChanged(!(_isLiked ?? true));
+      _handleIsLikeChanged(!(_isLiked  ));
     }
   }
 

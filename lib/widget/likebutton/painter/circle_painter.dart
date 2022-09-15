@@ -15,8 +15,8 @@ class CirclePainter extends CustomPainter {
   final CircleColor circleColor;
 
   CirclePainter(
-      {@required this.outerCircleRadiusProgress,
-      @required this.innerCircleRadiusProgress,
+      { required this.outerCircleRadiusProgress,
+       required this.innerCircleRadiusProgress,
       this.circleColor = const CircleColor(
           start: const Color(0xFFFF5722), end: const Color(0xFFFFC107))}) {
     //circlePaint..style = PaintingStyle.fill;
@@ -48,13 +48,13 @@ class CirclePainter extends CustomPainter {
     double colorProgress = clamp(outerCircleRadiusProgress, 0.5, 1.0);
     colorProgress = mapValueFromRangeToRange(colorProgress, 0.5, 1.0, 0.0, 1.0);
     circlePaint
-      ..color = Color.lerp(circleColor.start, circleColor.end, colorProgress);
+      ..color = Color.lerp(circleColor.start, circleColor.end, colorProgress)??Colors.white;
   }
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
     if (oldDelegate.runtimeType != this.runtimeType) return true;
-    final CirclePainter old = oldDelegate;
+    final CirclePainter old = oldDelegate as CirclePainter;
 
     return old.outerCircleRadiusProgress != old.outerCircleRadiusProgress ||
         old.innerCircleRadiusProgress != old.innerCircleRadiusProgress ||

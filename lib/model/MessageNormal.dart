@@ -1,22 +1,23 @@
 class HrlMessage {
-  String uuid;
-  HrlMessageState state;
-  bool isSend;
-  HrlUserInfo from;
-  HrlUserInfo target;
-  int createTime; // 发送消息时间
-  HrlMessageType msgType;
+  String?  uuid;
+  HrlMessageState? state;
+  bool?  isSend;
+  HrlUserInfo? from;
+  HrlUserInfo? target;
+  int? createTime; // 发送消息时间
+  HrlMessageType? msgType;
 
-  HrlMessage({this.uuid, this.state, this.isSend, this.from, this.target, this.createTime, this.msgType});
+  HrlMessage({   this.uuid,  this.state,   this.isSend,   this.from,
+      this.target,   this.createTime,   this.msgType});
 
 
   Map toJson() {
     return {
       'uuid': uuid,
       'isSend': isSend,
-      'from': from.toJson(),
+      'from': from?.toJson(),
       'createTime': createTime,
-      'target': target.toJson(),
+      'target': target?.toJson(),
       'type': msgType.toString()
     };
   }
@@ -81,10 +82,10 @@ class HrlUserInfo {
 }
 
 class HrlImageMessage extends HrlMessage {
-  String thumbPath;
-  String thumbUrl;
+  String? thumbPath;
+  String? thumbUrl;
 
-  HrlImageMessage({this.thumbPath,this.thumbUrl });
+  HrlImageMessage({  this.thumbPath,  this.thumbUrl });
   Map toJson() {
     var json = super.toJson();
     json['thumbPath'] = thumbPath;
@@ -93,17 +94,17 @@ class HrlImageMessage extends HrlMessage {
     return json;
   }
 
-  HrlImageMessage.fromJson(Map<dynamic, dynamic> json)
+  HrlImageMessage.fromJson(  Map<dynamic, dynamic> json)
       : thumbPath = json['thumbPath'],
 
   super.fromJson(json);
 }
 
 class HrlTextMessage extends HrlMessage {
-     String text;
+     String? text;
 
 
-  HrlTextMessage({this.text });
+  HrlTextMessage({  this.text });
 
 
 
@@ -119,14 +120,14 @@ class HrlTextMessage extends HrlMessage {
 }
 
 class HrlVoiceMessage extends HrlMessage {
-  String path; // 语音文件路径,如果为空需要调用相应下载方法，注意这是本地路径，不能是 url
-  String remoteUrl;
+  String? path; // 语音文件路径,如果为空需要调用相应下载方法，注意这是本地路径，不能是 url
+  String? remoteUrl;
 
-  int duration; // 语音时长，单位秒
+  int? duration; // 语音时长，单位秒
 
 
+  HrlVoiceMessage();
 
-  HrlVoiceMessage( );
 
   Map toJson() {
     var json = super.toJson();
@@ -147,12 +148,12 @@ class HrlVoiceMessage extends HrlMessage {
 
 T getEnumFromString<T>(Iterable<T> values, String str) {
   return values.firstWhere((f) => f.toString().split('.').last == str,
-      orElse: () => null);
+    );
 }
 
 String getStringFromEnum<T>(T) {
   if (T == null) {
-    return null;
+    return "";
   }
   return T.toString().split('.').last;
 }

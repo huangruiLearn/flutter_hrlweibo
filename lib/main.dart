@@ -12,8 +12,7 @@ Future<void> main() async {
       statusBarIconBrightness: Brightness.light,
       statusBarBrightness: Brightness.light));
   Routes.configureRoutes(Routes.router);
-  await SpUtil.getInstance();
-}
+ }
 
 class MyApp extends StatelessWidget {
   @override

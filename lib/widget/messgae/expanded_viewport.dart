@@ -18,13 +18,13 @@ import 'dart:math' as math;
 
 class ExpandedViewport extends Viewport {
   ExpandedViewport({
-    Key key,
+    Key? key,
     AxisDirection axisDirection = AxisDirection.down,
-    AxisDirection crossAxisDirection,
+    AxisDirection? crossAxisDirection,
     double anchor = 0.0,
-    ScrollPosition offset,
-    Key center,
-    double cacheExtent,
+    ScrollPosition? offset,
+    Key? center,
+    double? cacheExtent,
     List<Widget> slivers = const <Widget>[],
   }) : super(
             key: key,
@@ -32,7 +32,7 @@ class ExpandedViewport extends Viewport {
             axisDirection: axisDirection,
             crossAxisDirection: crossAxisDirection,
             anchor: anchor,
-            offset: offset,
+            offset: offset!,
             center: center,
             cacheExtent: cacheExtent);
 
@@ -53,12 +53,12 @@ class ExpandedViewport extends Viewport {
 class _RenderExpandedViewport extends RenderViewport {
   _RenderExpandedViewport({
     AxisDirection axisDirection = AxisDirection.down,
-    @required AxisDirection crossAxisDirection,
-    @required ViewportOffset offset,
+     required AxisDirection crossAxisDirection,
+     required ViewportOffset offset,
     double anchor = 0.0,
-    List<RenderSliver> children,
-    RenderSliver center,
-    double cacheExtent,
+     List<RenderSliver>? children,
+    RenderSliver? center,
+    double? cacheExtent,
   }) : super(
             axisDirection: axisDirection,
             crossAxisDirection: crossAxisDirection,
@@ -72,12 +72,12 @@ class _RenderExpandedViewport extends RenderViewport {
   void performLayout() {
     // TODO: implement performLayout
     super.performLayout();
-    RenderSliver expand;
-    RenderSliver p = firstChild;
+    RenderSliver? expand;
+    RenderSliver? p = firstChild;
     double totalLayoutExtent = 0;
     double BehindExtent = 0.0, FrontExtent = 0.0;
     while (p != null) {
-      totalLayoutExtent += p.geometry.scrollExtent;
+      totalLayoutExtent += p.geometry!.scrollExtent;
       if (p is _RenderExpanded) {
         expand = p;
         FrontExtent = totalLayoutExtent;
@@ -111,14 +111,14 @@ class _RenderExpandedViewport extends RenderViewport {
 
     final double forwardDirectionRemainingPaintExtent =
         (mainAxisExtent - centerOffset).clamp(0.0, mainAxisExtent);
-    final double fullCacheExtent = mainAxisExtent + 2 * cacheExtent;
-    final double centerCacheOffset = centerOffset + cacheExtent;
+    final double fullCacheExtent = mainAxisExtent + 2 * cacheExtent!;
+    final double centerCacheOffset = centerOffset + cacheExtent!;
     final double reverseDirectionRemainingCacheExtent =
         centerCacheOffset.clamp(0.0, fullCacheExtent);
     final double forwardDirectionRemainingCacheExtent =
         (fullCacheExtent - centerCacheOffset).clamp(0.0, fullCacheExtent);
 
-    final RenderSliver leadingNegativeChild = childBefore(center);
+    final RenderSliver leadingNegativeChild = childBefore(center! )!;
     // positive scroll offsets
     return layoutChildSequence(
       child: expandPosition,
@@ -134,7 +134,7 @@ class _RenderExpandedViewport extends RenderViewport {
       growthDirection: GrowthDirection.forward,
       advance: childAfter,
       remainingCacheExtent: forwardDirectionRemainingCacheExtent,
-      cacheOrigin: centerOffset.clamp(-cacheExtent, 0.0),
+      cacheOrigin: centerOffset.clamp(-cacheExtent!, 0.0),
     );
   }
 }

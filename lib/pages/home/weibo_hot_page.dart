@@ -9,7 +9,7 @@ class WeiBoHotPage extends StatefulWidget  {
 
 class _WeiBoHotPageState extends State<WeiBoHotPage> with SingleTickerProviderStateMixin{
   final List<String> _tabValues = ['推荐', '附近', '榜单', '明星', '搞笑', '社会', '测试'];
-  TabController _controller;
+  late TabController _controller;
 
   @override
   void initState() {

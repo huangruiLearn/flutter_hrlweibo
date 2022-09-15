@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 
 class AtText extends SpecialText {
   static const String flag = '[@';
-  final int start;
+   int start=0;
 
   /// whether show background for @somebody
   final bool showAtBackground;
 
   AtText(TextStyle textStyle, SpecialTextGestureTapCallback onTap,
-      {this.showAtBackground = false, this.start})
+      {this.showAtBackground = false, this.start=0})
       : super(flag, ']', textStyle, onTap: onTap);
 
   @override
@@ -19,18 +19,17 @@ class AtText extends SpecialText {
         this.textStyle?.copyWith(color: Colors.blue, fontSize: 16.0);
 
     final atText = toString();
-    Pattern  pattern= r"\[(@[^:]+):([^\]]+)\]";
 
     Map<String, String> map = Map<String, String>();
-    RegExp customRegExp = RegExp(pattern);
-    Match match = customRegExp.firstMatch(atText);
+    RegExp customRegExp = RegExp(r"\[(@[^:]+):([^\]]+)\]");
+    RegExpMatch? match = customRegExp.firstMatch(atText);
 
 
 
     return showAtBackground
         ? BackgroundTextSpan(
             background: Paint()..color = Colors.blue.withOpacity(0.15),
-            text:  match.group(1),
+            text: match?.group(1)??'',
             actualText:atText,
             start: start,
 
@@ -39,16 +38,16 @@ class AtText extends SpecialText {
             style: textStyle,
             recognizer: (TapGestureRecognizer()
               ..onTap = () {
-                if (onTap != null) onTap(atText);
+                if (onTap != null) onTap!(atText);
               }))
         : SpecialTextSpan(
-        text:   match.group(1),
+        text:   match?.group(1)??'',
         actualText:atText,
             start: start,
             style: textStyle,
             recognizer: (TapGestureRecognizer()
               ..onTap = () {
-                if (onTap != null) onTap(atText);
+                if (onTap != null) onTap!(atText);
               }));
   }
 }

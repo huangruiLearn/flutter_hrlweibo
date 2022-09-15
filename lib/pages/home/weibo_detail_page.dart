@@ -21,7 +21,7 @@ import 'weibo_comment_page.dart';
 class WeiBoDetailPage extends StatefulWidget {
   final WeiBoModel mModel;
 
-  WeiBoDetailPage({Key key, this.mModel}) : super(key: key);
+  WeiBoDetailPage({   Key? key,required this.mModel}) : super(key: key);
 
   @override
   _WeiBoDetailState createState() => _WeiBoDetailState(mWeiboTopData: mModel);
@@ -32,19 +32,19 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> with SingleTickerProvider
     '转发',
     '评论',
   ];
-  TabController _controller;
+  TabController? _controller;
   WeiBoModel mWeiboTopData;
   ScrollController mCommentScrollController = new ScrollController();
   List<Comment> mCommentList = [];
   List<Forward> mForwardList = [];
   bool isCommentloadingMore = false; //是否显示加载中
   bool isCommenthasMore = true; //是否还有更多
-  num mCommentCurPage = 1;
+  int mCommentCurPage = 1;
   bool isForwardloadingMore = false; //是否显示加载中
   bool isForwarhasMore = true; //是否还有更多
-  num mForwardCurPage = 1;
+  int mForwardCurPage = 1;
 
-  _WeiBoDetailState({Key key, this.mWeiboTopData});
+  _WeiBoDetailState({required this.mWeiboTopData});
 
   @override
   void initState() {
@@ -60,7 +60,7 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> with SingleTickerProvider
     FormData params = FormData.fromMap({
       'weiboid': mWeiboTopData.weiboId,
     });
-    DioManager.getInstance().post(ServiceUrl.getWeiBoDetail, params, (data) {
+    DioManager.instance.post(ServiceUrl.getWeiBoDetail, params, (data) {
       mForwardList.clear();
       mForwardList.addAll(WeiBoDetail.fromJson(data['data']).forward);
       mCommentList.clear();
@@ -78,7 +78,7 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> with SingleTickerProvider
   Future getCommentDataLoadMore(int page, String weiboId) async {
     FormData formData = FormData.fromMap(
         {"pageNum": page, "pageSize": Constant.PAGE_SIZE, "weiboid": weiboId});
-    DioManager.getInstance().post(ServiceUrl.getWeiBoDetailComment, formData,
+    DioManager.instance.post(ServiceUrl.getWeiBoDetailComment, formData,
         (data) {
       CommentList mComment = CommentList.fromJson(data['data']);
       setState(() {
@@ -97,7 +97,7 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> with SingleTickerProvider
   Future getForwardDataLoadMore(int page, String weiboId) async {
     FormData formData = FormData.fromMap(
         {"pageNum": page, "pageSize": Constant.PAGE_SIZE, "weiboid": weiboId});
-    DioManager.getInstance().post(ServiceUrl.getWeiBoDetailForward, formData,
+    DioManager.instance.post(ServiceUrl.getWeiBoDetailForward, formData,
         (data) {
       ForwardList mComment = ForwardList.fromJson(data['data']);
       setState(() {
@@ -122,7 +122,7 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> with SingleTickerProvider
       "userId": UserUtil.getUserInfo().id,
       "status": weiboItem.zanStatus == 0 ? 1 : 0, //1点赞,0取消点赞
     });
-    DioManager.getInstance().post(ServiceUrl.zanWeiBo, formData, (data) {
+    DioManager.instance.post(ServiceUrl.zanWeiBo, formData, (data) {
       if (weiboItem.zanStatus == 0) {
         //点赞成功
         weiboItem.zanStatus = 1;
@@ -148,7 +148,7 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> with SingleTickerProvider
   //当整个页面dispose时，记得把控制器也dispose掉，释放内存
   @override
   void dispose() {
-    _controller.dispose();
+    _controller?.dispose();
     super.dispose();
   }
 
@@ -525,7 +525,7 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> with SingleTickerProvider
       return buildCommentLoadMore();
     }
 
-    Widget mCommentReplyWidget;
+    Widget? mCommentReplyWidget;
     if (mCommentList[index - 1].commentreplynum == 0) {
     } else if (mCommentList[index - 1].commentreplynum == 1) {
       mCommentReplyWidget = new Container(
@@ -1040,9 +1040,9 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> with SingleTickerProvider
 
 class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   _SliverAppBarDelegate({
-    @required this.minHeight,
-    @required this.maxHeight,
-    @required this.child,
+     required this.minHeight,
+    required this.maxHeight,
+     required this.child,
   });
 
   final double minHeight;

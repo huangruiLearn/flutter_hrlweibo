@@ -12,10 +12,10 @@ typedef void OnEmojiClick(int text);
 
 class EmojiWidget extends StatefulWidget {
 
-  final OnEmojiClick onEmojiClockBack;
+  final OnEmojiClick? onEmojiClockBack;
 
   const EmojiWidget({
-    Key key,
+    Key? key,
     this.onEmojiClockBack,
   }) : super(key: key);
 
@@ -26,7 +26,7 @@ class EmojiWidget extends StatefulWidget {
 
 class _EmojiWidgetState extends State<EmojiWidget> {
 
-  Widget getEveryPage(int index) {
+  Widget? getEveryPage(int index) {
     switch(index){
       case 0:
          return getWrapByPage(EmojiUtil.emojiPage1);
@@ -37,12 +37,13 @@ class _EmojiWidgetState extends State<EmojiWidget> {
       case 2:
          return getWrapByPage(EmojiUtil.emojiPage3);
          break;
+
     }
    }
 
 
   Widget getWrapByPage(Map<int, int> emojiPage) {
-    List<Widget> emojis = new List();
+    List<Widget> emojis = [];
     emojiPage.forEach((key, value) {
       print('key: $key, value:$value');
       Widget item = getItem(key, value);
@@ -112,7 +113,7 @@ class _EmojiWidgetState extends State<EmojiWidget> {
               itemCount: 3,
               controller: _pageController,
               itemBuilder: (BuildContext context,int index){
-                return   getEveryPage(index);
+                return   getEveryPage(index)??Text('null');
               },
 
             ),

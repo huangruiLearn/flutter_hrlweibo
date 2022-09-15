@@ -18,7 +18,7 @@ class ParsedText extends StatelessWidget {
   /// Text that is rendered
   ///
   /// Takes a [String]
-  final String text;
+  final String? text;
 
   /// A text alignment property used to align the the text enclosed
   ///
@@ -28,7 +28,7 @@ class ParsedText extends StatelessWidget {
   /// A text alignment property used to align the the text enclosed
   ///
   /// Uses a [TextDirection] object and default value is [TextDirection.start]
-  final TextDirection textDirection;
+  final TextDirection? textDirection;
 
   /// Whether the text should break at soft line breaks.
   ///
@@ -50,10 +50,10 @@ class ParsedText extends StatelessWidget {
   ///
   /// If this is 1, text will not wrap. Otherwise, text will be wrapped at the
   /// edge of the box.
-  final int maxLines;
+  final int? maxLines;
 
   /// {@macro flutter.painting.textPainter.strutStyle}
-  final StrutStyle strutStyle;
+  final StrutStyle? strutStyle;
 
   /// {@macro flutter.widgets.text.DefaultTextStyle.textWidthBasis}
   final TextWidthBasis textWidthBasis;
@@ -63,7 +63,7 @@ class ParsedText extends StatelessWidget {
   /// SelectableText does not support softwrap, overflow, textScaleFactor
   final bool selectable;
 
-  final GestureTapCallback onTap;
+  final GestureTapCallback? onTap;
 
   /// Creates a parsedText widget
   ///
@@ -71,32 +71,32 @@ class ParsedText extends StatelessWidget {
   /// If the [style] argument is null, the text will use the style from the
   /// closest enclosing [DefaultTextStyle].
   ParsedText({
-    Key key,
-    @required this.text,
+      Key? key,
+      this.text,
     this.parse = const <MatchText>[],
-    this.style,
+    required this.style,
     this.alignment = TextAlign.start,
-    this.textDirection,
+      this.textDirection,
     this.softWrap = true,
     this.overflow = TextOverflow.clip,
     this.textScaleFactor = 1.0,
-    this.strutStyle,
+      this.strutStyle,
     this.textWidthBasis = TextWidthBasis.parent,
-    this.maxLines,
-    this.onTap,
+      this.maxLines,
+      this.onTap,
     this.selectable = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // Seperate each word and create a new Array
-    String newString = text;
+    String  newString = text??'';
 
     // Parse the whole text and adds "%%%%" before and after the
     // each matched text this will be used to split the text affectively
     parse.forEach((e) {
-      RegExp regExp = RegExp(e.pattern);
-      newString = newString.splitMapJoin(regExp,
+      RegExp regExp = RegExp(e.pattern.toString());
+      newString = newString  .splitMapJoin(regExp,
           onMatch: (m) => "%%%%${m.group(0)}%%%%", onNonMatch: (m) => "$m");
     });
 
@@ -116,27 +116,27 @@ class ParsedText extends StatelessWidget {
       // loop over to find patterns
       for (final e in parse) {
         if (e.type == ParsedType.CUSTOM) {
-          RegExp customRegExp = RegExp(e.pattern);
+          RegExp customRegExp = RegExp(e.pattern.toString());
 
           bool matched = customRegExp.hasMatch(element);
 
           if (matched) {
             if (e.renderText != null) {
               Map<String, String> result =
-                  e.renderText(str: element, pattern: e.pattern);
+                  e.renderText(str: element, pattern: e.pattern.toString());
 
               widget = TextSpan(
                 style: e.style != null ? e.style : style,
                 text: "${result['display']}",
                 recognizer: TapGestureRecognizer()
-                  ..onTap = () => e.onTap(result['display'], result['value']),
+                  ..onTap = () => e.onTap!(result['display'], result['value']),
               );
             } else {
               widget = TextSpan(
                 style: e.style != null ? e.style : style,
                 text: "$element",
                 recognizer: TapGestureRecognizer()
-                  ..onTap = () => e.onTap(element),
+                  ..onTap = () => e.onTap!(element),
               );
             }
             break;

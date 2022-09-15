@@ -10,7 +10,7 @@ class FanListPage extends StatefulWidget {
 
 class FanListPageState extends State<FanListPage> {
   ScrollController mListController = new ScrollController();
-  List<FanFollowModel> mFanList;
+  List<FanFollowResponse> mFanList=[];
   num curPage = 1;
   bool isloadingMore = false; //是否显示加载中
   bool ishasMore = true; //是否还有更多
@@ -57,10 +57,10 @@ class FanListPageState extends State<FanListPage> {
         'pageNum': "$curPage",
         'pageSize': "10"
       });
-      DioManager.getInstance().post(ServiceUrl.getFanList, params, (data) {
-        List<FanFollowModel> list = List();
+      DioManager.instance.post(ServiceUrl.getFanList, params, (data) {
+        List<FanFollowResponse> list =[];
         data['data']['list'].forEach((data) {
-          list.add(FanFollowModel.fromJson(data));
+          list.add(FanFollowResponse.fromJson(data));
         });
         mFanList = [];
         mFanList = list;
@@ -73,10 +73,10 @@ class FanListPageState extends State<FanListPage> {
         'pageNum': "$curPage",
         'pageSize': "10"
       });
-      DioManager.getInstance().post(ServiceUrl.getFanList, params, (data) {
-        List<FanFollowModel> list = List();
+      DioManager.instance.post(ServiceUrl.getFanList, params, (data) {
+        List<FanFollowResponse> list =[];
         data['data']['list'].forEach((data) {
-          list.add(FanFollowModel.fromJson(data));
+          list.add(FanFollowResponse.fromJson(data));
         });
         mFanList.addAll(list);
         isloadingMore = false;
@@ -208,7 +208,7 @@ class FanListPageState extends State<FanListPage> {
     } else if (i == mFanList.length + 1) {
       return _buildLoadMore();
     } else {
-      FanFollowModel mModel = mFanList[i - 1];
+      FanFollowResponse mModel = mFanList[i - 1];
 
       return Column(
         children: <Widget>[
@@ -268,7 +268,7 @@ class FanListPageState extends State<FanListPage> {
     }
   }
 
-  Widget mFollowBtnWidget(FanFollowModel mModel, int position) {
+  Widget? mFollowBtnWidget(FanFollowResponse mModel, int position) {
     if (mModel.relation == 0) {
       return Container(
         margin: EdgeInsets.only(right: 15),
@@ -318,7 +318,7 @@ class FanListPageState extends State<FanListPage> {
               'userid': UserUtil.getUserInfo().id,
               'otheruserid': mModel.id,
             });
-            DioManager.getInstance().post(ServiceUrl.followOther, params,
+            DioManager.instance.post(ServiceUrl.followOther, params,
                 (data) {
               int mRelation = data['data']['relation'];
               (mFanList[position]).relation = mRelation;
@@ -361,7 +361,7 @@ class FanListPageState extends State<FanListPage> {
     }
   }
 
-  Widget showCancelFollowDialog(FanFollowModel mModel, int position) {
+  Widget? showCancelFollowDialog(FanFollowResponse mModel, int position) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -391,7 +391,7 @@ class FanListPageState extends State<FanListPage> {
                     'userid': UserUtil.getUserInfo().id,
                     'otheruserid': mModel.id,
                   });
-                  DioManager.getInstance()
+                  DioManager.instance
                       .post(ServiceUrl.followCancelOther, params, (data) {
                     Navigator.of(context).pop();
                     int mRelation = data['data']['relation'];

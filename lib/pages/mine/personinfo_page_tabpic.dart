@@ -130,7 +130,7 @@ class _PageInfoPicState extends State<PageInfoPic> {
   }
 
   Widget mPicNormal(List<String> mList) {
-    List<Widget> mListWidget = new List();
+    List<Widget> mListWidget =  [];
     for (int i = 0; i < mList.toSet().length; i++) {
       mListWidget.add(
         Container(
@@ -243,7 +243,7 @@ class _PageInfoPicState extends State<PageInfoPic> {
   Widget build(BuildContext context) {
     blockList.clear();
     for (int i = 0; i < 3; i++) {
-      List<String> mPicList = new List();
+      List<String> mPicList =  [];
       if (i == 0) {
         mPicList.add(
             "https://hrlweibo-1259131655.cos.ap-beijing.myqcloud.com/uinfo_pic_bottom1.jpg");
@@ -265,6 +265,7 @@ class _PageInfoPicState extends State<PageInfoPic> {
             "https://hrlweibo-1259131655.cos.ap-beijing.myqcloud.com/uinfo_pic_bottom1.jpg");
       }
       blockList.add(mPicList);
+
     }
 
     return Container(

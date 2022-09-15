@@ -2,7 +2,7 @@ import 'dart:math';
 
 import "package:dio/dio.dart";
 import 'package:flutter/material.dart';
-import 'package:flutter_hrlweibo/model/WeiBoTopicType.dart';
+import 'package:flutter_hrlweibo/model/topictype_response.dart';
 import 'package:flutter_hrlweibo/public.dart';
 
 class WeiBoPublishTopicPage extends StatefulWidget {
@@ -14,10 +14,10 @@ class WeiBoPublishTopicPage extends StatefulWidget {
 }
 
 class WeiBoPublishTopicPageState extends State<WeiBoPublishTopicPage> {
-  List<WeiBoTopicType> mLeftTopicTypeList = new List();
-  List<WeiBoTopic> mRightTopicList = new List();
+  List<TopicTypeResponse> mLeftTopicTypeList = [];
+  List<WeiBoTopic> mRightTopicList = [];
   int _selectCount = 0;
-  void Function(int) onMenuChecked;
+  void Function(int)? onMenuChecked;
 
   @override
   void initState() {
@@ -34,10 +34,10 @@ class WeiBoPublishTopicPageState extends State<WeiBoPublishTopicPage> {
   }
 
   void loadLeftTypeData() async {
-    DioManager.getInstance().post(ServiceUrl.getWeiBoTopicTypeList, null,
+    DioManager.instance.post(ServiceUrl.getWeiBoTopicTypeList, null,
         (data) {
       data['data'].forEach((data) {
-        mLeftTopicTypeList.add(WeiBoTopicType.fromJson(data));
+        mLeftTopicTypeList.add(TopicTypeResponse.fromJson(data));
       });
       loadRightTopicData(mLeftTopicTypeList[0].id.toString());
     }, (error) {});
@@ -47,9 +47,9 @@ class WeiBoPublishTopicPageState extends State<WeiBoPublishTopicPage> {
     FormData params = FormData.fromMap({
       'topicType': type,
     });
-    DioManager.getInstance().post(ServiceUrl.getWeiBoTopicList, params, (data) {
-      // List<WeiboAtUser> listRecommend = List();
-      //  List<WeiboAtUser> listNormal= List();
+    DioManager.instance.post(ServiceUrl.getWeiBoTopicList, params, (data) {
+      // List<WeiboAtUser> listRecommend =[];
+      //  List<WeiboAtUser> listNormal=[];
       mRightTopicList.clear();
 
       data['data'].forEach((data) {
@@ -125,7 +125,7 @@ class WeiBoPublishTopicPageState extends State<WeiBoPublishTopicPage> {
     );
   }
 
-  Widget leftListv(int i, List<WeiBoTopicType> myContent, onMenuCheckListener) {
+  Widget leftListv(int i, List<TopicTypeResponse> myContent, onMenuCheckListener) {
     return Expanded(
       child: Container(
         color: Color(0xffEEEDF1),

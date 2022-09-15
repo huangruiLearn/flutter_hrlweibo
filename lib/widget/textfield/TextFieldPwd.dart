@@ -10,8 +10,8 @@ class PwdEditText extends StatefulWidget {
 /* AccountEditText({Key key, this.contentStrCallBack}) : super(key: key);*/
 
   PwdEditText({
-    Key key,
-    this.contentStrCallBack,
+    Key? key,
+    required this.contentStrCallBack,
   }) : super(key: key);
 
   @override

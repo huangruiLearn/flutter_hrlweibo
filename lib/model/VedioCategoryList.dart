@@ -1,26 +1,18 @@
-import 'VedioCategory.dart';
+import 'videocategory.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-class VedioCategoryList {
+
+part 'VedioCategoryList.g.dart';
+
+@JsonSerializable()
+ class VedioCategoryList {
   int status;
   List<VedioCategory> data;
-  VedioCategoryList({this.status, this.data});
+  VedioCategoryList({required this.status,required this.data});
 
-  VedioCategoryList.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    if (json['data'] != null) {
-      data = new List<VedioCategory>();
-      json['data'].forEach((v) {
-        data.add(new VedioCategory.fromJson(v));
-      });
-    }
-  }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    if (this.data != null) {
-      data['data'] = this.data.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
+  factory VedioCategoryList.fromJson(Map<String, dynamic> json) => _$VedioCategoryListFromJson(json);
+
+  Map<String, dynamic> toJson() => _$VedioCategoryListToJson(this);
+
 }

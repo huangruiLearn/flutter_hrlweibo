@@ -21,24 +21,24 @@ enum ITextInputType {
 class ITextField extends StatefulWidget {
   final ITextInputType keyboardType;
   final int maxLines;
-  final int maxLength;
-  final String hintText;
-  final TextStyle hintStyle;
-  final ITextFieldCallBack fieldCallBack;
-  final Icon deleteIcon;
-  final InputBorder inputBorder;
-  final Widget prefixIcon;
-  final TextStyle textStyle;
-  final FormFieldValidator<String> validator;
+  final int? maxLength;
+  final String? hintText;
+  final TextStyle? hintStyle;
+  final ITextFieldCallBack  fieldCallBack;
+  final Icon? deleteIcon;
+  final InputBorder? inputBorder;
+  final Widget? prefixIcon;
+  final TextStyle? textStyle;
+  final FormFieldValidator<String>? validator;
 
   ITextField({
-    Key key,
+    Key? key,
     ITextInputType keyboardType: ITextInputType.text,
     this.maxLines = 1,
     this.maxLength,
     this.hintText,
     this.hintStyle,
-    this.fieldCallBack,
+    required this.fieldCallBack,
     this.deleteIcon,
     this.inputBorder,
     this.textStyle,
@@ -84,7 +84,7 @@ class _ITextFieldState extends State<ITextField> {
   }
 
   ///输入范围
-  List<TextInputFormatter> _getTextInputFormatter() {
+  List<TextInputFormatter>? _getTextInputFormatter() {
     return _isNumber
         ? <TextInputFormatter>[
       FilteringTextInputFormatter.digitsOnly,
@@ -126,9 +126,7 @@ class _ITextFieldState extends State<ITextField> {
             alignment: Alignment.center,
             padding: const EdgeInsets.all(0.0),
             iconSize: 18.0,
-            icon: widget.deleteIcon != null
-                ? widget.deleteIcon
-                : Image.asset(
+            icon: widget.deleteIcon??Image.asset(
               Constant.ASSETS_IMG + 'icon_close.png',
               width: 20.0,
               height: 20.0,

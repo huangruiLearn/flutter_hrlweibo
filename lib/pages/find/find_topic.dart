@@ -3,9 +3,9 @@ import 'package:flutter_hrlweibo/constant/constant.dart';
 import 'package:flutter_hrlweibo/model/FindHomeModel.dart';
 
 class FindTopicPage extends StatefulWidget {
-  final Findtopic mModel;
+  Findtopic mModel ;
 
-  FindTopicPage({Key key, this.mModel}) : super(key: key);
+  FindTopicPage({  Key? key, required this.mModel}) : super(key: key);
 
   @override
   _FindTopicPageState createState() => _FindTopicPageState();
@@ -244,13 +244,13 @@ class _FindTopicPageState extends State<FindTopicPage> {
                                 shape: BoxShape.rectangle,
                                 image: DecorationImage(
                                     image: NetworkImage(
-                                        '${widget.mModel.topic2[index].topicimg}'),
+                                        '${widget.mModel.topic2![index].topicimg}'),
                                     fit: BoxFit.fill))),
                       ),
                       Container(
                         margin: EdgeInsets.only(top: 5),
                         child: new Text(
-                          widget.mModel.topic2[index].topicdesc,
+                          widget.mModel.topic2![index].topicdesc,
                           style: TextStyle(fontSize: 14, color: Colors.black),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -258,7 +258,7 @@ class _FindTopicPageState extends State<FindTopicPage> {
                       ),
                       Container(
                         child: new Text(
-                          widget.mModel.topic2[index].topicdiscuss + "参与",
+                          widget.mModel.topic2![index].topicdiscuss + "参与",
                           style:
                               TextStyle(fontSize: 12, color: Color(0xff595959)),
                           maxLines: 1,
@@ -347,7 +347,7 @@ class _FindTopicPageState extends State<FindTopicPage> {
                                       shape: BoxShape.rectangle,
                                       image: DecorationImage(
                                           image: NetworkImage(
-                                              '${widget.mModel.topic3[index].topicimg}'),
+                                              '${widget.mModel.topic3![index].topicimg}'),
                                           fit: BoxFit.cover))),
                             ],
                           ),
@@ -358,7 +358,7 @@ class _FindTopicPageState extends State<FindTopicPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               new Text(
-                                widget.mModel.topic3[index].topicdesc,
+                                widget.mModel.topic3![index].topicdesc,
                                 style: TextStyle(
                                     fontSize: 14, color: Colors.black),
                                 maxLines: 1,
@@ -366,7 +366,7 @@ class _FindTopicPageState extends State<FindTopicPage> {
                               ),
                               Container(
                                 child: new Text(
-                                  widget.mModel.topic3[index].topicintro,
+                                  widget.mModel.topic3![index].topicintro,
                                   style: TextStyle(
                                       fontSize: 12, color: Color(0xff595959)),
                                   maxLines: 1,
@@ -377,9 +377,9 @@ class _FindTopicPageState extends State<FindTopicPage> {
                               Container(
                                 margin: EdgeInsets.only(top: 3, right: 15),
                                 child: new Text(
-                                  widget.mModel.topic3[index].topicdiscuss +
+                                  widget.mModel.topic3![index].topicdiscuss +
                                       "讨论  " +
-                                      widget.mModel.topic3[index].topicread +
+                                      widget.mModel.topic3![index].topicread +
                                       "阅读",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
@@ -453,7 +453,7 @@ class _FindTopicPageState extends State<FindTopicPage> {
                           shape: BoxShape.rectangle,
                           image: DecorationImage(
                               image: NetworkImage(
-                                  '${widget.mModel.topic1[index].topicimg}'),
+                                  '${widget.mModel.topic1![index].topicimg}'),
                               fit: BoxFit.cover))),
                   Container(
                     child: Image.asset(
@@ -482,14 +482,14 @@ class _FindTopicPageState extends State<FindTopicPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   new Text(
-                    widget.mModel.topic1[index].topicdesc,
+                    widget.mModel.topic1![index].topicdesc,
                     style: TextStyle(fontSize: 14, color: Colors.black),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                   Container(
                     child: new Text(
-                      widget.mModel.topic1[index].topicintro,
+                      widget.mModel.topic1![index].topicintro,
                       style: TextStyle(fontSize: 12, color: Color(0xff595959)),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -499,9 +499,9 @@ class _FindTopicPageState extends State<FindTopicPage> {
                   Container(
                     margin: EdgeInsets.only(top: 3, right: 15),
                     child: new Text(
-                      widget.mModel.topic1[index].topicdiscuss +
+                      widget.mModel.topic1![index].topicdiscuss +
                           "讨论  " +
-                          widget.mModel.topic1[index].topicread +
+                          widget.mModel.topic1![index].topicread +
                           "阅读",
                       style: TextStyle(fontSize: 12, color: Colors.grey),
                       maxLines: 1,
@@ -535,10 +535,10 @@ class _FindTopicPageState extends State<FindTopicPage> {
                   ),
                 ),
                 Expanded(
-                  child: new Text(widget.mModel.topic1[index].topicdesc,
+                  child: new Text(widget.mModel.topic1![index].topicdesc,
                       style: TextStyle(fontSize: 14, color: Colors.black)),
                 ),
-                new Text(widget.mModel.topic1[index].topicdiscuss + "讨论",
+                new Text(widget.mModel.topic1![index].topicdiscuss + "讨论",
                     style: TextStyle(fontSize: 14, color: Colors.black)),
                 Container(
                   margin: EdgeInsets.only(left: 5, right: 10),

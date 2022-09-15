@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hrlweibo/public.dart';
 import 'extra_item.dart';
+import 'package:image_picker/image_picker.dart';
 
 
 typedef void OnImageSelect(File mImg);
@@ -8,10 +9,10 @@ typedef void OnImageSelect(File mImg);
 
 class DefaultExtraWidget extends StatefulWidget {
 
-  final OnImageSelect onImageSelectBack;
+  final OnImageSelect? onImageSelectBack;
 
   const DefaultExtraWidget({
-    Key key,
+    Key? key,
     this.onImageSelectBack,
   }) : super(key: key);
 

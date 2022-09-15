@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
   final bool cover;
 
   const LoadingContainer(
-      {Key key,
-      @required this.isLoading,
+      {Key? key,
+       required this.isLoading,
       this.cover = false,
-      @required this.child})
+       required this.child})
       : super(key: key);
 
   @override
@@ -17,7 +17,7 @@ import 'package:flutter/material.dart';
     return !cover
         ? !isLoading ? child : _loadingView
         : Stack(
-            children: <Widget>[child, isLoading ? _loadingView : null],
+            children: <Widget>[child, isLoading ? _loadingView : Text('null')],
           );
   }
 

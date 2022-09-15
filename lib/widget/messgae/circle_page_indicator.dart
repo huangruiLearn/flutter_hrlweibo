@@ -16,7 +16,7 @@ class CirclePageIndicator extends StatefulWidget {
   final int itemCount;
 
   /// Called when a dot is tapped
-  final ValueChanged<int> onPageSelected;
+  final ValueChanged<int>? onPageSelected;
 
   ///The dot color
   final Color dotColor;
@@ -34,14 +34,14 @@ class CirclePageIndicator extends StatefulWidget {
   final double dotSpacing;
 
   CirclePageIndicator({
-    Key key,
-    @required this.currentPageNotifier,
-    @required this.itemCount,
-    this.onPageSelected,
+    Key? key,
+    required this.currentPageNotifier,
+    required this.itemCount,
+       this.onPageSelected,
     this.size = _defaultSize,
     this.dotSpacing = _defaultSpacing,
-    Color dotColor,
-    Color selectedDotColor,
+    Color? dotColor,
+    Color? selectedDotColor,
     this.selectedSize = _defaultSelectedSize,
   })  : this.dotColor = dotColor ??
       ((selectedDotColor?.withAlpha(150)) ?? _defaultDotColor),
@@ -85,7 +85,7 @@ class CirclePageIndicatorState extends State<CirclePageIndicator> {
           return GestureDetector(
             onTap: () => widget.onPageSelected == null
                 ? null
-                : widget.onPageSelected(index),
+                : widget.onPageSelected!(index),
             child: Container(
               width: size + widget.dotSpacing,
               child: Material(

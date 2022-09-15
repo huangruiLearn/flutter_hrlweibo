@@ -15,7 +15,7 @@ class SettingPage extends StatefulWidget {
 class SettingHead extends StatelessWidget {
   final VoidCallback onPressed;
 
-  SettingHead({this.onPressed});
+  SettingHead({required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class SettingHead extends StatelessWidget {
                         margin: new EdgeInsets.symmetric(horizontal: 5.0),
                         child: new CircleAvatar(
                           backgroundImage:
-                              new NetworkImage(UserUtil.getUserInfo().headurl),
+                              new NetworkImage(UserUtil.getUserInfo().headurl??"null"),
                           radius: 20.0,
                         ),
                       ),
@@ -78,7 +78,7 @@ class SettingHead extends StatelessWidget {
 class SettingCommon extends StatelessWidget {
   final VoidCallback onPressed;
 
-  const SettingCommon({this.title, this.content, this.onPressed});
+  const SettingCommon({required this.title, required this.content ,required this.onPressed});
 
   final String title;
   final String content;
@@ -173,26 +173,22 @@ class _SettingPageState extends State<SettingPage> {
                           "userId": UserUtil.getUserInfo().id,
                           "headFile": MultipartFile.fromFileSync(mHeadFile.path)
                         });
-                        request(ServiceUrl.updateHead, formData: formData)
-                            .then((val) {
-                          int code = val['status'];
-                          if (code == 200) {
-                            String mUrl = val['data'];
-                            print("返回的头像的url:${mUrl}");
-                            UserUtil.saveUserHeadUrl(mUrl);
-                            ToastUtil.show('提交成功!');
-                            setState(() {});
-                          } else {
-                            String msg = val['msg'];
-                            ToastUtil.show(msg);
-                          }
-                        });
+
+                        DioManager.instance
+                            .post(ServiceUrl.updateHead, formData, (data) {
+                           print("返回的头像的url:${data}");
+                          UserUtil.saveUserHeadUrl(data);
+                          ToastUtil.show('提交成功!');
+                          setState(() {});
+                        }, (error) {
+                             ToastUtil.show(error);
+                        }  );
                       });
                     });
               }),
               SettingCommon(
                   title: "用户昵称",
-                  content: UserUtil.getUserInfo().nick,
+                  content: UserUtil.getUserInfo().nick??"null",
                   onPressed: () {
                     Routes.navigateTo(context, '${Routes.changeNickNamePage}');
                   }),
@@ -226,8 +222,8 @@ class _SettingPageState extends State<SettingPage> {
                   Routes.navigateTo(context, '${Routes.feedbackPage}');
                 },
               ),
-              SettingCommon(title: "关于微博", content: ""),
-              SettingCommon(title: "清理缓存", content: ""),
+              SettingCommon(title: "关于微博", content: "", onPressed: () {}),
+              SettingCommon(title: "清理缓存", content: "", onPressed: () {}),
               Container(
                 height: 30,
                 color: Color(0xffF2F2F2),

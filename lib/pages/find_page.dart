@@ -6,7 +6,6 @@ import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_hrlweibo/constant/constant.dart';
-import 'package:flutter_hrlweibo/http/service_method.dart';
 import 'package:flutter_hrlweibo/http/service_url.dart';
 import 'package:flutter_hrlweibo/model/FindHomeModel.dart';
 import 'package:flutter_hrlweibo/model/WeiBoModel.dart';
@@ -38,13 +37,13 @@ class _FindPageState extends State<FindPage> with SingleTickerProviderStateMixin
     '大家正在搜:  hrl超话微博上线啦!',
     '大家正在搜:  hrl热点微博上线啦!',
   ];
-  TabController _controller;
+  TabController? _controller;
   List<Findhottop> mTopHotSearchList = []; //顶部热搜列表
   List<Findkind> mFindKindList = []; //发现类型列表
-  Findhotcenter mFindCenter;
+  Findhotcenter mFindCenter=Findhotcenter();
   List<WeiBoModel> mFindHotList = []; //热点列表
   List<WeiBoModel> mFindLocalList = []; //本地列表
-  Findtopic mFindTopic; //话题模块
+  Findtopic mFindTopic=Findtopic(); //话题模块
   List<WeiBoModel> mSuperTopicList = []; //超话列表
 
   bool _loading = true; //页面加载状态
@@ -63,7 +62,7 @@ class _FindPageState extends State<FindPage> with SingleTickerProviderStateMixin
   //获取发现页信息
   Future<Null> getFindInfoDate() async {
     FormData formData = FormData.fromMap({"userId": UserUtil.getUserInfo().id});
-    DioManager.getInstance().post(ServiceUrl.getFindHomeInfo, formData, (data) {
+    DioManager.instance.post(ServiceUrl.getFindHomeInfo, formData, (data) {
       print("返回的正确数据:${data}");
       FindHomeModel mModel = FindHomeModel.fromJson(data['data']);
       setState(() {
@@ -105,15 +104,15 @@ class _FindPageState extends State<FindPage> with SingleTickerProviderStateMixin
   Widget mCenterBannerItemWidegt(int i) {
     List<Findhottop> mCneterItem = [];
     if (i == 0) {
-      mCneterItem = mFindCenter.page1;
+      mCneterItem = mFindCenter.page1!;
     } else if (i == 1) {
-      mCneterItem = mFindCenter.page2;
+      mCneterItem = mFindCenter.page2!;
     } else if (i == 2) {
-      mCneterItem = mFindCenter.page3;
+      mCneterItem = mFindCenter.page3!;
     } else if (i == 3) {
-      mCneterItem = mFindCenter.page4;
+      mCneterItem = mFindCenter.page4!;
     } else if (i == 4) {
-      mCneterItem = mFindCenter.page5;
+      mCneterItem = mFindCenter.page5!;
     }
 
     return new Row(
@@ -496,7 +495,7 @@ class _FindPageState extends State<FindPage> with SingleTickerProviderStateMixin
     // BorderSide borderSide = BorderSide(width: 1, color: Color(0xffE6E6E6));
     BorderSide borderSide = BorderSide(width: 2, color: Colors.green);
     Widget mChild;
-    Widget mHotSearchTypeWidget;
+    Widget? mHotSearchTypeWidget;
 
     if (index == mItemList.length) {
       mChild = GestureDetector(
@@ -653,9 +652,9 @@ class _FindPageState extends State<FindPage> with SingleTickerProviderStateMixin
 
 class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   _SliverAppBarDelegate({
-    @required this.minHeight,
-    @required this.maxHeight,
-    @required this.child,
+     required this.minHeight,
+     required this.maxHeight,
+     required this.child,
   });
 
   final double minHeight;

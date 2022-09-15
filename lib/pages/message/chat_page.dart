@@ -19,7 +19,7 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   final ScrollController listScrollController = new ScrollController();
-  List<HrlMessage> mlistMessage = new List();
+  List<HrlMessage> mlistMessage =  [];
 
   //https://stackoverflow.com/questions/50733840/trigger-a-function-from-a-widget-to-a-state-object/50739019#50739019
   final changeNotifier = new StreamController.broadcast();
@@ -37,7 +37,7 @@ class _ChatPageState extends State<ChatPage> {
 
   getHistroryMessage() {
     print("获取历史消息");
-    List<HrlMessage> mHistroyListMessage = new List();
+    List<HrlMessage> mHistroyListMessage =  [];
     final HrlTextMessage mMessgae = new HrlTextMessage();
     mMessgae.text = "测试消息";
     mMessgae.msgType = HrlMessageType.text;
@@ -88,7 +88,8 @@ class _ChatPageState extends State<ChatPage> {
         FocusScope.of(context).requestFocus(FocusNode());
         changeNotifier.sink.add(null);
         Navigator.pop(context);
-      },
+        return Future(() => true);
+       },
       child: Scaffold(
         appBar: PreferredSize(
             child: AppBar(
@@ -149,7 +150,7 @@ class _ChatPageState extends State<ChatPage> {
                       axisDirection: AxisDirection.up,
                       viewportBuilder: (context, offset) {
                         return ExpandedViewport(
-                          offset: offset,
+                          offset: offset as ScrollPosition,
                           axisDirection: AxisDirection.up,
                           slivers: <Widget>[
                             SliverExpanded(),
@@ -184,7 +185,7 @@ class _ChatPageState extends State<ChatPage> {
                                         });
 
                                         isPalyingAudio = true;
-                                        mPalyingPosition = mlistMessage[i].uuid;
+                                        mPalyingPosition = mlistMessage[i].uuid!;
                                         mMessageItemKey.currentState
                                             ?.methodInChild(
                                                 true, mPalyingPosition);

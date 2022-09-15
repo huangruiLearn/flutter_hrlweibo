@@ -1,28 +1,19 @@
 import 'WeiBoDetail.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+
+part 'WeiBoForwardList.g.dart';
+
+
+@JsonSerializable()
 class ForwardList {
   List<Forward> list;
 
-  ForwardList({
-    this.list,
-  });
+  ForwardList({required this.list});
 
-  ForwardList.fromJson(Map<String, dynamic> json) {
-    if (json['list'] != null) {
-      list = new List<Forward>();
-      json['list'].forEach((v) {
-        list.add(new Forward.fromJson(v));
-      });
-    }
-  }
+  factory ForwardList.fromJson(Map<String, dynamic> json) => _$ForwardListFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+  Map<String, dynamic> toJson() => _$ForwardListToJson(this);
 
-    if (this.list != null) {
-      data['list'] = this.list.map((v) => v.toJson()).toList();
-    }
 
-    return data;
-  }
 }

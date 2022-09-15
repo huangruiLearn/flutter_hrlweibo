@@ -18,7 +18,7 @@ class _IndexPageState extends State<IndexPage> {
   var tabImages;
   var appBarTitles = ['首页', '视频', '发现', '消息', '我'];
   var currentPage;
-  DateTime lastPopTime;
+  late DateTime lastPopTime;
 
   /*
    * 根据选择获得对应的normal或是press的icon
@@ -125,6 +125,7 @@ class _IndexPageState extends State<IndexPage> {
             // 退出app
               SystemChannels.platform.invokeMethod('SystemNavigator.pop');
           }
+          return Future(() => true);
         },
       ),
     );

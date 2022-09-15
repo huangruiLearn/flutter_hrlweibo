@@ -10,7 +10,7 @@ import 'package:path_provider/path_provider.dart';
 
 import 'ImagesAnimation.dart';
 
-OverlayEntry mOverlayEntry;
+OverlayEntry? mOverlayEntry;
 
 String mButtonText = "按住发声";
 String mCenterTipText = "";
@@ -29,17 +29,17 @@ int MIN_INTERVAL_TIME = 1000;
 
 String voiceIco = Constant.ASSETS_IMG + "ic_volume_1.png";
 
-List<String> _assetList = new List();
+List<String> _assetList =  [];
 
 bool showAnim = true;
 
 typedef void OnAudioCallBack(File mAudioFile, int duration);
 
 class RecordButton extends StatefulWidget {
-  final OnAudioCallBack onAudioCallBack;
+  final OnAudioCallBack? onAudioCallBack;
 
   const RecordButton({
-    Key key,
+    Key? key,
     this.onAudioCallBack,
   }) : super(key: key);
 
@@ -101,7 +101,7 @@ buildOverLayView(BuildContext context) {
         ),
       );
     });
-    Overlay.of(context).insert(mOverlayEntry);
+    Overlay.of(context)?.insert(mOverlayEntry!);
   }
 }
 
@@ -128,7 +128,7 @@ class _RecordButtonState extends State<RecordButton> {
     file.delete();
     print("取消录音删除文件成功!");
     if (mOverlayEntry != null) {
-      mOverlayEntry.remove();
+      mOverlayEntry?.remove();
       mOverlayEntry = null;
     }
     //  }
@@ -147,7 +147,7 @@ class _RecordButtonState extends State<RecordButton> {
       voiceIco = Constant.ASSETS_IMG + "ic_volume_wraning.png";
       showAnim = false;
       mButtonText = "按住录音";
-      mOverlayEntry.markNeedsBuild();
+      mOverlayEntry?.markNeedsBuild();
       var recording = await FlutterRecordPlugin.stop();
       bool isRecording = await FlutterRecordPlugin.isRecording;
       File file = mLocalFileSystem.file(recording.path);
@@ -155,7 +155,7 @@ class _RecordButtonState extends State<RecordButton> {
       print("录音时间太短:删除文件成功!");
       if (mOverlayEntry != null) {
         Future.delayed(Duration(milliseconds: 500), () {
-          mOverlayEntry.remove();
+          mOverlayEntry?.remove();
           mOverlayEntry = null;
         });
       }
@@ -168,7 +168,7 @@ class _RecordButtonState extends State<RecordButton> {
       print("  File length: ${recording.duration.inSeconds}");
 
       if (mOverlayEntry != null) {
-        mOverlayEntry.remove();
+        mOverlayEntry?.remove();
         mOverlayEntry = null;
       }
       widget.onAudioCallBack?.call(file, recording.duration.inSeconds);
@@ -239,7 +239,7 @@ class _RecordButtonState extends State<RecordButton> {
             mCenterTipText = "松开手指,取消发送";
             voiceIco = Constant.ASSETS_IMG + "ic_volume_cancel.png";
             showAnim = false;
-            mOverlayEntry.markNeedsBuild();
+            mOverlayEntry?.markNeedsBuild();
             setState(() {
               mButtonText = "按住录音";
             });
@@ -251,7 +251,7 @@ class _RecordButtonState extends State<RecordButton> {
             mCenterTipText = "手指上滑,取消发送";
             mButtonText = "松开发送";
             showAnim = true;
-            mOverlayEntry.markNeedsBuild();
+            mOverlayEntry?.markNeedsBuild();
           }
         },
         child: Container(

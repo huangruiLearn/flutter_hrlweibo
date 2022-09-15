@@ -26,7 +26,7 @@ class Routes {
 
   static void configureRoutes(FluroRouter router) {
      router.notFoundHandler = new Handler(
-        handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+        handlerFunc: (BuildContext? context, Map<String, List<String>> params) {
          print('route not found!');
 
      });
@@ -59,7 +59,7 @@ class Routes {
 
   // 对参数进行encode，解决参数中有特殊字符，影响fluro路由匹配(https://www.jianshu.com/p/e575787d173c)
   static Future navigateTo(BuildContext context, String path,
-      {Map<String, dynamic> params,
+      {Map<String, dynamic>? params,
       bool clearStack = false,
       TransitionType transition = TransitionType.fadeIn}) {
     String query = "";
@@ -85,7 +85,7 @@ class Routes {
 
   // 对参数进行encode，解决参数中有特殊字符，影响fluro路由匹配(https://www.jianshu.com/p/e575787d173c)
   static Future navigatepushAndRemoveUntil(BuildContext context, String path,
-      {Map<String, dynamic> params,
+      {Map<String, dynamic>? params,
       bool clearStack = false,
       TransitionType transition = TransitionType.fadeIn}) {
     String query = "";

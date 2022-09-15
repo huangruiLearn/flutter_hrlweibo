@@ -7,7 +7,7 @@ import 'package:flutter_hrlweibo/util/sp_util.dart';
 import 'package:flutter_hrlweibo/util/user_util.dart';
 
 class SplashPage extends StatefulWidget {
-  SplashPage({Key key}) : super(key: key);
+  SplashPage({Key? key}) : super(key: key);
 
   @override
   SplashPageState createState() {
@@ -20,7 +20,7 @@ class SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
     // App启动时读取Sp数据，需要异步等待Sp初始化完成。
-    SpUtil.getInstance();
+    SpUtil.instance;
     Future.delayed(new Duration(seconds: 1), () {
       if (!UserUtil.isLogin()) {
         Navigator.pop(context);

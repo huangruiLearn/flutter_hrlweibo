@@ -92,7 +92,7 @@ class _ChangeNickNamePageState extends State<ChangeNickNamePage> {
                         'userId': UserUtil.getUserInfo().id,
                         'nick': _mEtController.text
                       });
-                      DioManager.getInstance()
+                      DioManager.instance
                           .post(ServiceUrl.updateNick, params, (data) {
                         ToastUtil.show('修改昵称成功!');
                         UserUtil.saveUserNick(_mEtController.text);

@@ -5,15 +5,15 @@ import 'package:flutter_hrlweibo/constant/constant.dart';
 
 class WeiBoDetailTopWidget extends StatefulWidget {
   final WeiBoModel mModel;
-  WeiBoDetailTopWidget({Key key, this.mModel}) : super(key: key);
+  WeiBoDetailTopWidget({Key? key, required this.mModel}) : super(key: key);
   @override
   _WeiBoDetailTopWidgetState createState() =>
       _WeiBoDetailTopWidgetState(weiboData: mModel);
 }
 
 class _WeiBoDetailTopWidgetState extends State<WeiBoDetailTopWidget> {
-  WeiBoModel weiboData;
-  _WeiBoDetailTopWidgetState({Key key, this.weiboData});
+    WeiBoModel weiboData;
+  _WeiBoDetailTopWidgetState({Key? key,required this.weiboData});
   @override
   Widget build(BuildContext context) {
     return _wholeItemWidget(context, weiboData);

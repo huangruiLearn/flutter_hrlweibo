@@ -1,10 +1,14 @@
+import 'package:json_annotation/json_annotation.dart';
 
 
+part 'MsgComZanModel.g.dart';
+
+@JsonSerializable()
 class ComZanListModel {
   int pageNum;
   int pageSize;
   int size;
-  Null orderBy;
+  String orderBy;
   int startRow;
   int endRow;
   int total;
@@ -21,78 +25,34 @@ class ComZanListModel {
   int navigatePages;
 
   ComZanListModel(
-      {this.pageNum,
-        this.pageSize,
-        this.size,
-        this.orderBy,
-        this.startRow,
-        this.endRow,
-        this.total,
-        this.pages,
-        this.list,
-        this.firstPage,
-        this.prePage,
-        this.nextPage,
-        this.lastPage,
-        this.isFirstPage,
-        this.isLastPage,
-        this.hasPreviousPage,
-        this.hasNextPage,
-        this.navigatePages,
+      {required this.pageNum,
+        required this.pageSize,
+        required this.size,
+        required this.orderBy,
+        required this.startRow,
+        required this.endRow,
+        required this.total,
+        required this.pages,
+        required this.list,
+        required this.firstPage,
+        required this.prePage,
+        required this.nextPage,
+        required this.lastPage,
+        required this.isFirstPage,
+        required this.isLastPage,
+        required  this.hasPreviousPage,
+        required  this.hasNextPage,
+        required  this.navigatePages,
       });
 
-  ComZanListModel.fromJson(Map<String, dynamic> json) {
-    pageNum = json['pageNum'];
-    pageSize = json['pageSize'];
-    size = json['size'];
-    orderBy = json['orderBy'];
-    startRow = json['startRow'];
-    endRow = json['endRow'];
-    total = json['total'];
-    pages = json['pages'];
-    if (json['list'] != null) {
-      list = new List<ComZanModel>();
-      json['list'].forEach((v) {
-        list.add(new ComZanModel.fromJson(v));
-      });
-    }
-    firstPage = json['firstPage'];
-    prePage = json['prePage'];
-    nextPage = json['nextPage'];
-    lastPage = json['lastPage'];
-    isFirstPage = json['isFirstPage'];
-    isLastPage = json['isLastPage'];
-    hasPreviousPage = json['hasPreviousPage'];
-    hasNextPage = json['hasNextPage'];
-    navigatePages = json['navigatePages'];
-   }
+  factory ComZanListModel.fromJson(Map<String, dynamic> json) => _$ComZanListModelFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['pageNum'] = this.pageNum;
-    data['pageSize'] = this.pageSize;
-    data['size'] = this.size;
-    data['orderBy'] = this.orderBy;
-    data['startRow'] = this.startRow;
-    data['endRow'] = this.endRow;
-    data['total'] = this.total;
-    data['pages'] = this.pages;
-    if (this.list != null) {
-      data['list'] = this.list.map((v) => v.toJson()).toList();
-    }
-    data['firstPage'] = this.firstPage;
-    data['prePage'] = this.prePage;
-    data['nextPage'] = this.nextPage;
-    data['lastPage'] = this.lastPage;
-    data['isFirstPage'] = this.isFirstPage;
-    data['isLastPage'] = this.isLastPage;
-    data['hasPreviousPage'] = this.hasPreviousPage;
-    data['hasNextPage'] = this.hasNextPage;
-    data['navigatePages'] = this.navigatePages;
-     return data;
-  }
+  Map<String, dynamic> toJson() => _$ComZanListModelToJson(this);
+
 }
 
+
+@JsonSerializable()
 class ComZanModel {
   String userid;
   String username;
@@ -108,48 +68,20 @@ class ComZanModel {
   int isvertify;
 
   ComZanModel(
-      {this.userid,
-        this.username,
-        this.userheadurl,
-        this.createtime,
-        this.content,
-        this.tail,
-        this.weiboid,
-        this.weibcontent,
-        this.weibousername,
-        this.weibopicurl,
-        this.ismember,
-        this.isvertify});
+      {required this.userid,
+        required this.username,
+        required this.userheadurl,
+        required  this.createtime,
+        required   this.content,
+        required  this.tail,
+        required  this.weiboid,
+        required  this.weibcontent,
+        required  this.weibousername,
+        required  this.weibopicurl,
+        required  this.ismember,
+        required  this.isvertify});
 
-  ComZanModel.fromJson(Map<String, dynamic> json) {
-    userid = json['userid'];
-    username = json['username'];
-    userheadurl = json['userheadurl'];
-    createtime = json['createtime'];
-    content = json['content'];
-    tail = json['tail'];
-    weiboid = json['weiboid'];
-    weibcontent = json['weibcontent'];
-    weibousername = json['weibousername'];
-    weibopicurl = json['weibopicurl'];
-    ismember = json['ismember'];
-    isvertify = json['isvertify'];
-  }
+  factory ComZanModel.fromJson(Map<String, dynamic> json) => _$ComZanModelFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['userid'] = this.userid;
-    data['username'] = this.username;
-    data['userheadurl'] = this.userheadurl;
-    data['createtime'] = this.createtime;
-    data['content'] = this.content;
-    data['tail'] = this.tail;
-    data['weiboid'] = this.weiboid;
-    data['weibcontent'] = this.weibcontent;
-    data['weibousername'] = this.weibousername;
-    data['weibopicurl'] = this.weibopicurl;
-    data['ismember'] = this.ismember;
-    data['isvertify'] = this.isvertify;
-    return data;
-  }
+  Map<String, dynamic> toJson() => _$ComZanModelToJson(this);
 }

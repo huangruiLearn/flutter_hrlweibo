@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hrlweibo/constant/constant.dart';
-import 'package:flutter_hrlweibo/http/service_method.dart';
+import 'package:flutter_hrlweibo/http/dio_manager.dart';
 import 'package:flutter_hrlweibo/model/WeiBoModel.dart';
 import 'package:flutter_hrlweibo/util/date_util.dart';
 import 'package:flutter_hrlweibo/widget/video/video_widget.dart';
@@ -14,8 +14,8 @@ import 'package:flutter_hrlweibo/public.dart';
 import "package:dio/dio.dart";
 
 class WeiBoItemWidget extends StatelessWidget {
-  WeiBoModel mModel;
-  bool isDetail; //是否是详情界面
+  late WeiBoModel mModel;
+  late bool isDetail; //是否是详情界面
 
   WeiBoItemWidget(WeiBoModel data, bool isdetail) {
     mModel = data;
@@ -257,13 +257,12 @@ Widget textContent(String mTextContent, BuildContext context, bool isDetail) {
                 color: Color(0xff5B778D),
                 fontSize: 15,
               ),
-              renderText: ({String str, String pattern}) {
-                Map<String, String> map = Map<String, String>();
+              renderText: ({String  str='', String  pattern=''}) {
+                Map<String, String?> map = Map<String, String>();
                 RegExp customRegExp = RegExp(pattern);
-                Match match = customRegExp.firstMatch(str);
-                map['display'] = match.group(1);
-                map['value'] = match.group(2);
-                print("正则:" + match.group(1) + "---" + match.group(2));
+                RegExpMatch? match = customRegExp.firstMatch(str);
+                map['display'] = match?.group(1);
+                map['value'] = match?.group(2);
                 return map;
               },
               onTap: (content, contentId) {
@@ -297,7 +296,7 @@ Widget textContent(String mTextContent, BuildContext context, bool isDetail) {
                 color: Color(0xff5B778D),
                 fontSize: 15,
               ),
-              renderText: ({String str, String pattern}) {
+              renderText: ({String str='', String pattern=''}) {
                 Map<String, String> map = Map<String, String>();
 
                 String idStr =
@@ -332,16 +331,15 @@ Widget textContent(String mTextContent, BuildContext context, bool isDetail) {
             style: TextStyle(
               fontSize: 15,
             ),
-            renderText: ({String str, String pattern}) {
+            renderText: ({String? str, String? pattern}) {
               Map<String, String> map = Map<String, String>();
-              print("表情的正则:" + str);
               String mEmoji2 = "";
               try {
-                String mEmoji = str.replaceAll(RegExp('(\\[/)|(\\])'), "");
+                String mEmoji = str?.replaceAll(RegExp('(\\[/)|(\\])'), "")??"";
                 int mEmojiNew = int.parse(mEmoji);
                 mEmoji2 = String.fromCharCode(mEmojiNew);
               } on Exception catch (_) {
-                mEmoji2 = str;
+                mEmoji2 = "";
               }
               map['display'] = mEmoji2;
 
@@ -356,7 +354,7 @@ Widget textContent(String mTextContent, BuildContext context, bool isDetail) {
                 color: Color(0xff5B778D),
                 fontSize: 15,
               ),
-              renderText: ({String str, String pattern}) {
+              renderText: ({String? str, String? pattern}) {
                 Map<String, String> map = Map<String, String>();
                 map['display'] = '全文';
                 map['value'] = '全文';
@@ -557,7 +555,7 @@ Future<bool> onLikeButtonTapped(bool isLiked, WeiBoModel weiboItem) async {
     "userId": UserUtil.getUserInfo().id,
     "status": weiboItem.zanStatus == 0 ? 1 : 0, //1点赞,0取消点赞
   });
-  DioManager.getInstance().post(ServiceUrl.zanWeiBo, formData, (data) {
+  DioManager.instance.post(ServiceUrl.zanWeiBo, formData, (data) {
     if (weiboItem.zanStatus == 0) {
       //点赞成功
       weiboItem.zanStatus = 1;
@@ -587,7 +585,7 @@ Widget _NineGrid(BuildContext context, List<String> picUrlList) {
   //如果包含九宫格图片
   if (picList != null && picList.length > 0) {
     //一共有几张图片
-    num len = picList.length;
+    int len = picList.length;
     //算出一共有几行
     int rowlength = 0;
     //一共有几列
@@ -613,7 +611,7 @@ Widget _NineGrid(BuildContext context, List<String> picUrlList) {
     for (var row = 0; row < rowlength; row++) {
       List<Widget> rowArr = [];
       for (var col = 0; col < conlength; col++) {
-        num index = row * conlength + col;
+        int index = row * conlength + col;
         num screenWidth = MediaQuery.of(context).size.width;
         double cellWidth = (screenWidth - 40) / 3;
         double itemW = 0;
@@ -646,7 +644,7 @@ Widget _NineGrid(BuildContext context, List<String> picUrlList) {
           ));
         } else {
           if (index < len) {
-            EdgeInsets mMargin;
+            EdgeInsets? mMargin;
             if (len == 4) {
               if (index == 0) {
                 mMargin = const EdgeInsets.only(right: 2.5, bottom: 5);

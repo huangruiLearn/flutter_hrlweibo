@@ -7,7 +7,7 @@ class FlutterPluginRecord {
   final MethodChannel _channel = const MethodChannel('flutter_plugin_record');
 
   static final _uuid = "123456";
-  String id;
+  late String id;
   static final alis = new Map<String, FlutterPluginRecord>();
 
   FlutterPluginRecord() {
@@ -49,14 +49,14 @@ class FlutterPluginRecord {
     print("--------FlutterPluginRecord " + methodCall.method);
 
     String id = (methodCall.arguments as Map)['id'];
-    FlutterPluginRecord recordPlugin = alis[id];
+    FlutterPluginRecord? recordPlugin = alis[id];
     switch (methodCall.method) {
       case "onInit":
         bool flag = false;
         if ("success" == methodCall.arguments["result"]) {
           flag = true;
         }
-        recordPlugin._responseInitController.add(flag);
+        recordPlugin?._responseInitController.add(flag);
         break;
       case "onStart":
         if ("success" == methodCall.arguments["result"]) {
@@ -66,7 +66,7 @@ class FlutterPluginRecord {
             msg: "onStart",
             key: methodCall.arguments["key"].toString(),
           );
-          recordPlugin._responseController.add(res);
+          recordPlugin?._responseController.add(res);
         }
 
         break;
@@ -80,7 +80,7 @@ class FlutterPluginRecord {
             msg: "onStop",
             key: methodCall.arguments["key"].toString(),
           );
-          recordPlugin._responseController.add(res);
+          recordPlugin?._responseController.add(res);
         }
 
         break;
@@ -91,7 +91,7 @@ class FlutterPluginRecord {
           msg: "播放成功",
           key: methodCall.arguments["key"].toString(),
         );
-        recordPlugin._responseController.add(res);
+        recordPlugin?._responseController.add(res);
         break;
       case "onAmplitude":
         if ("success" == methodCall.arguments["result"]) {
@@ -101,7 +101,7 @@ class FlutterPluginRecord {
             msg: methodCall.arguments["amplitude"].toString(),
             key: methodCall.arguments["key"].toString(),
           );
-          recordPlugin._responseAmplitudeController.add(res);
+          recordPlugin?._responseAmplitudeController.add(res);
         }
         break;
       default:
@@ -109,7 +109,7 @@ class FlutterPluginRecord {
         break;
     }
 
-    return null;
+    return Future(() => dynamic);
   }
 
   //初始化

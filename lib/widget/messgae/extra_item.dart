@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 //https://www.jianshu.com/p/821ab43b5ebe
 class ExtraItemContainer extends StatefulWidget {
   ExtraItemContainer(
-      {Key key,
-      this.text,
-      this.leadingIconPath,
-      this.leadingHighLightIconPath,
-      @required this.onTab})
+      {Key? key,
+      required this.text,
+        required this.leadingIconPath,
+        required this.leadingHighLightIconPath,
+       required this.onTab})
       : super(key: key);
 
   final Function onTab;

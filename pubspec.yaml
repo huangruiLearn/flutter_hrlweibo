@@ -2,14 +2,12 @@ name: flutter_hrlweibo
 description: A new Flutter application.
 version: 1.0.0+1
 homepage: https://github.com/huangruiLearn
-funding: https://github.com/huangruiLearn/flutter_hrlweibo/blob/master/assets/images/shoukuan.png
 platforms:
   android:
   ios:
-  web:
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
   flutter: ">=3.0.0 <4.0.0"
 
 dependencies:
@@ -68,7 +66,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner: ^2.0.0
-  json_serializable: ^6.0.0
+  json_serializable: ^6.3.1
 
 flutter:
   uses-material-design: true

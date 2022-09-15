@@ -13,8 +13,8 @@ class EditableTextSpan extends EditableText {
   final List<RangeStyle> rangeStyles;
 
   EditableTextSpan({
-    Key key,
-    this.rangeStyles,
+    Key? key,
+    required  this.rangeStyles,
     @required controller,
     @required focusNode,
     readOnly = false,
@@ -22,7 +22,7 @@ class EditableTextSpan extends EditableText {
     autocorrect = true,
     enableSuggestions = true,
     @required style,
-    StrutStyle strutStyle,
+    StrutStyle? strutStyle,
     @required cursorColor,
     @required backgroundCursorColor,
     textAlign = TextAlign.start,
@@ -35,11 +35,11 @@ class EditableTextSpan extends EditableText {
     forceLine = true,
     textWidthBasis = TextWidthBasis.parent,
     autofocus = false,
-    bool showCursor,
+    bool showCursor = false,
     showSelectionHandles = false,
     selectionColor,
     selectionControls,
-    TextInputType keyboardType,
+    required TextInputType keyboardType,
     textInputAction,
     textCapitalization = TextCapitalization.none,
     onChanged,
@@ -47,7 +47,7 @@ class EditableTextSpan extends EditableText {
     onSubmitted,
     onSelectionChanged,
     onSelectionHandleTapped,
-    List<TextInputFormatter> inputFormatters,
+    List<TextInputFormatter>? inputFormatters,
     rendererIgnoresPointer = false,
     cursorWidth = 2.0,
     cursorRadius,
@@ -122,7 +122,7 @@ class EditableTextSpan extends EditableText {
 
 class _EditableTextSpan extends EditableTextState {
   @override
-  EditableTextSpan get widget => super.widget;
+  EditableTextSpan get widget => super.widget as EditableTextSpan ;
 
   @override
   TextSpan buildTextSpan() {
@@ -147,8 +147,8 @@ class _EditableTextSpan extends EditableTextState {
   List<RangeStyle> getRanges() {
     var source = widget.rangeStyles;
     source.sort();
-    var result = new List<RangeStyle>();
-    RangeStyle prev;
+    var result = <RangeStyle>[];
+    RangeStyle? prev;
     for (var item in source) {
       if (prev == null) {
         // First item, check if we need one before it.

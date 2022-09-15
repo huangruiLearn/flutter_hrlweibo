@@ -15,24 +15,24 @@ class BubbleEdges {
         bottom = value;
 
   const BubbleEdges.only({
-    this.left, // = null
-    this.top, // = null
-    this.right, // = null
-    this.bottom, // = null
+     this.left, // = null
+      this.top, // = null
+      this.right, // = null
+      this.bottom, // = null
   });
 
   const BubbleEdges.symmetric({
-    double vertical, // = null
-    double horizontal, // = null
+    required double vertical, // = null
+    required double horizontal, // = null
   })  : left = horizontal,
         top = vertical,
         right = horizontal,
         bottom = vertical;
 
-  final double left;
-  final double top;
-  final double right;
-  final double bottom;
+  final double? left;
+  final double? top;
+  final double? right;
+  final double? bottom;
 
   static get zero => BubbleEdges.all(0);
 
@@ -44,46 +44,46 @@ class BubbleEdges {
 
 class BubbleStyle {
   const BubbleStyle({
-    this.radius,
-    this.nip,
-    this.nipWidth,
-    this.nipHeight,
-    this.nipOffset,
-    this.nipRadius,
-    this.stick,
-    this.color,
-    this.elevation,
-    this.shadowColor,
-    this.padding,
-    this.margin,
-    this.alignment,
+     this.radius,
+    required this.nip,
+    required this.nipWidth,
+    required this.nipHeight,
+    required this.nipOffset,
+     this.nipRadius,
+      this.stick,
+    required this.color,
+      this.elevation,
+      this.shadowColor,
+      this.padding,
+    required this.margin,
+      this.alignment,
   });
 
-  final Radius radius;
+  final Radius? radius;
   final BubbleNip nip;
   final double nipHeight;
   final double nipWidth;
   final double nipOffset;
-  final double nipRadius;
-  final bool stick;
+  final double? nipRadius;
+  final bool? stick;
   final Color color;
-  final double elevation;
-  final Color shadowColor;
-  final BubbleEdges padding;
+  final double? elevation;
+  final Color? shadowColor;
+  final BubbleEdges? padding;
   final BubbleEdges margin;
-  final Alignment alignment;
+  final Alignment? alignment;
 }
 
 class BubbleClipper extends CustomClipper<Path> {
   BubbleClipper({
-    this.radius,
-    this.nip,
-    this.nipWidth,
-    this.nipHeight,
-    this.nipOffset,
-    this.nipRadius,
-    this.stick,
-    this.padding,
+    required  this.radius,
+    required  this.nip,
+    required this.nipWidth,
+    required this.nipHeight,
+    required  this.nipOffset,
+    required this.nipRadius,
+    required this.stick,
+    required this.padding,
   })  : assert(nipWidth > 0.0),
         assert(nipHeight > 0.0),
         assert(nipRadius >= 0.0),
@@ -124,26 +124,26 @@ class BubbleClipper extends CustomClipper<Path> {
   final bool stick;
   final BubbleEdges padding;
 
-  double _startOffset; // Offsets of the bubble
-  double _endOffset;
-  double _nipCX; // The center of the circle
-  double _nipCY;
-  double _nipPX; // The point of contact of the nip with the circle
-  double _nipPY;
+  late double _startOffset; // Offsets of the bubble
+  late double _endOffset;
+  late double _nipCX; // The center of the circle
+  late double _nipCY;
+  late double _nipPX; // The point of contact of the nip with the circle
+  late double _nipPY;
 
   get edgeInsets {
     return nip == BubbleNip.leftText || nip == BubbleNip.leftBottom
         ? EdgeInsets.only(
-        left: _startOffset + padding.left,
-        top: padding.top,
-        right: _endOffset + padding.right,
-        bottom: padding.bottom)
+        left: _startOffset + padding.left!,
+        top: padding.top!,
+        right: _endOffset + padding.right!,
+        bottom: padding.bottom!)
         : nip == BubbleNip.rightText || nip == BubbleNip.rightBottom
         ? EdgeInsets.only(
-        left: _endOffset + padding.left,
-        top: padding.top,
-        right: _startOffset + padding.right ,
-        bottom: padding.bottom)
+        left: _endOffset + padding.left!,
+        top: padding.top!,
+        right: _startOffset + padding.right! ,
+        bottom: padding.bottom!)
         : nip == BubbleNip.noRight
         ? EdgeInsets.only(
          left:10,
@@ -151,10 +151,10 @@ class BubbleClipper extends CustomClipper<Path> {
         ? EdgeInsets.only(
       right:10,
     ):EdgeInsets.only(
-        left: _endOffset + padding.left,
-        top: padding.top,
-        right: _endOffset + padding.right,
-        bottom: padding.bottom);
+        left: _endOffset + padding.left!,
+        top: padding.top!,
+        right: _endOffset + padding.right!,
+        bottom: padding.bottom!);
   }
 
   @override
@@ -269,21 +269,21 @@ class BubbleClipper extends CustomClipper<Path> {
 
 class Bubble extends StatelessWidget {
   Bubble({
-    this.child,
-    Radius radius,
-    BubbleNip nip,
-    double nipWidth,
-    double nipHeight,
-    double nipOffset,
-    double nipRadius,
-    bool stick,
-    Color color,
-    double elevation,
-    Color shadowColor,
-    BubbleEdges padding,
-    BubbleEdges margin,
-    Alignment alignment,
-    BubbleStyle style,
+    required this.child,
+      Radius? radius,
+      BubbleNip? nip,
+      double? nipWidth,
+      double? nipHeight,
+      double? nipOffset,
+      double? nipRadius,
+      bool? stick,
+      Color? color,
+      double? elevation,
+      Color? shadowColor,
+      BubbleEdges? padding,
+      BubbleEdges? margin,
+       Alignment? alignment,
+       BubbleStyle? style,
   })  : color = color ?? style?.color ?? Colors.white,
         elevation = elevation ?? style?.elevation ?? 1.0,
         shadowColor = shadowColor ?? style?.shadowColor ?? Colors.black,
@@ -293,7 +293,7 @@ class Bubble extends StatelessWidget {
           right: margin?.right ?? style?.margin?.right ?? 0.0,
           bottom: margin?.bottom ?? style?.margin?.bottom ?? 0.0,
         ),
-        alignment = alignment ?? style?.alignment ?? null,
+        alignment = alignment ?? style?.alignment ?? Alignment.center,
         bubbleClipper = BubbleClipper(
           radius: radius ?? style?.radius ?? Radius.circular(6.0),
           nip: nip ?? style?.nip ?? BubbleNip.no,

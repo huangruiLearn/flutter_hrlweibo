@@ -1,0 +1,4 @@
+because the following dependencies don't support null safety
+
+flutter run --no-sound-null-safety
+

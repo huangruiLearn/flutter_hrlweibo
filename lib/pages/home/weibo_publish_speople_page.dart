@@ -13,8 +13,8 @@ class WeiBoPublishAtUserPage extends StatefulWidget {
 }
 
 class _WeiBoPublishAtUserPageState extends State<WeiBoPublishAtUserPage> {
-  List<WeiboAtUser> mNormalList = List();
-  List<WeiboAtUser> mRecommendList = List();
+  List<WeiboAtUser> mNormalList =[];
+  List<WeiboAtUser> mRecommendList =[];
 
   int _suspensionHeight = 30;
   int _itemHeight = 60;
@@ -27,9 +27,9 @@ class _WeiBoPublishAtUserPageState extends State<WeiBoPublishAtUserPage> {
   }
 
   void loadData() async {
-    DioManager.getInstance().post(ServiceUrl.getWeiBoAtUser, null, (data) {
-      // List<WeiboAtUser> listRecommend = List();
-      //  List<WeiboAtUser> listNormal= List();
+    DioManager.instance.post(ServiceUrl.getWeiBoAtUser, null, (data) {
+      // List<WeiboAtUser> listRecommend =[];
+      //  List<WeiboAtUser> listNormal=[];
 
       data['data']['hotusers'].forEach((data) {
         mRecommendList.add(WeiboAtUser.fromJson(data));
@@ -199,7 +199,7 @@ class _WeiBoPublishAtUserPageState extends State<WeiBoPublishAtUserPage> {
               child: AzListView(
                 data: mNormalList,
                 topData: mRecommendList,
-                itemBuilder: (context, model) => _buildListItem(model),
+                itemBuilder: (context, model) => _buildListItem(model as WeiboAtUser),
                 suspensionWidget: _buildSusWidget(_suspensionTag),
                 isUseRealIndex: true,
                 itemHeight: _itemHeight,

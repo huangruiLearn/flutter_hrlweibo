@@ -10,7 +10,7 @@ class TopicText extends SpecialText {
   final bool showAtBackground;
 
   TopicText(TextStyle textStyle, SpecialTextGestureTapCallback onTap,
-      {this.showAtBackground = false, this.start})
+      {this.showAtBackground = false, required this.start})
       : super(flag, flag, textStyle, onTap: onTap);
 
   @override
@@ -38,7 +38,7 @@ class TopicText extends SpecialText {
             style: textStyle,
             recognizer: (TapGestureRecognizer()
               ..onTap = () {
-                if (onTap != null) onTap(str);
+                if (onTap != null) onTap!(str);
               }))
         : SpecialTextSpan(
             text: showStr,
@@ -47,7 +47,7 @@ class TopicText extends SpecialText {
             style: textStyle,
             recognizer: (TapGestureRecognizer()
               ..onTap = () {
-                if (onTap != null) onTap(str);
+                if (onTap != null) onTap!(str);
               }));
   }
 }

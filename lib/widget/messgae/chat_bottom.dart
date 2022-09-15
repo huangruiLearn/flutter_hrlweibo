@@ -17,17 +17,17 @@ typedef void OnImageSelect(File mFile);
 typedef void OnAudioCallBack(File mAudioFile, int duration);
 
 class ChatBottomInputWidget extends StatefulWidget {
-  final OnSend onSendCallBack;
+  final OnSend? onSendCallBack;
 
-  final OnImageSelect onImageSelectCallBack;
+  final OnImageSelect? onImageSelectCallBack;
 
-  final OnAudioCallBack onAudioCallBack;
+  final OnAudioCallBack? onAudioCallBack;
 
   final Stream shouldTriggerChange;
 
   const ChatBottomInputWidget({
-    Key key,
-    @required this.shouldTriggerChange,
+    Key? key,
+     required this.shouldTriggerChange,
     this.onSendCallBack,
     this.onImageSelectCallBack,
     this.onAudioCallBack,
@@ -43,7 +43,7 @@ class _ChatBottomInputWidgetState extends State<ChatBottomInputWidget>
 
   FocusNode focusNode = FocusNode();
 
-  AnimationController _bottomHeightController;
+  late AnimationController _bottomHeightController;
 
   TextEditingController mEditController = TextEditingController();
 
@@ -65,12 +65,12 @@ class _ChatBottomInputWidgetState extends State<ChatBottomInputWidget>
   KeyboardVisibilityNotification _keyboardVisibility =
       new KeyboardVisibilityNotification();
 
-  StreamSubscription streamSubscription;
+  StreamSubscription? streamSubscription;
 
   void _getWH() {
     if (globalKey == null) return;
     if (globalKey.currentContext == null) return;
-    if (globalKey.currentContext.size == null) return;
+    if (globalKey.currentContext?.size == null) return;
   }
 
   @override
@@ -78,7 +78,7 @@ class _ChatBottomInputWidgetState extends State<ChatBottomInputWidget>
     final mediaQueryData = MediaQueryData.fromWindow(ui.window);
     final keyHeight = mediaQueryData?.viewInsets?.bottom;
     if (keyHeight != 0) {
-      _softKeyHeight = keyHeight;
+      _softKeyHeight = keyHeight??0;
       print("键盘高度是:" + _softKeyHeight.toString());
     } else {}
   }
@@ -87,7 +87,7 @@ class _ChatBottomInputWidgetState extends State<ChatBottomInputWidget>
   didUpdateWidget(ChatBottomInputWidget old) {
     super.didUpdateWidget(old);
     if (widget.shouldTriggerChange != old.shouldTriggerChange) {
-      streamSubscription.cancel();
+      streamSubscription?.cancel();
       streamSubscription =
           widget.shouldTriggerChange.listen((_) => hideBottomLayout());
     }
@@ -96,7 +96,7 @@ class _ChatBottomInputWidgetState extends State<ChatBottomInputWidget>
   @override
   dispose() {
     super.dispose();
-    streamSubscription.cancel();
+    streamSubscription?.cancel();
   }
 
   void hideBottomLayout() {
@@ -438,7 +438,7 @@ class _ChatBottomInputWidgetState extends State<ChatBottomInputWidget>
     }
   }
 
-  Widget _buildBottomContainer({Widget child}) {
+  Widget _buildBottomContainer({Widget? child}) {
     return Visibility(
       visible: mBottomLayoutShow,
       child: Container(

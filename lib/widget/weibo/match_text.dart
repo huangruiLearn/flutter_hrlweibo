@@ -13,13 +13,13 @@ class MatchText {
 
   /// If no [type] property is explicitly defined then this propery must be
   /// non null takes a [regex] string
-  String pattern;
+  String? pattern;
 
   /// Takes a custom style of [TextStyle] for the matched text widget
-  TextStyle style;
+  TextStyle? style;
 
   /// A custom [Function] to handle onTap.
-  Function onTap;
+  Function? onTap;
 
   /// A callback function that takes two parameter String & pattern
   ///
@@ -35,9 +35,9 @@ class MatchText {
   /// Creates a MatchText object
   MatchText({
     this.type = ParsedType.CUSTOM,
-    this.pattern,
-    this.style,
-    this.onTap,
-    this.renderText,
+     this.pattern,
+      this.style,
+       this.onTap,
+    required this.renderText,
   });
 }

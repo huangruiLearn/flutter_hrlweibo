@@ -1,38 +1,22 @@
 
+import 'package:json_annotation/json_annotation.dart';
 
+
+part 'WeiBoDetail.g.dart';
+
+@JsonSerializable()
 class WeiBoDetail {
   List<Comment> comment;
   List<Forward> forward;
 
-  WeiBoDetail({this.comment, this.forward});
+  WeiBoDetail({required this.comment,required this.forward});
+  factory WeiBoDetail.fromJson(Map<String, dynamic> json) => _$WeiBoDetailFromJson(json);
 
-  WeiBoDetail.fromJson(Map<String, dynamic> json) {
-    if (json['comment'] != null) {
-      comment = new List<Comment>();
-      json['comment'].forEach((v) {
-        comment.add(new Comment.fromJson(v));
-      });
-    }
-    if (json['forward'] != null) {
-      forward = new List<Forward>();
-      json['forward'].forEach((v) {
-        forward.add(new Forward.fromJson(v));
-      });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.comment != null) {
-      data['comment'] = this.comment.map((v) => v.toJson()).toList();
-    }
-    if (this.forward != null) {
-      data['forward'] = this.forward.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
+  Map<String, dynamic> toJson() => _$WeiBoDetailToJson(this);
 }
 
+
+@JsonSerializable()
 class Comment {
   String commentid;
   String weiboid;
@@ -47,58 +31,26 @@ class Comment {
   int commentreplynum;
 
   Comment(
-      {this.commentid,
-        this.weiboid,
-        this.fromuid,
-        this.fromuname,
-        this.fromhead,
-        this.fromuserismember,
-        this.fromuserisvertify,
-        this.content,
-        this.createtime,
-        this.commentreply,
-        this.commentreplynum});
+      {required this.commentid,
+        required this.weiboid,
+        required  this.fromuid,
+        required  this.fromuname,
+        required this.fromhead,
+        required this.fromuserismember,
+        required this.fromuserisvertify,
+        required  this.content,
+        required  this.createtime,
+        required this.commentreply,
+        required this.commentreplynum});
+  factory Comment.fromJson(Map<String, dynamic> json) => _$CommentFromJson(json);
 
-  Comment.fromJson(Map<String, dynamic> json) {
-    commentid = json['commentid'];
-    weiboid = json['weiboid'];
-    fromuid = json['fromuid'];
-    fromuname = json['fromuname'];
-    fromhead = json['fromhead'];
-    fromuserismember = json['fromuserismember'];
-    fromuserisvertify = json['fromuserisvertify'];
-    content = json['content'];
-    createtime = json['createtime'];
-    if (json['commentreply'] != null) {
-      commentreply = new List<Commentreply>();
-      json['commentreply'].forEach((v) {
-        commentreply.add(new Commentreply.fromJson(v));
-      });
-    }
-    commentreplynum = json['commentreplynum'];
-  }
+  Map<String, dynamic> toJson() => _$CommentToJson(this);
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['commentid'] = this.commentid;
-    data['weiboid'] = this.weiboid;
-    data['fromuid'] = this.fromuid;
-    data['fromuname'] = this.fromuname;
-    data['fromhead'] = this.fromhead;
-    data['fromuserismember'] = this.fromuserismember;
-    data['fromuserisvertify'] = this.fromuserisvertify;
-    data['content'] = this.content;
-    data['createtime'] = this.createtime;
-    if (this.commentreply != null) {
-      data['commentreply'] = this.commentreply.map((v) => v.toJson()).toList();
-    }
-    data['commentreplynum'] = this.commentreplynum;
-    return data;
-  }
 }
 
+@JsonSerializable()
 class Commentreply {
-  Null commentid;
+  String commentid;
   String crid;
   String fromuid;
   String fromuname;
@@ -109,43 +61,24 @@ class Commentreply {
   int createtime;
 
   Commentreply(
-      {this.commentid,
-        this.crid,
-        this.fromuid,
-        this.fromuname,
-        this.fromhead,
-        this.fromuserismember,
-        this.fromuserisvertify,
-        this.content,
-        this.createtime});
+      {required this.commentid,
+        required this.crid,
+        required  this.fromuid,
+        required  this.fromuname,
+        required this.fromhead,
+        required this.fromuserismember,
+        required  this.fromuserisvertify,
+        required  this.content,
+        required this.createtime});
+  factory Commentreply.fromJson(Map<String, dynamic> json) => _$CommentreplyFromJson(json);
 
-  Commentreply.fromJson(Map<String, dynamic> json) {
-    commentid = json['commentid'];
-    crid = json['crid'];
-    fromuid = json['fromuid'];
-    fromuname = json['fromuname'];
-    fromhead = json['fromhead'];
-    fromuserismember = json['fromuserismember'];
-    fromuserisvertify = json['fromuserisvertify'];
-    content = json['content'];
-    createtime = json['createtime'];
-  }
+  Map<String, dynamic> toJson() => _$CommentreplyToJson(this);
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['commentid'] = this.commentid;
-    data['crid'] = this.crid;
-    data['fromuid'] = this.fromuid;
-    data['fromuname'] = this.fromuname;
-    data['fromhead'] = this.fromhead;
-    data['fromuserismember'] = this.fromuserismember;
-    data['fromuserisvertify'] = this.fromuserisvertify;
-    data['content'] = this.content;
-    data['createtime'] = this.createtime;
-    return data;
-  }
 }
 
+
+
+@JsonSerializable()
 class Forward {
   String zfid;
   String fromuid;
@@ -157,36 +90,17 @@ class Forward {
   int createtime;
 
   Forward(
-      {this.zfid,
-        this.fromuid,
-        this.fromuname,
-        this.fromhead,
-        this.fromuserismember,
-        this.fromuserisvertify,
-        this.content,
-        this.createtime});
+      {required this.zfid,
+        required this.fromuid,
+        required this.fromuname,
+        required this.fromhead,
+        required this.fromuserismember,
+        required  this.fromuserisvertify,
+        required  this.content,
+        required this.createtime});
 
-  Forward.fromJson(Map<String, dynamic> json) {
-    zfid = json['zfid'];
-    fromuid = json['fromuid'];
-    fromuname = json['fromuname'];
-    fromhead = json['fromhead'];
-    fromuserismember = json['fromuserismember'];
-    fromuserisvertify = json['fromuserisvertify'];
-    content = json['content'];
-    createtime = json['createtime'];
-  }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['zfid'] = this.zfid;
-    data['fromuid'] = this.fromuid;
-    data['fromuname'] = this.fromuname;
-    data['fromhead'] = this.fromhead;
-    data['fromuserismember'] = this.fromuserismember;
-    data['fromuserisvertify'] = this.fromuserisvertify;
-    data['content'] = this.content;
-    data['createtime'] = this.createtime;
-    return data;
-  }
+  factory Forward.fromJson(Map<String, dynamic> json) => _$ForwardFromJson(json);
+
+   Map<String, dynamic> toJson() => _$ForwardToJson(this);
 }

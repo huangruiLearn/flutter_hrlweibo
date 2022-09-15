@@ -21,15 +21,15 @@ class _VideoHotPageState extends State<VideoHotPage> {
 
   VideoHotPageState() {}
 
-  Future getVideoList(bool isRefresh) {
+  Future? getVideoList(bool isRefresh) {
     if (isRefresh) {
       isloadingMore = false;
       ishasMore = true;
       mCurPage = 1;
       FormData params =
           FormData.fromMap({'pageNum': "$mCurPage", 'pageSize': "10"});
-      DioManager.getInstance().post(ServiceUrl.getVideoHotList, params, (data) {
-        List<VideoModel> list = List();
+      DioManager.instance.post(ServiceUrl.getVideoHotList, params, (data) {
+        List<VideoModel> list =[];
         data['data']['list'].forEach((data) {
           list.add(VideoModel.fromJson(data));
         });
@@ -38,9 +38,9 @@ class _VideoHotPageState extends State<VideoHotPage> {
         setState(() {});
       }, (error) {});
 
-      DioManager.getInstance().post(ServiceUrl.getVideoHotBannerAdList, params,
+      DioManager.instance.post(ServiceUrl.getVideoHotBannerAdList, params,
           (data) {
-        List<String> list = List();
+        List<String> list =[];
         data['data'].forEach((data) {
           list.add(data.toString());
         });
@@ -51,8 +51,8 @@ class _VideoHotPageState extends State<VideoHotPage> {
     } else {
       FormData params =
           FormData.fromMap({'pageNum': "$mCurPage", 'pageSize': "10"});
-      DioManager.getInstance().post(ServiceUrl.getVideoHotList, params, (data) {
-        List<VideoModel> list = List();
+      DioManager.instance.post(ServiceUrl.getVideoHotList, params, (data) {
+        List<VideoModel> list =[];
         data['data']['list'].forEach((data) {
           list.add(VideoModel.fromJson(data));
         });

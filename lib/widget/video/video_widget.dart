@@ -7,15 +7,15 @@ import 'package:video_player/video_player.dart';
 
 class VideoWidget extends StatefulWidget {
   final String url;
-  final String previewImgUrl; //预览图片的地址
+  final String? previewImgUrl; //预览图片的地址
    final bool showProgressText; //是否显示进度文本
-  VideoWidget(this.url,
-      {Key key,
-      this.previewImgUrl,
+  VideoWidget(  this.url,
+      {  Key? key,
+          this.previewImgUrl,
        this.showProgressText = true})
       : super(key: key);
 
-  _VideoWidgetState state;
+  late _VideoWidgetState state;
 
   @override
   State<StatefulWidget> createState() {
@@ -29,8 +29,8 @@ class VideoWidget extends StatefulWidget {
 }
 
 class _VideoWidgetState extends State<VideoWidget> {
-  VideoPlayerController _controller;
-  VoidCallback listener;
+ late VideoPlayerController _controller;
+ late VoidCallback listener;
   bool _showSeekBar = true;
 
   _VideoWidgetState() {

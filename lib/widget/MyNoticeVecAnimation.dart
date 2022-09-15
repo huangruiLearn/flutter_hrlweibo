@@ -5,10 +5,10 @@ import 'package:flutter_hrlweibo/constant/constant.dart';
 //公告栏动画 垂直淡入淡出
 class MyNoticeVecAnimation extends StatefulWidget {
   final Duration duration;
-  final List<String> messages;
+  final  List<String>? messages;
 
   const MyNoticeVecAnimation({
-    Key key,
+    Key? key,
     this.duration = const Duration(milliseconds: 5000),
     this.messages,
   }) : super(key: key);
@@ -22,15 +22,15 @@ class MyNoticeVecAnimation extends StatefulWidget {
 
 class _MyNoticeVecAnimationState extends State<MyNoticeVecAnimation>
     with TickerProviderStateMixin {
-  AnimationController _controller;
+   late AnimationController  _controller;
 
   int _nextMassage = 0;
 
   //透明度
-  Animation<double> _opacityAni1, _opacityAni2;
+  late Animation<double> _opacityAni1, _opacityAni2;
 
   //位移
-  Animation<Offset> _positionAni1, _positionAni2;
+  late  Animation<Offset> _positionAni1, _positionAni2;
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,7 @@ class _MyNoticeVecAnimationState extends State<MyNoticeVecAnimation>
                   ),
                 ),
                 Text(
-                  widget.messages[_nextMassage],
+                  widget.messages?[_nextMassage]??"",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
@@ -118,7 +118,7 @@ class _MyNoticeVecAnimationState extends State<MyNoticeVecAnimation>
         if (status == AnimationStatus.completed) {
           setState(() {
             _nextMassage++;
-            if (_nextMassage >= widget.messages.length) {
+            if (_nextMassage >= widget.messages!.length) {
               _nextMassage = 0;
             }
           });
@@ -137,8 +137,7 @@ class _MyNoticeVecAnimationState extends State<MyNoticeVecAnimation>
   void dispose() {
 
     _controller.dispose();
-    _controller=null;
-     super.dispose();
+      super.dispose();
   }
 
 

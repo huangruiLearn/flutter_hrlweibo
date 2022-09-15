@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage>
   bool get wantKeepAlive => true;
 }
 
-TabController _controller;
+TabController? _controller;
 
 class TabBarWidget extends StatefulWidget {
   @override
@@ -53,7 +53,7 @@ class _TabBarWidgetState extends State<TabBarWidget>  with SingleTickerProviderS
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller?.dispose();
     super.dispose();
   }
 

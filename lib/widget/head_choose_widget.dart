@@ -6,9 +6,9 @@ import 'package:image_picker/image_picker.dart';
 
 //选择头像底部弹出框
 class HeadChooseWidget extends StatelessWidget {
-  final ValueChanged<File> chooseImgCallBack;
+  final ValueChanged<File>  chooseImgCallBack;
 
-  HeadChooseWidget({Key key, this.chooseImgCallBack}) : super(key: key);
+  HeadChooseWidget({Key? key, required this.chooseImgCallBack}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

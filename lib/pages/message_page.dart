@@ -36,7 +36,7 @@ class _TabBarWidgetState extends State<TabBarWidget> with SingleTickerProviderSt
     '动态',
     '消息',
   ];
-  TabController _tabController;
+  late TabController _tabController;
 
   @override
   void initState() {

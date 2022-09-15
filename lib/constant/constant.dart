@@ -2,7 +2,7 @@ import 'package:event_bus/event_bus.dart';
 
 class Constant {
   //  static const baseUrl ='http://192.168.56.1:8080/hrlweibo/';
-  static const baseUrl = 'http://180.76.192.108:8080/hrlweibo/';
+  static const baseUrl = 'http://175.27.193.33:8080/hrlweibo/';
 
   static const String ASSETS_IMG = 'assets/images/';
 

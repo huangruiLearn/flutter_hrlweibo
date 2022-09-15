@@ -4,7 +4,6 @@ import 'package:flutter_hrlweibo/http/service_url.dart';
 import 'package:flutter_hrlweibo/model/WeiBoModel.dart';
 import 'package:flutter_hrlweibo/public.dart';
 import 'package:flutter_hrlweibo/widget/loading_container.dart';
-import '../../http/service_method.dart';
 import '../../model/WeiBoListModel.dart';
 import '../../widget/weiboitem/WeiBoItem.dart';
 import '../home/weibo_detail_page.dart';
@@ -12,7 +11,7 @@ import '../home/weibo_detail_page.dart';
 class WeiBoHomeListPager extends StatefulWidget {
   String mCatId = "";
 
-  WeiBoHomeListPager({Key key, @required this.mCatId}) : super(key: key);
+  WeiBoHomeListPager({  Key? key,  required this.mCatId}) : super(key: key);
 
   @override
   _WeiBoHomeListPagerState createState() => _WeiBoHomeListPagerState();
@@ -23,7 +22,7 @@ class _WeiBoHomeListPagerState extends State<WeiBoHomeListPager>
   bool isRefreshloading = true;
   bool isloadingMore = false; //是否显示加载中
   bool ishasMore = true; //是否还有更多
-  num mCurPage = 1;
+  int mCurPage = 1;
   ScrollController _scrollController = new ScrollController();
   List<WeiBoModel> hotContentList = [];
 
@@ -77,7 +76,7 @@ class _WeiBoHomeListPagerState extends State<WeiBoHomeListPager>
       "userId": UserUtil.getUserInfo().id,
     });
 
-    DioManager.getInstance().post(ServiceUrl.getWeiBo, formData, (data) {
+    DioManager.instance.post(ServiceUrl.getWeiBo, formData, (data) {
       WeiBoListModel category = WeiBoListModel.fromJson(data);
       hotContentList.clear();
       hotContentList.addAll(category.data.list);
@@ -100,8 +99,8 @@ class _WeiBoHomeListPagerState extends State<WeiBoHomeListPager>
       "pageSize": Constant.PAGE_SIZE,
       "userId": UserUtil.getUserInfo().id,
     });
-    List<WeiBoModel> mListRecords = new List();
-    await DioManager.getInstance().post(ServiceUrl.getWeiBo, formData, (data) {
+    List<WeiBoModel> mListRecords =  [];
+    await DioManager.instance.post(ServiceUrl.getWeiBo, formData, (data) {
       WeiBoListModel category = WeiBoListModel.fromJson(data);
       mListRecords = category.data.list;
       setState(() {

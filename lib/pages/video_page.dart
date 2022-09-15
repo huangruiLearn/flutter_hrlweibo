@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hrlweibo/http/service_method.dart';
-import 'package:flutter_hrlweibo/model/VedioCategory.dart';
+import 'package:flutter_hrlweibo/http/dio_manager.dart';
+import 'package:flutter_hrlweibo/model/videocategory.dart';
 import 'package:flutter_hrlweibo/model/VedioCategoryList.dart';
 import 'package:flutter_hrlweibo/public.dart';
 import 'vedio/video_hot_page.dart';
@@ -14,8 +14,8 @@ class VideoPage extends StatefulWidget {
 }
 
 class _VideoPageState extends State<VideoPage> with TickerProviderStateMixin {
-  TabController mTabController;
-  List<VedioCategory> mTabList = new List();
+  TabController? mTabController;
+  List<VedioCategory> mTabList =  [];
 
   @override
   void initState() {
@@ -25,7 +25,7 @@ class _VideoPageState extends State<VideoPage> with TickerProviderStateMixin {
     mTabList.add(new VedioCategory(id: 2, cname: "热门"));
     mTabList.add(new VedioCategory(id: 3, cname: "小视频"));
     mTabController = TabController(length: mTabList.length, vsync: this);
-    DioManager.getInstance().post(ServiceUrl.getVedioCategory, null, (data) {
+    DioManager.instance.post(ServiceUrl.getVedioCategory, null, (data) {
       List<VedioCategory> mList = VedioCategoryList.fromJson(data['data']).data;
       setState(() {
         mTabList = mList;

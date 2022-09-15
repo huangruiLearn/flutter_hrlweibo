@@ -19,7 +19,7 @@ class _PersonInfoPageState extends State<PersonInfoPage>
 
   bool isShowBlackTitle = false;
 
-  TabController _tabController;
+  TabController? _tabController;
   OtherUser mUser = new OtherUser(
       id: "0",
       username: "",
@@ -44,7 +44,7 @@ class _PersonInfoPageState extends State<PersonInfoPage>
   @override
   void dispose() {
     super.dispose();
-    _tabController.dispose();
+    _tabController?.dispose();
   }
 
   //判断滚动改变透明度
@@ -65,7 +65,7 @@ class _PersonInfoPageState extends State<PersonInfoPage>
       'muserId': UserUtil.getUserInfo().id,
       'otheruserId': widget.mOtherUserId,
     });
-    DioManager.getInstance().post(ServiceUrl.getUserInfo, params, (data) {
+    DioManager.instance.post(ServiceUrl.getUserInfo, params, (data) {
       mUser = OtherUser.fromJson(data['data']);
       setState(() {});
     }, (error) {});
@@ -82,7 +82,7 @@ class _PersonInfoPageState extends State<PersonInfoPage>
    */
   Future<void> _onRefresh() async {}
 
-  Widget _timeSelection() {
+  Column _timeSelection() {
     return Column(
       children: <Widget>[
         Stack(
@@ -188,7 +188,7 @@ class _PersonInfoPageState extends State<PersonInfoPage>
     );
   }
 
-  Widget mFollowBtnWidget() {
+  Widget? mFollowBtnWidget() {
     if (mUser.relation == 0) {
       return Container(
         margin: EdgeInsets.only(right: 15),
@@ -223,7 +223,7 @@ class _PersonInfoPageState extends State<PersonInfoPage>
               'userid': UserUtil.getUserInfo().id,
               'otheruserid': mUser.id,
             });
-            DioManager.getInstance().post(ServiceUrl.followOther, params,
+            DioManager.instance.post(ServiceUrl.followOther, params,
                 (data) {
               int mRelation = data['data']['relation'];
               mUser.relation = mRelation;
@@ -261,7 +261,7 @@ class _PersonInfoPageState extends State<PersonInfoPage>
     }
   }
 
-  Widget showCancelFollowDialog() {
+  Widget? showCancelFollowDialog() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -291,7 +291,7 @@ class _PersonInfoPageState extends State<PersonInfoPage>
                     'userid': UserUtil.getUserInfo().id,
                     'otheruserid': mUser.id,
                   });
-                  DioManager.getInstance()
+                  DioManager.instance
                       .post(ServiceUrl.followCancelOther, params, (data) {
                     Navigator.of(context).pop();
                     int mRelation = data['data']['relation'];
@@ -321,6 +321,7 @@ class _PersonInfoPageState extends State<PersonInfoPage>
                 //滚动并且是列表滚动的时候
                 _onScroll(scrollNotification.metrics.pixels);
               }
+              return true;
             },
             child: Stack(
               children: <Widget>[

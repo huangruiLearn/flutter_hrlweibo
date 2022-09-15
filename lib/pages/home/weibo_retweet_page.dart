@@ -14,7 +14,7 @@ import 'package:keyboard_visibility/keyboard_visibility.dart';
 class RetWeetPage extends StatefulWidget {
   final WeiBoModel mModel;
 
-  RetWeetPage({Key key, this.mModel}) : super(key: key);
+  RetWeetPage({Key? key, required this.mModel}) : super(key: key);
 
   @override
   _RetWeetPageState createState() => _RetWeetPageState();
@@ -63,6 +63,7 @@ class _RetWeetPageState extends State<RetWeetPage> {
           } else {
             Navigator.pop(context);
           }
+          return Future(() => true);
         },
       ),
     );
@@ -119,7 +120,7 @@ class _RetWeetPageState extends State<RetWeetPage> {
                 children: <Widget>[
                   Text('转发微博',
                       style: TextStyle(fontSize: 16, color: Colors.black)),
-                  Text(UserUtil.getUserInfo().nick,
+                  Text(UserUtil.getUserInfo().nick??"null",
                       style: TextStyle(fontSize: 12, color: Colors.grey))
                 ],
               ),
@@ -138,7 +139,7 @@ class _RetWeetPageState extends State<RetWeetPage> {
                     "zfContent": mEtController.text,
                     "zfWeiBoId": widget.mModel.weiboId
                   });
-                  DioManager.getInstance()
+                  DioManager.instance
                       .post(ServiceUrl.forwardWeiBo, formData, (data) {
                     ToastUtil.show('提交成功!');
                     setState(() {
@@ -229,17 +230,14 @@ class _RetWeetPageState extends State<RetWeetPage> {
                                   color: Colors.grey,
                                   fontSize: 13,
                                 ),
-                                renderText: ({String str, String pattern}) {
+                                renderText: ({String? str, String? pattern}) {
                                   Map<String, String> map =
                                       Map<String, String>();
-                                  RegExp customRegExp = RegExp(pattern);
-                                  Match match = customRegExp.firstMatch(str);
-                                  map['display'] = match.group(1);
-                                  map['value'] = match.group(2);
-                                  print("正则:" +
-                                      match.group(1) +
-                                      "---" +
-                                      match.group(2));
+                                  RegExp customRegExp = RegExp(pattern!);
+                                  Match match = customRegExp.firstMatch(str!)!;
+                                  map['display'] = match.group(1)!;
+                                  map['value'] = match.group(2)!;
+
                                   return map;
                                 },
                                 onTap: (url) {
@@ -269,7 +267,7 @@ class _RetWeetPageState extends State<RetWeetPage> {
                                   color: Colors.grey,
                                   fontSize: 13,
                                 ),
-                                renderText: ({String str, String pattern}) {
+                                renderText: ({String? str, String? pattern}) {
                                   Map<String, String> map =
                                       Map<String, String>();
                                   //  RegExp customRegExp = RegExp(pattern);
@@ -279,7 +277,7 @@ class _RetWeetPageState extends State<RetWeetPage> {
                                   /*  String idStr =str.substring(str.indexOf(";"),
                      (str.lastIndexOf("#")-1));*/
 
-                                  String idStr = str.substring(
+                                  String idStr = str!.substring(
                                       str.indexOf(":") + 1,
                                       str.lastIndexOf("#"));
                                   String showStr = str
@@ -319,12 +317,12 @@ class _RetWeetPageState extends State<RetWeetPage> {
                               style: TextStyle(
                                 fontSize: 13,
                               ),
-                              renderText: ({String str, String pattern}) {
+                              renderText: ({String? str, String? pattern}) {
                                 Map<String, String> map = Map<String, String>();
-                                print("表情的正则:" + str);
+                                print("表情的正则:" + str!);
                                 String mEmoji2 = "";
                                 try {
-                                  String mEmoji = str.replaceAll(
+                                  String mEmoji = str!.replaceAll(
                                       RegExp('(\\[/)|(\\])'), "");
                                   int mEmojiNew = int.parse(mEmoji);
                                   mEmoji2 = String.fromCharCode(mEmojiNew);
@@ -344,7 +342,7 @@ class _RetWeetPageState extends State<RetWeetPage> {
                                   color: Color(0xff5B778D),
                                   fontSize: 15,
                                 ),
-                                renderText: ({String str, String pattern}) {
+                                renderText: ({String? str, String? pattern}) {
                                   Map<String, String> map =
                                       Map<String, String>();
                                   map['display'] = '全文';
@@ -557,9 +555,9 @@ class _RetWeetPageState extends State<RetWeetPage> {
   void _getWH() {
     if (mGlobalKey == null) return;
     if (mGlobalKey.currentContext == null) return;
-    if (mGlobalKey.currentContext.size == null) return;
-    final containerWidth = mGlobalKey.currentContext.size.width;
-    final containerHeight = mGlobalKey.currentContext.size.height;
+    if (mGlobalKey.currentContext!.size == null) return;
+    final containerWidth = mGlobalKey.currentContext!.size!.width;
+    final containerHeight = mGlobalKey.currentContext!.size!.height;
     print('Container widht is $containerWidth, height is $containerHeight');
   }
 }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hrlweibo/model/FindHomeModel.dart';
 import 'package:flutter_hrlweibo/public.dart';
 
+import '../../http/dio_manager.dart';
+
 class HotSearchPage extends StatefulWidget {
   @override
   _HotSearchPageState createState() => _HotSearchPageState();
@@ -29,7 +31,7 @@ class _HotSearchPageState extends State<HotSearchPage> {
     // TODO: implement initState
     super.initState();
 
-    DioManager.getInstance().post(ServiceUrl.getHotSearchList, null, (data) {
+    DioManager.instance.post(ServiceUrl.getHotSearchList, null, (data) {
       mHotSearchList.clear();
       data['data'].forEach((data) {
         mHotSearchList.add(Findhottop.fromJson(data));
@@ -38,8 +40,8 @@ class _HotSearchPageState extends State<HotSearchPage> {
     }, (error) {});
   }
 
-  Widget mHotSearchItem(int index) {
-    Widget mHotSearchTypeWidget;
+  Widget? mHotSearchItem(int index) {
+    Widget? mHotSearchTypeWidget;
 
     if ("1" == mHotSearchList[index].hottype) {
       mHotSearchTypeWidget = Image.asset(
@@ -136,6 +138,7 @@ class _HotSearchPageState extends State<HotSearchPage> {
               //滚动并且是列表滚动的时候
               listenScrollChangeTitle(scrollNotification.metrics.pixels);
             }
+            return true;
           },
           child: Stack(
             children: <Widget>[

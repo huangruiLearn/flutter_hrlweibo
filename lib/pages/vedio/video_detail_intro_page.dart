@@ -18,13 +18,13 @@ class VideoDetailIntroPage extends StatefulWidget {
 
 class _VideoDetailIntroPageState extends State<VideoDetailIntroPage> {
   bool mZiDongPlaySwitch = false;
-  List<VideoModel> mRecommendVideoList = new List();
+  List<VideoModel> mRecommendVideoList =  [];
 
   Future getmRecommendVideoList() async {
     FormData params = FormData.fromMap({
       'videoid': widget.mVideo.id,
     });
-    DioManager.getInstance()
+    DioManager.instance
         .post(ServiceUrl.getVideoDetailRecommendList, params, (data) {
       mRecommendVideoList.clear();
       data['data'].forEach((data) {

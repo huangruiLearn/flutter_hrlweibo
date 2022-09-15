@@ -18,9 +18,9 @@ class VideoDetailPage extends StatefulWidget {
 
 class _VideoDetailPageState extends State<VideoDetailPage> with SingleTickerProviderStateMixin{
   List<String> mTabList = ["简介", "评论"];
-  TabController mTabController;
-  VideoPlayerController videoPlayerController;
-  ChewieController chewieController;
+  late TabController mTabController;
+  late VideoPlayerController videoPlayerController;
+  late ChewieController chewieController;
 
   @override
   void initState() {

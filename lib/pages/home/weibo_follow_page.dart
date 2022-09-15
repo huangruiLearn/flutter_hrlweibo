@@ -10,6 +10,6 @@ class WeiBoFollowPage extends StatefulWidget {
 class _WeiBoFollowPageState extends State<WeiBoFollowPage> {
   @override
   Widget build(BuildContext context) {
-    return   new WeiBoHomeListPager(mCatId: "0");
+    return     WeiBoHomeListPager(mCatId: "0");
   }
 }

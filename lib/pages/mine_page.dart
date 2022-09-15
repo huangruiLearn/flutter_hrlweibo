@@ -13,12 +13,11 @@ class _MinePageState extends State<MinePage> {
   void initState() {
     super.initState();
     if (UserUtil.isLogin()) {
-      print("请求参数的值是:" + UserUtil.getUserInfo().id);
-      FormData params = FormData.fromMap({
+       FormData params = FormData.fromMap({
         'muserId': UserUtil.getUserInfo().id,
         'otheruserId': UserUtil.getUserInfo().id,
       });
-      DioManager.getInstance().post(ServiceUrl.getUserInfo, params, (data) {
+      DioManager.instance.post(ServiceUrl.getUserInfo, params, (data) {
         UserUtil.saveUserInfo(data['data']);
         setState(() {});
       }, (error) {});
@@ -29,14 +28,14 @@ class _MinePageState extends State<MinePage> {
    @override
   void deactivate() {
     super.deactivate();
-     var isTopRoute = ModalRoute.of(context).isCurrent;
+     var isTopRoute = ModalRoute.of(context)!.isCurrent;
     if (isTopRoute) {
        if (UserUtil.isLogin()) {
         FormData params = FormData.fromMap({
           'muserId': UserUtil.getUserInfo().id,
           'otheruserId': UserUtil.getUserInfo().id,
         });
-        DioManager.getInstance().post(ServiceUrl.getUserInfo, params, (data) {
+        DioManager.instance.post(ServiceUrl.getUserInfo, params, (data) {
           UserUtil.saveUserInfo(data['data']);
           SchedulerBinding.instance
               .addPostFrameCallback((_) => setState(() {}));
@@ -134,7 +133,7 @@ class _MinePageState extends State<MinePage> {
         ));
   }
 
-  Widget mHeadWidget() {
+  Widget  mHeadWidget() {
     return (UserUtil.getUserInfo() == null ||
             UserUtil.getUserInfo().headurl == null)
         ? CircleAvatar(
@@ -149,7 +148,7 @@ class _MinePageState extends State<MinePage> {
             child: FadeInImage(
               fit: BoxFit.cover,
               placeholder: AssetImage(Constant.ASSETS_IMG + 'img_default.png'),
-              image: NetworkImage(UserUtil.getUserInfo().headurl),
+              image: NetworkImage(UserUtil.getUserInfo().headurl??""),
             ),
           );
   }
@@ -174,9 +173,9 @@ class _MinePageState extends State<MinePage> {
                           width: 50,
                           height: 50,
                           margin: EdgeInsets.only(left: 20, right: 15),
-                          child: UserUtil.getUserInfo().isvertify == 0
-                              ? mHeadWidget
-                              : Stack(
+                          child: UserUtil.getUserInfo().isvertify  == 0
+                              ? mHeadWidget()
+                              :  Stack(
                                   children: <Widget>[
                                     mHeadWidget(),
                                     Positioned(
@@ -207,7 +206,7 @@ class _MinePageState extends State<MinePage> {
                                   child: Padding(
                                       padding: const EdgeInsets.fromLTRB(
                                           0.0, 0.0, 0.0, 0.0),
-                                      child: Text(UserUtil.getUserInfo().nick,
+                                      child: Text(UserUtil.getUserInfo().nick??"null",
                                           style: TextStyle(
                                               fontSize: 15.0,
                                               color: UserUtil.getUserInfo()
@@ -238,7 +237,7 @@ class _MinePageState extends State<MinePage> {
                               (UserUtil.getUserInfo() == null ||
                                       UserUtil.getUserInfo().decs == null)
                                   ? ""
-                                  : UserUtil.getUserInfo().decs,
+                                  : UserUtil.getUserInfo().decs??"null",
                               style: TextStyle(
                                   letterSpacing: 0,
                                   color: Colors.grey,
@@ -313,7 +312,7 @@ class _MinePageState extends State<MinePage> {
                         Container(
                           margin: EdgeInsets.only(top: 10),
                           child: Text(
-                            UserUtil.getUserInfo().followCount,
+                            UserUtil.getUserInfo().followCount??"null",
                             style: TextStyle(color: Colors.black, fontSize: 14),
                           ),
                         ),
@@ -345,7 +344,7 @@ class _MinePageState extends State<MinePage> {
                         Container(
                           margin: EdgeInsets.only(top: 10),
                           child: Text(
-                            UserUtil.getUserInfo().fanCount,
+                            UserUtil.getUserInfo().fanCount??"null",
                             style: TextStyle(color: Colors.black, fontSize: 14),
                           ),
                         ),

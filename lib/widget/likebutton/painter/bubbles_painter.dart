@@ -19,11 +19,11 @@ class BubblesPainter extends CustomPainter {
   double centerX = 0.0;
   double centerY = 0.0;
 
-  final List<Paint> circlePaints = List(4);
+  final List<Paint> circlePaints = [];
 
   double maxOuterDotsRadius = 0.0;
   double maxInnerDotsRadius = 0.0;
-  double maxDotSize;
+  double  maxDotSize= 0.0;
 
   final currentProgress;
 
@@ -35,7 +35,7 @@ class BubblesPainter extends CustomPainter {
   bool isFirst = true;
 
   BubblesPainter({
-    @required this.currentProgress,
+     required this.currentProgress,
     this.bubblesCount = 7,
     this.color1 = const Color(0xFFFFC107),
     this.color2 = const Color(0xFFFF9800),
@@ -140,24 +140,24 @@ class BubblesPainter extends CustomPainter {
       double progress =
           mapValueFromRangeToRange(currentProgress, 0.0, 0.5, 0.0, 1.0);
       circlePaints[0]
-        ..color = Color.lerp(color1, color2, progress).withAlpha(alpha);
+        ..color = Color.lerp(color1, color2, progress)?.withAlpha(alpha)?? Colors.white;
       circlePaints[1]
-        ..color = Color.lerp(color2, color3, progress).withAlpha(alpha);
+        ..color = Color.lerp(color2, color3, progress)?.withAlpha(alpha)?? Colors.white;
       circlePaints[2]
-        ..color = Color.lerp(color3, color4, progress).withAlpha(alpha);
+        ..color = Color.lerp(color3, color4, progress)?.withAlpha(alpha)?? Colors.white;
       circlePaints[3]
-        ..color = Color.lerp(color4, color1, progress).withAlpha(alpha);
+        ..color = Color.lerp(color4, color1, progress)?.withAlpha(alpha)?? Colors.white;
     } else {
       double progress =
           mapValueFromRangeToRange(currentProgress, 0.5, 1.0, 0.0, 1.0);
       circlePaints[0]
-        ..color = Color.lerp(color2, color3, progress).withAlpha(alpha);
+        ..color = Color.lerp(color2, color3, progress)?.withAlpha(alpha)?? Colors.white;
       circlePaints[1]
-        ..color = Color.lerp(color3, color4, progress).withAlpha(alpha);
+        ..color = Color.lerp(color3, color4, progress)?.withAlpha(alpha)?? Colors.white;
       circlePaints[2]
-        ..color = Color.lerp(color4, color1, progress).withAlpha(alpha);
+        ..color = Color.lerp(color4, color1, progress)?.withAlpha(alpha)?? Colors.white;
       circlePaints[3]
-        ..color = Color.lerp(color1, color2, progress).withAlpha(alpha);
+        ..color = Color.lerp(color1, color2, progress)?.withAlpha(alpha)?? Colors.white;
     }
   }
 
