@@ -1,6 +1,6 @@
 class User {
   String? id;
-  String? username;
+  dynamic username;
   String? nick;
   String? headurl;
   String? decs;

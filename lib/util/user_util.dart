@@ -19,8 +19,7 @@ class UserUtil {
   static User saveUserInfo(Map data) {
     if (data != null) {
       String id = data['id'];
-      String username = data['username'];
-      String nick = data['nick'];
+       String nick = data['nick'];
       String headurl = data['headurl'];
       String decs = data['decs'];
       String gender = data['gender'];
@@ -31,8 +30,7 @@ class UserUtil {
       int isvertify = data['isvertify'];
 
       SpUtil.putString(SP_USER_ID, id);
-      SpUtil.putString(SP_USER_NAME, username);
-      SpUtil.putString(SP_USER_NICK, nick);
+       SpUtil.putString(SP_USER_NICK, nick);
       SpUtil.putString(SP_USER_HEADURL, headurl);
       SpUtil.putString(SP_USER_DESC, decs);
       SpUtil.putString(SP_USER_GENDER, gender);
@@ -45,8 +43,7 @@ class UserUtil {
 
       User userInfo = User (
           id: id,
-          username: username,
-          nick: nick,
+           nick: nick,
           headurl: headurl,
           gender: gender,
           decs: decs,
