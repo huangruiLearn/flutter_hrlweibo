@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hrlweibo/public.dart';
 import 'package:flutter_hrlweibo/util/toast_util.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 
 class SettingPage extends StatefulWidget {
@@ -168,10 +169,10 @@ class _SettingPageState extends State<SettingPage> {
                     context: context,
                     builder: (context) {
                       return HeadChooseWidget(
-                          chooseImgCallBack: (File mHeadFile) {
+                          chooseImgCallBack: (XFile? mHeadFile) {
                         FormData formData = FormData.fromMap({
                           "userId": UserUtil.getUserInfo().id,
-                          "headFile": MultipartFile.fromFileSync(mHeadFile.path)
+                          "headFile": MultipartFile.fromFileSync(mHeadFile?.path??"")
                         });
 
                         DioManager.instance

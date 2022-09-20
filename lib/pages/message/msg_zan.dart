@@ -228,7 +228,7 @@ class _MsgZanPageState extends State<MsgZanPage> {
                                   Map<String, String> map =
                                       Map<String, String>();
                                   RegExp customRegExp = RegExp(pattern!);
-                                  Match match = customRegExp!.firstMatch(str!)!;
+                                  Match match = customRegExp.firstMatch(str!)!;
                                   map['display'] = match.group(1)!;
                                   map['value'] = match.group(2)!;
                                   print("正则:" +
@@ -316,15 +316,14 @@ class _MsgZanPageState extends State<MsgZanPage> {
                               ),
                               renderText: ({String? str, String? pattern}) {
                                 Map<String, String> map = Map<String, String>();
-                                print("表情的正则:" + str!);
-                                String mEmoji2 = "";
+                                 String mEmoji2 = "";
                                 try {
-                                  String mEmoji = str!.replaceAll(
-                                      RegExp('(\\[/)|(\\])'), "");
+                                  String mEmoji = str?.replaceAll(
+                                      RegExp('(\\[/)|(\\])'), "")??"";
                                   int mEmojiNew = int.parse(mEmoji);
                                   mEmoji2 = String.fromCharCode(mEmojiNew);
                                 } on Exception catch (_) {
-                                  mEmoji2 = str;
+                                  mEmoji2 = "";
                                 }
                                 map['display'] = mEmoji2;
 

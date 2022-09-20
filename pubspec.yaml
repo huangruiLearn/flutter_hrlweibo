@@ -23,7 +23,7 @@ dependencies:
   #https://github.com/google/json_serializable.dart/tree/master/json_serializable
   json_annotation: ^4.4.0
   #https://github.com/best-flutter/flutter_swiper
-  flutter_swiper: ^1.1.6
+  card_swiper : ^2.0.4
   #https://github.com/best-flutter/flutter_page_indicator
   flutter_page_indicator: ^0.0.3
   #https://github.com/flutter/plugins/tree/master/packages/video_player
@@ -31,9 +31,9 @@ dependencies:
   # https://github:com/brianegan/chewie
   chewie: ^1.3.4
   #https://github.com/flutterchina/azlistview
-  azlistview: ^0.1.2
+  azlistview: ^2.0.0
   #https://github.com/flutterchina/lpinyin
-  lpinyin: ^1.0.9
+  lpinyin: ^2.0.2
   # https://github:com/fluttercandies/extended_text_field:
   extended_text_field: ^10.1.1
   url_launcher: 5.3.0
@@ -42,22 +42,22 @@ dependencies:
   #https://github.com/Daegalus/dart-uuid
   uuid: 3.0.1
   flutter_screenutil: ^0.5.2
-  fluttertoast: ^3.1.0
+  fluttertoast: ^8.0.9
   synchronized: ^2.1.0
-  event_bus: ^1.0.1
+  event_bus: ^2.0.0
   # https://github.com/theyakka/fluro
   fluro: ^2.0.3
   #https://github.com/flutter/plugins/tree/master/packages/image_picker
-  image_picker: ^0.6.1+4
-  #https://github.com/adee42/flutter_keyboard_visibility
-  keyboard_visibility: ^0.5.6
+  image_picker: ^0.8.5
+  #https://github.com/MisterJimson/flutter_keyboard_visibility
+  flutter_keyboard_visibility: ^5.3.0
   #https://github.com/Baseflow/flutter-permission-handler
-  permission_handler:   '^3.0.0'
+  permission_handler:   '^10.0.0'
   #https://pub.flutter-io.cn/packages/audio_recorder
   flutter_record_plugin:
     git:
       url: https://github.com/huangruiLearn/flutter_record_plugin.git
-      ref: 2c2d77bcbf284249fc1e43d965d3d416d5a7466f
+      ref: c8dfed9c235174b223b1ab9dcaeb894bfaadabad
 
 dependency_overrides:
   platform: ^3.1.0

@@ -8,7 +8,7 @@ import 'package:flutter_hrlweibo/widget/extend_textfield/my_special_text_span_bu
 import 'package:flutter_hrlweibo/widget/messgae/emoji_widget.dart';
 import 'package:flutter_hrlweibo/widget/weibo/match_text.dart';
 import 'package:flutter_hrlweibo/widget/weibo/parsed_text.dart';
-import 'package:keyboard_visibility/keyboard_visibility.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 //转发界面
 class RetWeetPage extends StatefulWidget {
@@ -27,8 +27,7 @@ class _RetWeetPageState extends State<RetWeetPage> {
   bool mBottomLayoutShow = false;
   FocusNode mfocusNode = FocusNode();
   double mSoftKeyHeight = SpUtil.getDouble(Constant.SP_KEYBOARD_HEGIHT, 200);
-  KeyboardVisibilityNotification mKeyboardVisibility =
-      new KeyboardVisibilityNotification();
+
   MySpecialTextSpanBuilder mSpecialTextSpanBuilder = MySpecialTextSpanBuilder();
   final GlobalKey mGlobalKey = GlobalKey();
 
@@ -69,34 +68,35 @@ class _RetWeetPageState extends State<RetWeetPage> {
     );
   }
 
+  late StreamSubscription<bool> keyboardSubscription;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    var keyboardVisibilityController = KeyboardVisibilityController();
+    keyboardSubscription = keyboardVisibilityController.onChange.listen((bool visible) {
+      final keyHeight = MediaQuery.of(context).viewInsets.bottom;
+      if (keyHeight != 0) {
+        SpUtil.putDouble(Constant.SP_KEYBOARD_HEGIHT, keyHeight);
+        mSoftKeyHeight = keyHeight;
+      }
+      if (visible) {
+        mEmojiLayoutShow = false;
+        if (!mBottomLayoutShow) {
+          setState(() {
+            mBottomLayoutShow = true;
+          });
+        }
+      } else {
+        if (!mEmojiLayoutShow) {
+          setState(() {
+            mBottomLayoutShow = false;
+          });
+        }
+      }
+     });
 
-    mKeyboardVisibility.addNewListener(
-      onChange: (bool visible) {
-        final keyHeight = MediaQuery.of(context).viewInsets.bottom;
-        if (keyHeight != 0) {
-          SpUtil.putDouble(Constant.SP_KEYBOARD_HEGIHT, keyHeight);
-          mSoftKeyHeight = keyHeight;
-        }
-        if (visible) {
-          mEmojiLayoutShow = false;
-          if (!mBottomLayoutShow) {
-            setState(() {
-              mBottomLayoutShow = true;
-            });
-          }
-        } else {
-          if (!mEmojiLayoutShow) {
-            setState(() {
-              mBottomLayoutShow = false;
-            });
-          }
-        }
-      },
-    );
   }
 
   Widget _retweettitle() {
@@ -319,15 +319,14 @@ class _RetWeetPageState extends State<RetWeetPage> {
                               ),
                               renderText: ({String? str, String? pattern}) {
                                 Map<String, String> map = Map<String, String>();
-                                print("表情的正则:" + str!);
-                                String mEmoji2 = "";
+                                 String mEmoji2 = "";
                                 try {
-                                  String mEmoji = str!.replaceAll(
-                                      RegExp('(\\[/)|(\\])'), "");
+                                  String mEmoji = str?.replaceAll(
+                                      RegExp('(\\[/)|(\\])'), "")??"";
                                   int mEmojiNew = int.parse(mEmoji);
                                   mEmoji2 = String.fromCharCode(mEmojiNew);
                                 } on Exception catch (_) {
-                                  mEmoji2 = str;
+                                  mEmoji2 = "";
                                 }
                                 map['display'] = mEmoji2;
 

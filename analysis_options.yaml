@@ -1,4 +1,0 @@
-analyzer:
-  enable-experiment:
-    - non-nullable
-    # - extension-methods

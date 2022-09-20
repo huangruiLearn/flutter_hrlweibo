@@ -10,7 +10,7 @@ part 'VideoModel.g.dart';
   int videotime;
   int playnum;
   int userid;
-  String tag;
+  dynamic tag;
   String recommengstr;
   int type;
   String introduce;

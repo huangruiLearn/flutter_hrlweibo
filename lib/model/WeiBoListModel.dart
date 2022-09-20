@@ -25,8 +25,7 @@ class Data {
    int  pageNum;
    int  pageSize;
    int  size;
-   String  orderBy;
-  int  startRow;
+   int  startRow;
   int  endRow;
   int  total;
   int  pages;
@@ -45,8 +44,7 @@ class Data {
       {required this.pageNum,
         required this.pageSize,
         required this.size,
-        required this.orderBy,
-        required this.startRow,
+         required this.startRow,
         required this.endRow,
         required this.total,
         required  this.pages,

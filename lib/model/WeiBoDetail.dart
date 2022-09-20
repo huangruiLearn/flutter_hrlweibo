@@ -18,7 +18,7 @@ class WeiBoDetail {
 
 @JsonSerializable()
 class Comment {
-  String commentid;
+  dynamic commentid;
   String weiboid;
   String fromuid;
   String fromuname;
@@ -50,7 +50,7 @@ class Comment {
 
 @JsonSerializable()
 class Commentreply {
-  String commentid;
+  dynamic commentid;
   String crid;
   String fromuid;
   String fromuname;

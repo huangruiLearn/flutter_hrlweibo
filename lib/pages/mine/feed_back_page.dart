@@ -14,8 +14,8 @@ class FeedBackPage extends StatefulWidget {
 
 class _FeedBackPageState extends State<FeedBackPage> {
   TextEditingController _mEtController = new TextEditingController();
-  List<File> mFileList = [];
-  File? mSelectedImageFile;
+  List<XFile?> mFileList = [];
+  XFile? mSelectedImageFile;
   List<MultipartFile> mSubmitFileList = [];
 
   @override
@@ -36,7 +36,10 @@ class _FeedBackPageState extends State<FeedBackPage> {
         child: item,
         onTap: () {
           Navigator.of(context).pop();
-          ImagePicker.pickImage(source: source).then((result) {
+          final ImagePicker _picker = ImagePicker();
+          // Pick an image
+          final Future<XFile?> image =   _picker.pickImage(source: source);
+          image.then((result) {
             setState(() {
               mSelectedImageFile = result;
               print("执行刷新:");
@@ -170,7 +173,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
                   mSubmitFileList.clear();
                   for (int i = 0; i < mFileList.length; i++) {
                     mSubmitFileList.add(MultipartFile.fromFileSync(
-                        mFileList.elementAt(i).path));
+                        mFileList.elementAt(i)?.path??""));
                   }
                   FormData formData = FormData.fromMap({
                     "description": _mEtController.text,
@@ -248,8 +251,9 @@ class _FeedBackPageState extends State<FeedBackPage> {
                   content = Stack(
                     children: <Widget>[
                       Center(
+
                         child: Image.file(
-                          mFileList[index],
+                      new File( mFileList[index]?.path??"")  ,
                           width: double.infinity,
                           height: double.infinity,
                           fit: BoxFit.cover,

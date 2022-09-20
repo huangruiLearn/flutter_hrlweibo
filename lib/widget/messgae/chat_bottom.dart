@@ -2,7 +2,8 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hrlweibo/public.dart';
-import 'package:keyboard_visibility/keyboard_visibility.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'emoji_widget.dart';
@@ -13,7 +14,7 @@ import 'record_button.dart';
 String _initType = "text";
 
 typedef void OnSend(String text);
-typedef void OnImageSelect(File mFile);
+typedef void OnImageSelect(XFile? mFile);
 typedef void OnAudioCallBack(File mAudioFile, int duration);
 
 class ChatBottomInputWidget extends StatefulWidget {
@@ -62,8 +63,8 @@ class _ChatBottomInputWidgetState extends State<ChatBottomInputWidget>
 
   bool mEmojiLayoutShow = false;
 
-  KeyboardVisibilityNotification _keyboardVisibility =
-      new KeyboardVisibilityNotification();
+  late StreamSubscription<bool> keyboardSubscription;
+
 
   StreamSubscription? streamSubscription;
 
@@ -76,9 +77,9 @@ class _ChatBottomInputWidgetState extends State<ChatBottomInputWidget>
   @override
   void didChangeMetrics() {
     final mediaQueryData = MediaQueryData.fromWindow(ui.window);
-    final keyHeight = mediaQueryData?.viewInsets?.bottom;
+    final keyHeight = mediaQueryData.viewInsets.bottom;
     if (keyHeight != 0) {
-      _softKeyHeight = keyHeight??0;
+      _softKeyHeight = keyHeight;
       print("键盘高度是:" + _softKeyHeight.toString());
     } else {}
   }
@@ -126,49 +127,48 @@ class _ChatBottomInputWidgetState extends State<ChatBottomInputWidget>
       ),
     );
 
-    _keyboardVisibility.addNewListener(
-      onChange: (bool visible) {
-        print("mBottomLayoutShow:" +
-            mBottomLayoutShow.toString() +
-            "mEmojiLayoutShow:" +
-            mEmojiLayoutShow.toString() +
-            "mAddLayoutShow:" +
-            mAddLayoutShow.toString());
-        if (visible) {
-          mBottomLayoutShow = true;
+    var keyboardVisibilityController = KeyboardVisibilityController();
+    keyboardSubscription = keyboardVisibilityController.onChange.listen((bool visible) {
+      print("mBottomLayoutShow:" +
+          mBottomLayoutShow.toString() +
+          "mEmojiLayoutShow:" +
+          mEmojiLayoutShow.toString() +
+          "mAddLayoutShow:" +
+          mAddLayoutShow.toString());
+      if (visible) {
+        mBottomLayoutShow = true;
 
-          if (mEmojiLayoutShow) {
-            this.mCurrentType = "text2";
-            // mEmojiLayoutShow = false;
-            setState(() {});
-          } else {
-            setState(() {});
-          }
+        if (mEmojiLayoutShow) {
+          this.mCurrentType = "text2";
+          // mEmojiLayoutShow = false;
+          setState(() {});
         } else {
-          if (mBottomLayoutShow) {
-            if (mAddLayoutShow) {
-            } else {
-              if (!mEmojiLayoutShow) {
-                mBottomLayoutShow = false;
-                setState(() {});
-              }
-            }
-          } else {}
+          setState(() {});
         }
-      },
-    );
+      } else {
+        if (mBottomLayoutShow) {
+          if (mAddLayoutShow) {
+          } else {
+            if (!mEmojiLayoutShow) {
+              mBottomLayoutShow = false;
+              setState(() {});
+            }
+          }
+        } else {}
+      }
+     });
+
+
+
+
+
   }
 
   Future requestPermission() async {
-    // 申请权限
-
-    Map<PermissionGroup, PermissionStatus> permissions =
-        await PermissionHandler().requestPermissions(
-            [PermissionGroup.storage, PermissionGroup.microphone]);
 
     // 申请结果
 
-    PermissionStatus permission = await PermissionHandler()
+  /*  PermissionStatus permission = await PermissionHandler()
         .checkPermissionStatus(PermissionGroup.storage);
 
     if (permission == PermissionStatus.granted) {
@@ -177,7 +177,7 @@ class _ChatBottomInputWidgetState extends State<ChatBottomInputWidget>
     } else {
       //Fluttertoast.showToast(msg: "权限申请被拒绝");
 
-    }
+    }*/
   }
 
   @override

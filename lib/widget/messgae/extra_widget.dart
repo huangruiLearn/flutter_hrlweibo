@@ -4,7 +4,7 @@ import 'extra_item.dart';
 import 'package:image_picker/image_picker.dart';
 
 
-typedef void OnImageSelect(File mImg);
+typedef void OnImageSelect(XFile? mImg);
 
 
 class DefaultExtraWidget extends StatefulWidget {
@@ -58,8 +58,9 @@ class _DefaultExtraWidgetState extends State<DefaultExtraWidget> {
         leadingHighLightIconPath: Constant.ASSETS_IMG + "ic_ctype_file_pre.png",
         text: "相册",
         onTab: () {
-          Future<File> imageFile = ImagePicker.pickImage(source: ImageSource.gallery);
-          imageFile.then((result) {
+          ImagePicker _picker = ImagePicker();
+          Future<XFile?> imageFile = _picker.pickImage(source: ImageSource.gallery);
+           imageFile.then((result) {
              widget.onImageSelectBack?.call(result);
 
 

@@ -8,7 +8,7 @@ import 'home_page.dart';
 import 'mine_page.dart';
 import 'video_page.dart';
 
-class IndexPage extends StatefulWidget {
+ class IndexPage extends StatefulWidget {
   @override
   _IndexPageState createState() => _IndexPageState();
 }
@@ -75,7 +75,7 @@ class _IndexPageState extends State<IndexPage> {
   final List<Widget> tabBodies = [
     HomePage(),
     VideoPage(),
-    FindPage(),
+    FindPage( ),
     MessagePage(),
     MinePage()
   ];
@@ -102,11 +102,9 @@ class _IndexPageState extends State<IndexPage> {
             currentIndex: _tabIndex,
             items: bottomTabs,
             onTap: (index) async {
-              _tabIndex = index;
-
               setState(() {
-              //  _tabIndex = index;
-              //  currentPage = tabBodies[_tabIndex];
+                _tabIndex = index;
+                currentPage = tabBodies[_tabIndex];
               });
             },
           ),

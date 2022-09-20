@@ -307,15 +307,14 @@ class _MsgCommentPageState extends State<MsgCommentPage> {
                               ),
                               renderText: ({String? str, String? pattern}) {
                                 Map<String, String> map = Map<String, String>();
-                                print("表情的正则:" + str!);
-                                String mEmoji2 = "";
+                                 String mEmoji2 = "";
                                 try {
-                                  String mEmoji = str!.replaceAll(
-                                      RegExp('(\\[/)|(\\])'), "");
+                                  String mEmoji = str?.replaceAll(
+                                      RegExp('(\\[/)|(\\])'), "")??"";
                                   int mEmojiNew = int.parse(mEmoji);
                                   mEmoji2 = String.fromCharCode(mEmojiNew);
                                 } on Exception catch (_) {
-                                  mEmoji2 = str;
+                                  mEmoji2 = "";
                                 }
                                 map['display'] = mEmoji2;
 

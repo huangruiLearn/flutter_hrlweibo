@@ -993,7 +993,7 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> with SingleTickerProvider
             onTap: (bool isLiked) {
               return onLikeButtonTapped(isLiked, weiboItem);
             },
-            size: 21,
+            size: 5,
             circleColor:
                 CircleColor(start: Colors.orange, end: Colors.deepOrange),
             bubblesColor: BubblesColor(

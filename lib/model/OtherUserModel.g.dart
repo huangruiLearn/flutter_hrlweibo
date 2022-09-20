@@ -8,8 +8,7 @@ part of 'OtherUserModel.dart';
 
 OtherUser _$OtherUserFromJson(Map<String, dynamic> json) => OtherUser(
       id: json['id'] as String,
-      username: json['username'] as String,
-      nick: json['nick'] as String,
+       nick: json['nick'] as String,
       headurl: json['headurl'] as String,
       decs: json['decs'] as String,
       gender: json['gender'] as String,
@@ -23,8 +22,7 @@ OtherUser _$OtherUserFromJson(Map<String, dynamic> json) => OtherUser(
 
 Map<String, dynamic> _$OtherUserToJson(OtherUser instance) => <String, dynamic>{
       'id': instance.id,
-      'username': instance.username,
-      'nick': instance.nick,
+       'nick': instance.nick,
       'headurl': instance.headurl,
       'decs': instance.decs,
       'gender': instance.gender,

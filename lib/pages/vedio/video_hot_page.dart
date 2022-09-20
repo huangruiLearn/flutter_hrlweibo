@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hrlweibo/model/VideoModel.dart';
 import 'package:flutter_hrlweibo/public.dart';
 import 'package:flutter_hrlweibo/util/date_util.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:card_swiper/card_swiper.dart';
 
 class VideoHotPage extends StatefulWidget {
   @override

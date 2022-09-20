@@ -6,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 
 //选择头像底部弹出框
 class HeadChooseWidget extends StatelessWidget {
-  final ValueChanged<File>  chooseImgCallBack;
+  final ValueChanged<XFile?>  chooseImgCallBack;
 
   HeadChooseWidget({Key? key, required this.chooseImgCallBack}) : super(key: key);
 
@@ -21,8 +21,9 @@ class HeadChooseWidget extends StatelessWidget {
           child: InkWell(
               onTap: () {
                 Navigator.pop(context);
-                Future<File> imageFile =
-                    ImagePicker.pickImage(source: ImageSource.camera);
+                ImagePicker _picker = ImagePicker();
+                Future<XFile?> imageFile =
+                            _picker.pickImage(source: ImageSource.camera);
                 imageFile.then((result) {
                   chooseImgCallBack(result);
                 });
@@ -48,8 +49,8 @@ class HeadChooseWidget extends StatelessWidget {
           child: InkWell(
               onTap: () {
                 Navigator.pop(context);
-                Future<File> imageFile =
-                    ImagePicker.pickImage(source: ImageSource.gallery);
+                ImagePicker _picker = ImagePicker();
+                Future<XFile?> imageFile =   _picker.pickImage(source: ImageSource.gallery);
                 imageFile.then((result) {
                   chooseImgCallBack(result);
                 });

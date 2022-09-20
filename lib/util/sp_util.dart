@@ -39,19 +39,19 @@ class SpUtil {
 
   /// put object list.
   static Future<bool> putObjectList(String key, List<Object> list) {
-    List<String>? _dataList = list?.map((value) {
+    List<String>  _dataList = list.map((value) {
       return json.encode(value);
-    })?.toList();
-    return prefs.setStringList(key, _dataList ?? []);
+    }).toList();
+    return prefs.setStringList(key, _dataList );
   }
 
   /// get object list.
   static List<Map>? getObjectList(String key) {
     List<String> dataLis = prefs.getStringList(key) ?? [];
-    return dataLis?.map((value) {
+    return dataLis.map((value) {
       Map _dataMap = json.decode(value);
       return _dataMap;
-    })?.toList();
+    }).toList();
   }
 
   /// get string.

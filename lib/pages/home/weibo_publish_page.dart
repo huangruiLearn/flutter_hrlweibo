@@ -6,7 +6,7 @@ import 'package:flutter_hrlweibo/model/WeiboAtUser.dart';
 import 'package:flutter_hrlweibo/public.dart';
 import 'package:flutter_hrlweibo/widget/extend_textfield/my_special_text_span_builder.dart';
 import 'package:flutter_hrlweibo/widget/messgae/emoji_widget.dart';
-import 'package:keyboard_visibility/keyboard_visibility.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:path/path.dart' as path;
 import 'package:image_picker/image_picker.dart';
 
@@ -30,10 +30,10 @@ class _WeiBoPublishPageState extends State<WeiBoPublishPage> {
   FocusNode focusNode = FocusNode();
   final GlobalKey globalKey = GlobalKey();
   double _softKeyHeight = SpUtil.getDouble(Constant.SP_KEYBOARD_HEGIHT, 200);
-  KeyboardVisibilityNotification _keyboardVisibility =
-      new KeyboardVisibilityNotification();
-  List<File?> mFileList =[];
-  File? mSelectedImageFile;
+  late StreamSubscription<bool> keyboardSubscription;
+
+  List<XFile?> mFileList =[];
+  XFile? mSelectedImageFile;
   List<MultipartFile> mSubmitFileList =[];
 
   MySpecialTextSpanBuilder _mySpecialTextSpanBuilder =
@@ -43,26 +43,26 @@ class _WeiBoPublishPageState extends State<WeiBoPublishPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    var keyboardVisibilityController = KeyboardVisibilityController();
+    // Subscribe
+    keyboardSubscription = keyboardVisibilityController.onChange.listen((bool visible) {
+      if (visible) {
+        mEmojiLayoutShow = false;
 
-    _keyboardVisibility.addNewListener(
-      onChange: (bool visible) {
-        if (visible) {
-          mEmojiLayoutShow = false;
-
-          if (!mBottomLayoutShow) {
-            setState(() {
-              mBottomLayoutShow = true;
-            });
-          }
-        } else {
-          if (!mEmojiLayoutShow) {
-            setState(() {
-              mBottomLayoutShow = false;
-            });
-          }
+        if (!mBottomLayoutShow) {
+          setState(() {
+            mBottomLayoutShow = true;
+          });
         }
-      },
-    );
+      } else {
+        if (!mEmojiLayoutShow) {
+          setState(() {
+            mBottomLayoutShow = false;
+          });
+        }
+      }print('Keyboard visibility update. Is visible: $visible');
+    });
+
 
     _mEtController.addListener(_printLatestValue);
   }
@@ -257,8 +257,9 @@ class _WeiBoPublishPageState extends State<WeiBoPublishPage> {
                       ));
                       return;
                     }
-                    ImagePicker.pickImage(source: ImageSource.gallery)
-                        .then((result) {
+                    final ImagePicker _picker = ImagePicker();
+                    final Future<XFile?> image =   _picker.pickImage(source: ImageSource.gallery);
+                     image .then((result) {
                       setState(() {
                         mSelectedImageFile = result;
                       });
@@ -272,7 +273,7 @@ class _WeiBoPublishPageState extends State<WeiBoPublishPage> {
                   children: <Widget>[
                     Center(
                       child: Image.file(
-                        mFileList[index]!,
+                        File(mFileList[index]?.path??"")  ,
                         width: double.infinity,
                         height: double.infinity,
                         fit: BoxFit.cover,
@@ -346,8 +347,10 @@ class _WeiBoPublishPageState extends State<WeiBoPublishPage> {
                       height: 25.0,
                     ),
                     onTap: () {
-                      ImagePicker.pickImage(source: ImageSource.gallery)
-                          .then((result) {
+
+                      final ImagePicker _picker = ImagePicker();
+                      final Future<XFile?> image =   _picker.pickImage(source: ImageSource.gallery);
+                       image.then((result) {
                         setState(() {
                           mSelectedImageFile = result;
                         });

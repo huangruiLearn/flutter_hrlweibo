@@ -22,7 +22,7 @@ class ExpandedViewport extends Viewport {
     AxisDirection axisDirection = AxisDirection.down,
     AxisDirection? crossAxisDirection,
     double anchor = 0.0,
-    ScrollPosition? offset,
+    required ViewportOffset   offset,
     Key? center,
     double? cacheExtent,
     List<Widget> slivers = const <Widget>[],
@@ -32,7 +32,7 @@ class ExpandedViewport extends Viewport {
             axisDirection: axisDirection,
             crossAxisDirection: crossAxisDirection,
             anchor: anchor,
-            offset: offset!,
+            offset: offset ,
             center: center,
             cacheExtent: cacheExtent);
 

@@ -194,20 +194,40 @@ class _WeiBoPublishAtUserPageState extends State<WeiBoPublishAtUserPage> {
                   ),
                 )),
           )),
-          Expanded(
+        /*  Expanded(
               flex: 1,
               child: AzListView(
                 data: mNormalList,
-                topData: mRecommendList,
+                //topData: mRecommendList,
                 itemBuilder: (context, model) => _buildListItem(model as WeiboAtUser),
-                suspensionWidget: _buildSusWidget(_suspensionTag),
-                isUseRealIndex: true,
-                itemHeight: _itemHeight,
-                suspensionHeight: _suspensionHeight,
-                onSusTagChanged: _onSusTagChanged,
+               // susItemHeight: susItemHeight,
+
+                //  suspensionWidget: _buildSusWidget(_suspensionTag),
+              //  isUseRealIndex: true,
+              //  itemHeight: _itemHeight,
+             //   suspensionHeight: _suspensionHeight,
+              //  onSusTagChanged: _onSusTagChanged,
                 //showCenterTip: false,
-              )),
-        ],
+              )),*/
+          Expanded(
+            flex: 1,
+            child: AzListView(
+              data: mNormalList,
+              itemCount: mNormalList.length,
+              itemBuilder: (BuildContext context, int index) {
+
+                 return  _buildListItem(mNormalList[index] );
+              },
+              susItemHeight: 20,
+              susItemBuilder: (BuildContext context, int index) {
+
+                return _buildListItem(mRecommendList[index] );
+              },
+              indexBarData: SuspensionUtil.getTagIndexList(mNormalList),
+
+            ),
+          ),
+          ],
       ),
     ));
   }

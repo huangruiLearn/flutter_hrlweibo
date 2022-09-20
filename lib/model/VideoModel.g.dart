@@ -12,7 +12,7 @@ VideoModel _$VideoModelFromJson(Map<String, dynamic> json) => VideoModel(
       videotime: json['videotime'] as int,
       playnum: json['playnum'] as int,
       userid: json['userid'] as int,
-      tag: json['tag'] as String,
+      tag: json['tag'] as dynamic,
       recommengstr: json['recommengstr'] as String,
       type: json['type'] as int,
       introduce: json['introduce'] as String,

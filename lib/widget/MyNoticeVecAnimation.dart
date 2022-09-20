@@ -82,8 +82,7 @@ class _MyNoticeVecAnimationState extends State<MyNoticeVecAnimation>
 
   //纵向滚动
   void _startVerticalAni() {
-    if(_controller!=null)
-      return;
+
     // TODO: implement initState
     _controller = AnimationController(duration: widget.duration, vsync: this);
 

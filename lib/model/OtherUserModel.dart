@@ -7,8 +7,7 @@ part 'OtherUserModel.g.dart';
 @JsonSerializable()
 class OtherUser {
   String id;
-  String username;
-  String nick;
+   String nick;
   String headurl;
   String decs;
   String gender;
@@ -21,8 +20,7 @@ class OtherUser {
 
   OtherUser(
       {required this.id,
-        required  this.username,
-        required this.nick,
+         required this.nick,
         required this.headurl,
         required  this.decs,
         required this.gender,

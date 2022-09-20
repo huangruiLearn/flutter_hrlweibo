@@ -11,7 +11,7 @@ import 'package:flutter_hrlweibo/model/FindHomeModel.dart';
 import 'package:flutter_hrlweibo/model/WeiBoModel.dart';
 import 'package:flutter_hrlweibo/public.dart';
 import 'package:flutter_hrlweibo/widget/MyNoticeVecAnimation.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:card_swiper/card_swiper.dart';
 
 import '../widget/weiboitem/WeiBoItem.dart';
 import 'find/find_topic.dart';
@@ -22,7 +22,7 @@ class FindPage extends StatefulWidget {
   _FindPageState createState() => _FindPageState();
 }
 
-class _FindPageState extends State<FindPage> with SingleTickerProviderStateMixin{
+class _FindPageState extends State<FindPage> with TickerProviderStateMixin{
   //活动导航
   bool isFindKindVisible = false;
   final List<String> _tabValues = [
@@ -37,7 +37,7 @@ class _FindPageState extends State<FindPage> with SingleTickerProviderStateMixin
     '大家正在搜:  hrl超话微博上线啦!',
     '大家正在搜:  hrl热点微博上线啦!',
   ];
-  TabController? _controller;
+    TabController?   _controller;
   List<Findhottop> mTopHotSearchList = []; //顶部热搜列表
   List<Findkind> mFindKindList = []; //发现类型列表
   Findhotcenter mFindCenter=Findhotcenter();
@@ -51,6 +51,8 @@ class _FindPageState extends State<FindPage> with SingleTickerProviderStateMixin
   @override
   void initState() {
     // TODO: implement initState
+
+
     super.initState();
     _controller = TabController(
       length: _tabValues.length, //Tab页数量

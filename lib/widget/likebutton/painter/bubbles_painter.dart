@@ -43,8 +43,8 @@ class BubblesPainter extends CustomPainter {
     this.color4 = const Color(0xFFF44336),
   }) {
     outerBubblesPositionAngle = 360.0 / bubblesCount;
-    for (int i = 0; i < circlePaints.length; i++) {
-      circlePaints[i] = new Paint()..style = PaintingStyle.fill;
+    for (int i = 0; i < 4; i++) {
+      circlePaints.add(  new Paint()..style = PaintingStyle.fill);
     }
   }
 

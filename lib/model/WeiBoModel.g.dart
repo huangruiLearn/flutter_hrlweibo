@@ -7,28 +7,28 @@ part of 'WeiBoModel.dart';
 // **************************************************************************
 
 WeiBoModel _$WeiBoModelFromJson(Map<String, dynamic> json) => WeiBoModel(
-      weiboId: json['weiboId'] as String,
-      categoryId: json['categoryId'] as String,
-      content: json['content'] as String,
+      weiboId: json['weiboId']  ,
+      categoryId: json['categoryId'] ,
+      content: json['content']  ,
       userInfo:
           WeiBoUserInfo.fromJson(json['userInfo'] as Map<String, dynamic>),
       picurl:
           (json['picurl'] as List<dynamic>).map((e) => e as String).toList(),
-      zfContent: json['zfContent'] as String,
-      zfNick: json['zfNick'] as String,
-      zfUserId: json['zfUserId'] as String,
+      zfContent: json['zfContent']  ,
+      zfNick: json['zfNick'] ,
+      zfUserId: json['zfUserId']  ,
       zfPicurl:
           (json['zfPicurl'] as List<dynamic>).map((e) => e as String).toList(),
-      zfWeiBoId: json['zfWeiBoId'] as String,
-      containZf: json['containZf'] as bool,
-      vediourl: json['vediourl'] as String,
-      zfVedioUrl: json['zfVedioUrl'] as String,
-      tail: json['tail'] as String,
-      createtime: json['createtime'] as int,
-      zanStatus: json['zanStatus'] as int,
-      zhuanfaNum: json['zhuanfaNum'] as int,
-      likeNum: json['likeNum'] as int,
-      commentNum: json['commentNum'] as int,
+      zfWeiBoId: json['zfWeiBoId']  ,
+      containZf: json['containZf']  ,
+      vediourl: json['vediourl'] ,
+      zfVedioUrl: json['zfVedioUrl']  ,
+      tail: json['tail']  ,
+      createtime: json['createtime']  ,
+      zanStatus: json['zanStatus'] ,
+      zhuanfaNum: json['zhuanfaNum']   ,
+      likeNum: json['likeNum'] ,
+      commentNum: json['commentNum'] ,
     );
 
 Map<String, dynamic> _$WeiBoModelToJson(WeiBoModel instance) =>

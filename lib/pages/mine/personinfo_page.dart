@@ -22,8 +22,7 @@ class _PersonInfoPageState extends State<PersonInfoPage>
   TabController? _tabController;
   OtherUser mUser = new OtherUser(
       id: "0",
-      username: "",
-      nick: "",
+       nick: "",
       headurl: "",
       decs: "",
       gender: "0",

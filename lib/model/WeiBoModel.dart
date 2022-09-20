@@ -9,13 +9,13 @@ class WeiBoModel {
   String content;
   WeiBoUserInfo userInfo;
   List<String> picurl;
-  String zfContent;
-  String zfNick;
-  String zfUserId;
+  dynamic zfContent;
+  dynamic zfNick;
+  dynamic zfUserId;
   List<String> zfPicurl;
-  String zfWeiBoId;
+  dynamic zfWeiBoId;
 
-  String zfVedioUrl;
+  dynamic zfVedioUrl;
   bool containZf;
 
   String vediourl;

@@ -52,7 +52,7 @@ Map<String, dynamic> _$CommentToJson(Comment instance) => <String, dynamic>{
     };
 
 Commentreply _$CommentreplyFromJson(Map<String, dynamic> json) => Commentreply(
-      commentid: json['commentid'] as String,
+      commentid: json['commentid'] as dynamic,
       crid: json['crid'] as String,
       fromuid: json['fromuid'] as String,
       fromuname: json['fromuname'] as String,

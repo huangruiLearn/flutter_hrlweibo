@@ -22,7 +22,7 @@ class DioManager {
   }
 
   void requestHttp(String url, Function successCallBack, String method,
-      FormData params, Function errorCallBack) async {
+      FormData? params, Function errorCallBack) async {
     Response? response;
     try {
       response = await dio.post(url, data: params);

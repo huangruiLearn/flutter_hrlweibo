@@ -150,7 +150,7 @@ class _ChatPageState extends State<ChatPage> {
                       axisDirection: AxisDirection.up,
                       viewportBuilder: (context, offset) {
                         return ExpandedViewport(
-                          offset: offset as ScrollPosition,
+                          offset: offset  ,
                           axisDirection: AxisDirection.up,
                           slivers: <Widget>[
                             SliverExpanded(),
@@ -248,7 +248,7 @@ class _ChatPageState extends State<ChatPage> {
                   },
                   onImageSelectCallBack: (value) {
                     File image = new File(
-                        value.path); // Or any other way to get a File instance.
+                        value?.path??""); // Or any other way to get a File instance.
                     Future<ui.Image> decodedImage =
                         decodeImageFromList(image.readAsBytesSync());
 
@@ -260,7 +260,7 @@ class _ChatPageState extends State<ChatPage> {
                     mMessgae.uuid = Uuid().v4() + "";
                     mMessgae.msgType = HrlMessageType.image;
                     mMessgae.isSend = true;
-                    mMessgae.thumbPath = value.path;
+                    mMessgae.thumbPath = value?.path;
 
                     mMessgae.state = HrlMessageState.sending;
                     mlistMessage.insert(0, mMessgae);
