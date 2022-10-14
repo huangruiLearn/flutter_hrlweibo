@@ -9,58 +9,45 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with AutomaticKeepAliveClientMixin {
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: <Widget>[
-          new Expanded(child: new TabBarWidget()),
-        ],
-      ),
-    );
+    return TabBarWidget();
   }
-
-  @override
-  // TODO: implement wantKeepAlive
-  bool get wantKeepAlive => true;
 }
-
-TabController? _controller;
 
 class TabBarWidget extends StatefulWidget {
   @override
   _TabBarWidgetState createState() => _TabBarWidgetState();
 }
 
-class _TabBarWidgetState extends State<TabBarWidget>  with SingleTickerProviderStateMixin{
-  final List<String> _tabValues = [
+class _TabBarWidgetState extends State<TabBarWidget>
+    with TickerProviderStateMixin {
+  final List<String> tabValues = [
     '关注',
     '热门',
   ];
 
+  late TabController tabController;
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    _controller = TabController(
-
-      length: _tabValues.length, //Tab页数量
-      vsync:this,
+    tabController = TabController(
+      length: tabValues.length, //Tab页数量
+      vsync: this,
     );
   }
 
   @override
   void dispose() {
-    _controller?.dispose();
+    tabController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Container(
+    return Container(
       child: Column(
         children: <Widget>[
           Stack(
@@ -83,13 +70,13 @@ class _TabBarWidgetState extends State<TabBarWidget>  with SingleTickerProviderS
                         TextStyle(fontSize: 16.0, fontWeight: FontWeight.w700),
                     unselectedLabelStyle: TextStyle(fontSize: 16.0),
                     indicatorSize: TabBarIndicatorSize.label,
-                    controller: _controller,
+                    controller: tabController,
                     tabs: [
                       new Tab(
-                        text: _tabValues[0],
+                        text: tabValues[0],
                       ),
                       new Tab(
-                        text: _tabValues[1],
+                        text: tabValues[1],
                       ),
                     ]),
               ),
@@ -105,14 +92,14 @@ class _TabBarWidgetState extends State<TabBarWidget>  with SingleTickerProviderS
               ),
             ],
           ),
-          new Expanded(
+          Expanded(
             child: TabBarView(
-              controller: _controller,
-              children: <Widget>[new WeiBoFollowPage(), new WeiBoHotPage()],
+              controller: tabController,
+              children: <Widget>[WeiBoFollowPage(), WeiBoHotPage()],
             ),
           )
         ],
       ),
-    ));
+    );
   }
 }

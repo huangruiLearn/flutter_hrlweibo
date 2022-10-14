@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'weibo_homelist_page.dart';
+import 'weibo_list_page.dart';
 
 
-class WeiBoFollowPage extends StatefulWidget {
-  @override
-  _WeiBoFollowPageState createState() => _WeiBoFollowPageState();
-}
+class WeiBoFollowPage extends StatelessWidget {
+  const WeiBoFollowPage({Key? key}) : super(key: key);
 
-class _WeiBoFollowPageState extends State<WeiBoFollowPage> {
   @override
   Widget build(BuildContext context) {
-    return     WeiBoHomeListPager(mCatId: "0");
+    return WeiBoListPage(mCatId: "0");
   }
 }
+
+

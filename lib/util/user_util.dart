@@ -56,7 +56,7 @@ class UserUtil {
 
   // 获取用户信息
   static User getUserInfo() {
-    bool isLogin = SpUtil.instance.getBool(SP_IS_ALLOGIN);
+    bool isLogin = SpUtil .getBool(SP_IS_ALLOGIN);
     if (isLogin == null || !isLogin) {
       return User();
     }
@@ -77,7 +77,7 @@ class UserUtil {
 
   // 判断用户是否登录
   static bool isLogin() {
-    bool b = SpUtil.instance.getBool(SP_IS_ALLOGIN);
+    bool b = SpUtil .getBool(SP_IS_ALLOGIN);
     return b != null && b;
   }
 

@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hrlweibo/public.dart';
 
+import '../../widget/my_refresh_load_list.dart';
+
 class FFRecommendPage extends StatefulWidget {
   @override
   _FFRecommendPageState createState() => _FFRecommendPageState();
@@ -93,7 +95,7 @@ class _FFRecommendPageState extends State<FFRecommendPage> {
   }
 
   Widget mRecommendPage() {
-    if (mRecommendList == null) {
+   /* if (mRecommendList == null) {
       getRecommendList(true);
       return Column(
         children: <Widget>[
@@ -105,17 +107,127 @@ class _FFRecommendPageState extends State<FFRecommendPage> {
           )
         ],
       );
-    } else {
-      return RefreshIndicator(
+    } else {*/
+      return /*RefreshIndicator(
           child: ListView.builder(
             itemCount: mRecommendList.length + 2,
             itemBuilder: (context, i) => mRecommendItem(i),
             physics: const AlwaysScrollableScrollPhysics(),
             controller: mListController,
           ),
-          onRefresh: _pullToRefresh);
-    }
+          onRefresh: _pullToRefresh);*/
+        /*HrlListView<FanFollowResponse>(
+            pageSize: 10,
+            itemBuilder:_itemBuilder,
+            pageFuture: (pageIndex) => getPosts(pageIndex )
+        );*/
+        CustomScrollView(
+          slivers: <Widget>[
+            // 如果不是Sliver家族的Widget，需要使用SliverToBoxAdapter做层包裹
+            SliverToBoxAdapter(
+              child: Container(
+                height: 120,
+                color: Colors.green,
+                child: Text('HeaderView',style: TextStyle(color: Colors.red,fontSize: 20),),
+              ),
+            ),
+
+            HrlListView<FanFollowResponse>(
+                pageSize: 10,
+                itemBuilder:_itemBuilder,
+                pageFuture: (pageIndex) => getPosts(pageIndex )
+            ),
+
+          ],
+        );
+
+
+
+  //  }
   }
+
+  static Future<List<FanFollowResponse>> getPosts(offset ) async {
+     await Future.delayed(Duration(milliseconds: 1000));
+   //  print("页码数是:"+offset );
+
+    FormData params = FormData.fromMap({
+      'userId': UserUtil.getUserInfo().id,
+      'pageNum':offset.toString() ,
+      "pageSize": Constant.PAGE_SIZE,
+    });
+    Map<String, dynamic> json = await DioManager.instance.postTongbu(ServiceUrl.getFanFollowRecommend, params);
+    List<FanFollowResponse> list = [];
+    json['data']['list'].forEach((data) {
+      list.add(FanFollowResponse.fromJson(data));
+    });
+     return list;
+  }
+
+
+  Widget _itemBuilder(context, FanFollowResponse entry, _) {
+
+        FanFollowResponse mModel =entry;
+        return Column(
+          children: <Widget>[
+            Container(
+             // height: 200,
+              padding: EdgeInsets.only(top: 13, bottom: 13),
+              color: Colors.white,
+              //child:new Text(    '${mModel.nick }'  ),
+              child: Row(
+                children: <Widget>[
+                  Container(
+                      margin: EdgeInsets.only(left: 15, right: 15),
+                      child: CircleAvatar(
+                        //头像半径
+                        radius: 22,
+                        //头像图片 -> NetworkImage网络图片，AssetImage项目资源包图片, FileImage本地存储图片
+                        backgroundImage: NetworkImage('${mModel.headurl}'),
+                      )),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        child: Text(
+                          '${mModel.nick}',
+                          style: TextStyle(
+                              letterSpacing: 0,
+                              color: Colors.black,
+                              fontSize: 14),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: 8),
+                        child: Text(
+                          '${mModel.decs}',
+                          style: TextStyle(
+                              letterSpacing: 0,
+                              color: Color(0xff666666),
+                              fontSize: 12),
+                        ),
+                      )
+                    ],
+                  ),
+                  /* Expanded(
+                    child: new Align(
+                      alignment: FractionalOffset.centerRight,
+                      child: mFollowBtnWidget(mModel, _ - 1),
+                    ),*/
+
+                ],
+              ),
+            ),
+            Container(
+              height: 0.5,
+              color: Colors.black12,
+              //  margin: EdgeInsets.only(left: 60),
+            ),
+          ],
+        );
+
+    }
+
+
 
   Widget mRecommendTop() {
     return new Container(

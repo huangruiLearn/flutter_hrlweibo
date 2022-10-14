@@ -30,7 +30,7 @@ class _VideoHotPageState extends State<VideoHotPage> {
           FormData.fromMap({'pageNum': "$mCurPage", 'pageSize': "10"});
       DioManager.instance.post(ServiceUrl.getVideoHotList, params, (data) {
         List<VideoModel> list =[];
-        data['data']['list'].forEach((data) {
+          data['data']['list'].forEach((data) {
           list.add(VideoModel.fromJson(data));
         });
         mVideoList = [];

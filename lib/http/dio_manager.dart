@@ -21,6 +21,30 @@ class DioManager {
     requestHttp(url, successCallBack, "post", params, errorCallBack);
   }
 
+
+
+  Future<Map<String, dynamic> > postTongbu(String url, params) async {
+    Response? response;
+
+    try {
+      response = await dio.post(url, data: params);
+    } on DioError catch (error) {
+      if (Constant.ISDEBUG) {
+        print('请求异常: ' + error.toString());
+      }
+     // errorCallBack(error.message);
+    }
+
+    String dataStr = json.encode(response?.data);
+    Map<String, dynamic> dataMap = json.decode(dataStr);
+    if (dataMap['status'] != 200) {
+     // errorCallBack(dataMap['msg'].toString());
+    } else {
+     // successCallBack(dataMap);
+    }
+    return dataMap;
+  }
+
   void requestHttp(String url, Function successCallBack, String method,
       FormData? params, Function errorCallBack) async {
     Response? response;

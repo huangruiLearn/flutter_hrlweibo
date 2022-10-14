@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
+import 'weibo_list_page.dart';
 
-import 'weibo_homelist_page.dart';
-
-class WeiBoHotPage extends StatefulWidget  {
+class WeiBoHotPage extends StatefulWidget {
   @override
   _WeiBoHotPageState createState() => _WeiBoHotPageState();
 }
 
-class _WeiBoHotPageState extends State<WeiBoHotPage> with SingleTickerProviderStateMixin{
+class _WeiBoHotPageState extends State<WeiBoHotPage>
+    with TickerProviderStateMixin {
   final List<String> _tabValues = ['推荐', '附近', '榜单', '明星', '搞笑', '社会', '测试'];
   late TabController _controller;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _controller = TabController(vsync: this, length: _tabValues.length);
   }
@@ -31,9 +30,7 @@ class _WeiBoHotPageState extends State<WeiBoHotPage> with SingleTickerProviderSt
             children: <Widget>[
               Container(
                 height: 45,
-                // margin: EdgeInsets.only(top: 40.0),
                 color: Color(0xffffffff),
-                //  color:Colors.red,
                 alignment: Alignment.center,
                 child: TabBar(
                     isScrollable: true,
@@ -75,20 +72,19 @@ class _WeiBoHotPageState extends State<WeiBoHotPage> with SingleTickerProviderSt
             height: 0.5,
             color: Color(0xffBECBC2),
           ),
-          new Expanded(
+          Expanded(
             child: TabBarView(
               controller: _controller,
               children: <Widget>[
-                new WeiBoHomeListPager(mCatId: "1"),
-                new WeiBoHomeListPager(mCatId: "2"),
-                new WeiBoHomeListPager(mCatId: "3"),
-                new WeiBoHomeListPager(mCatId: "4"),
-                new WeiBoHomeListPager(mCatId: "5"),
+                WeiBoListPage(mCatId: "1"),
+                WeiBoListPage(mCatId: "2"),
+                WeiBoListPage(mCatId: "3"),
+                WeiBoListPage(mCatId: "4"),
+                WeiBoListPage(mCatId: "5"),
                 Center(
                   child: Text("暂无数据"),
                 ),
-                new WeiBoHomeListPager(mCatId: "10"),
-                //  new WeiBoHomeListPager(),
+                WeiBoListPage(mCatId: "10"),
               ],
             ),
           )
@@ -96,6 +92,4 @@ class _WeiBoHotPageState extends State<WeiBoHotPage> with SingleTickerProviderSt
       ),
     );
   }
-
- 
 }

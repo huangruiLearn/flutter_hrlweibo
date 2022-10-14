@@ -3,8 +3,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_hrlweibo/pages/splash_page.dart';
 import 'package:flutter_hrlweibo/public.dart';
 
+import 'package:flutter_hrlweibo/util/sp_util.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 Future<void> main() async {
-  runApp(new MyApp());
+
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await SpUtil.init();
+   runApp(new MyApp( ));
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       systemNavigationBarColor: Color(0xffffffff),
       systemNavigationBarIconBrightness: Brightness.dark,
@@ -12,7 +19,8 @@ Future<void> main() async {
       statusBarIconBrightness: Brightness.light,
       statusBarBrightness: Brightness.light));
   Routes.configureRoutes(Routes.router);
- }
+
+}
 
 class MyApp extends StatelessWidget {
   @override

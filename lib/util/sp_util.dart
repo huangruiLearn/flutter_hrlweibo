@@ -4,17 +4,21 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SpUtil {
-  factory SpUtil() => instance;
+
+
 
   static late final SpUtil instance = SpUtil._internal();
 
-  SpUtil._internal() {
-    init();
-  }
+  factory SpUtil() => instance;
 
   static late SharedPreferences prefs;
 
-  Future<SharedPreferences> init() async {
+  SpUtil._internal()   {
+    init();
+  }
+
+
+  static Future<SharedPreferences> init() async {
     print("init初始化");
     prefs = await SharedPreferences.getInstance();
     return prefs;
@@ -66,9 +70,8 @@ class SpUtil {
   }
 
   /// get bool.
-    bool getBool(String key, {bool defValue = false}) {
-
-     return prefs.getBool(key) ?? defValue;
+  static  bool  getBool(String key, {bool defValue = false}) {
+      return prefs.getBool(key) ?? defValue;
   }
 
   /// put bool.
