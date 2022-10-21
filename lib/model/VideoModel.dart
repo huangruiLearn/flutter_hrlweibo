@@ -8,7 +8,7 @@ part 'VideoModel.g.dart';
   int id;
   String coverimg;
   int videotime;
-  int playnum;
+  dynamic playnum;
   int userid;
   dynamic tag;
   String recommengstr;
@@ -20,7 +20,7 @@ part 'VideoModel.g.dart';
   int userisvertify;
   int zannum;
   String videourl;
-  int userfancount;
+  dynamic userfancount;
   String userdesc;
 
   VideoModel(

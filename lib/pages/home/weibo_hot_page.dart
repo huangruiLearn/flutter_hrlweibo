@@ -81,9 +81,7 @@ class _WeiBoHotPageState extends State<WeiBoHotPage>
                 WeiBoListPage(mCatId: "3"),
                 WeiBoListPage(mCatId: "4"),
                 WeiBoListPage(mCatId: "5"),
-                Center(
-                  child: Text("暂无数据"),
-                ),
+                WeiBoListPage(mCatId: "999999"),
                 WeiBoListPage(mCatId: "10"),
               ],
             ),

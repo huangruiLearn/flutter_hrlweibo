@@ -67,7 +67,7 @@ class _WeiBoCommentDetailPageState extends State<WeiBoCommentDetailPage> {
     DioManager.instance.post(ServiceUrl.getWeiBoCommentReplyList, formData,
         (data) {
       mCommentList.clear();
-      mCommentList.addAll(CommentList.fromJson(data['data']).list);
+      mCommentList.addAll(CommentList.fromJson(data).list);
       setState(() {});
     }, (error) {});
   }
@@ -82,9 +82,9 @@ class _WeiBoCommentDetailPageState extends State<WeiBoCommentDetailPage> {
         .post(ServiceUrl.getWeiBoCommentReplyList, formData, (data) {
       DioManager.instance
           .post(ServiceUrl.getWeiBoCommentReplyList, formData, (data) {
-        mCommentList.addAll(CommentList.fromJson(data['data']).list);
+        mCommentList.addAll(CommentList.fromJson(data).list);
         isloadingMore = false;
-        ishasMore = CommentList.fromJson(data['data']).list.length >=
+        ishasMore = CommentList.fromJson(data).list.length >=
             Constant.PAGE_SIZE;
 
         setState(() {});

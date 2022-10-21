@@ -65,7 +65,7 @@ class _PersonInfoPageState extends State<PersonInfoPage>
       'otheruserId': widget.mOtherUserId,
     });
     DioManager.instance.post(ServiceUrl.getUserInfo, params, (data) {
-      mUser = OtherUser.fromJson(data['data']);
+      mUser = OtherUser.fromJson(data);
       setState(() {});
     }, (error) {});
   }
@@ -224,7 +224,7 @@ class _PersonInfoPageState extends State<PersonInfoPage>
             });
             DioManager.instance.post(ServiceUrl.followOther, params,
                 (data) {
-              int mRelation = data['data']['relation'];
+              int mRelation = data['relation'];
               mUser.relation = mRelation;
               setState(() {});
             }, (error) {
@@ -293,7 +293,7 @@ class _PersonInfoPageState extends State<PersonInfoPage>
                   DioManager.instance
                       .post(ServiceUrl.followCancelOther, params, (data) {
                     Navigator.of(context).pop();
-                    int mRelation = data['data']['relation'];
+                    int mRelation = data['relation'];
                     mUser.relation = mRelation;
                     setState(() {});
                   }, (error) {

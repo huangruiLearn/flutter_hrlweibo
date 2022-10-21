@@ -62,9 +62,9 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> with SingleTickerProvider
     });
     DioManager.instance.post(ServiceUrl.getWeiBoDetail, params, (data) {
       mForwardList.clear();
-      mForwardList.addAll(WeiBoDetail.fromJson(data['data']).forward);
+      mForwardList.addAll(WeiBoDetail.fromJson(data).forward);
       mCommentList.clear();
-      mCommentList.addAll(WeiBoDetail.fromJson(data['data']).comment);
+      mCommentList.addAll(WeiBoDetail.fromJson(data).comment);
       isCommentloadingMore = false; //是否显示加载中
       isCommenthasMore = true; //是否还有更多
       mCommentCurPage = 1;
@@ -80,7 +80,7 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> with SingleTickerProvider
         {"pageNum": page, "pageSize": Constant.PAGE_SIZE, "weiboid": weiboId});
     DioManager.instance.post(ServiceUrl.getWeiBoDetailComment, formData,
         (data) {
-      CommentList mComment = CommentList.fromJson(data['data']);
+      CommentList mComment = CommentList.fromJson(data);
       setState(() {
         mCommentList.addAll(mComment.list);
         isCommentloadingMore = false;
@@ -99,7 +99,7 @@ class _WeiBoDetailState extends State<WeiBoDetailPage> with SingleTickerProvider
         {"pageNum": page, "pageSize": Constant.PAGE_SIZE, "weiboid": weiboId});
     DioManager.instance.post(ServiceUrl.getWeiBoDetailForward, formData,
         (data) {
-      ForwardList mComment = ForwardList.fromJson(data['data']);
+      ForwardList mComment = ForwardList.fromJson(data);
       setState(() {
         mForwardList.addAll(mComment.list);
         isForwardloadingMore = false;

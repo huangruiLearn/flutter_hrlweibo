@@ -59,7 +59,7 @@ class FanListPageState extends State<FanListPage> {
       });
       DioManager.instance.post(ServiceUrl.getFanList, params, (data) {
         List<FanFollowResponse> list =[];
-        data['data']['list'].forEach((data) {
+        data['list'].forEach((data) {
           list.add(FanFollowResponse.fromJson(data));
         });
         mFanList = [];
@@ -75,7 +75,7 @@ class FanListPageState extends State<FanListPage> {
       });
       DioManager.instance.post(ServiceUrl.getFanList, params, (data) {
         List<FanFollowResponse> list =[];
-        data['data']['list'].forEach((data) {
+        data['list'].forEach((data) {
           list.add(FanFollowResponse.fromJson(data));
         });
         mFanList.addAll(list);
@@ -320,7 +320,7 @@ class FanListPageState extends State<FanListPage> {
             });
             DioManager.instance.post(ServiceUrl.followOther, params,
                 (data) {
-              int mRelation = data['data']['relation'];
+              int mRelation = data['relation'];
               (mFanList[position]).relation = mRelation;
               setState(() {});
             }, (error) {
@@ -394,7 +394,7 @@ class FanListPageState extends State<FanListPage> {
                   DioManager.instance
                       .post(ServiceUrl.followCancelOther, params, (data) {
                     Navigator.of(context).pop();
-                    int mRelation = data['data']['relation'];
+                    int mRelation = data['relation'];
                     (mFanList[position]).relation = mRelation;
                     setState(() {});
                   }, (error) {

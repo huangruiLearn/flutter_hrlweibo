@@ -4,97 +4,52 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hrlweibo/model/VideoModel.dart';
 import 'package:flutter_hrlweibo/public.dart';
 import 'package:flutter_hrlweibo/util/date_util.dart';
+import 'package:flutter_hrlweibo/widget/loadrefreshlist/my_refresh_load_slivergrid.dart';
 
 class VideoSmallVideoPage extends StatefulWidget {
   @override
   _VideoSmallVideoPageState createState() => _VideoSmallVideoPageState();
 }
 
-class _VideoSmallVideoPageState extends State<VideoSmallVideoPage> {
-  bool isloadingMore = false; //是否显示加载中
-  bool ishasMore = true; //是否还有更多
-  num mCurPage = 1;
-  ScrollController mScrollController = new ScrollController();
-  List<VideoModel> mVideoList = [];
+class _VideoSmallVideoPageState extends State<VideoSmallVideoPage>    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
 
-  VideoSmallVideoPageState() {}
+  @override
+  Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    final double mGridItemHeight = 200;
+    final double mGridItemWidth = size.width / 2;
 
-  Future? getVideoList(bool isRefresh) {
-    if (isRefresh) {
-      isloadingMore = false;
-      ishasMore = true;
-      mCurPage = 1;
-      FormData params =
-          FormData.fromMap({'pageNum': "$mCurPage", 'pageSize': "10"});
-      DioManager.instance.post(ServiceUrl.getVideoSmallList, params,
-          (data) {
-        List<VideoModel> list =[];
-        data['data']['list'].forEach((data) {
-          list.add(VideoModel.fromJson(data));
-        });
-        mVideoList = [];
-        mVideoList = list;
-        setState(() {});
-      }, (error) {});
-    } else {
-      FormData params =
-          FormData.fromMap({'pageNum': "$mCurPage", 'pageSize': "10"});
-      DioManager.instance.post(ServiceUrl.getVideoSmallList, params,
-          (data) {
-        List<VideoModel> list =[];
-        data['data']['list'].forEach((data) {
-          list.add(VideoModel.fromJson(data));
-        });
-        mVideoList.addAll(list);
-        isloadingMore = false;
-        ishasMore = list.length >= Constant.PAGE_SIZE;
-        setState(() {});
-      }, (error) {
-        setState(() {
-          isloadingMore = false;
-          ishasMore = false;
-        });
-      });
+    return Container(
+      padding: EdgeInsets.only(top: 15),
+      child:HrlSliverGrid<VideoModel>(
+          mGridItemHeight: mGridItemHeight,
+          mGridItemWidth: mGridItemWidth,
+          pageSize: 10,
+          itemBuilder: _itemBuilder,
+          pageFuture: (pageIndex) => getListData(pageIndex)),
+    );
+  }
+  Future<List<VideoModel>> getListData(pageNum) async {
+    /* await Future.delayed(Duration(seconds: 3));
+    if (pageNum == 3) {
+      print("网路:" + pageNum);
     }
+*/
+    FormData params =
+    FormData.fromMap({'pageNum': pageNum.toString(), 'pageSize': "10"});
+    Map<String, dynamic> json = await DioManager.instance
+        .post(ServiceUrl.getVideoSmallList, params);
+    List<VideoModel> list = [];
+    json['list'].forEach((data) {
+      list.add(VideoModel.fromJson(data));
+    });
+
+    return list;
   }
 
-  Widget _buildLoadMore() {
-    return isloadingMore
-        ? Container(
-            child: Padding(
-            padding: const EdgeInsets.only(top: 5, bottom: 5),
-            child: Center(
-                child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(right: 10),
-                  child: SizedBox(
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2,
-                    ),
-                    height: 12.0,
-                    width: 12.0,
-                  ),
-                ),
-                Text("加载中..."),
-              ],
-            )),
-          ))
-        : new Container(
-            child: ishasMore
-                ? new Container()
-                : Center(
-                    child: Container(
-                        margin: EdgeInsets.only(top: 5, bottom: 5),
-                        child: Text(
-                          "没有更多数据",
-                          style: TextStyle(fontSize: 14, color: Colors.grey),
-                        ))),
-          );
-  }
-
-  Widget getContentItem(BuildContext context, VideoModel mModel) {
+  Widget _itemBuilder(BuildContext context, VideoModel mModel, _) {
     return Container(
       //  height: 200,
       width: MediaQuery.of(context).size.width,
@@ -108,7 +63,7 @@ class _VideoSmallVideoPageState extends State<VideoSmallVideoPage> {
               child: FadeInImage(
                 fit: BoxFit.cover,
                 placeholder:
-                    AssetImage(Constant.ASSETS_IMG + 'img_default2.png'),
+                AssetImage(Constant.ASSETS_IMG + 'img_default2.png'),
                 image: NetworkImage(
                   mModel.coverimg,
                 ),
@@ -117,105 +72,42 @@ class _VideoSmallVideoPageState extends State<VideoSmallVideoPage> {
           ),
           Positioned(
               child: new Align(
-            alignment: FractionalOffset.bottomCenter,
-            child: Container(
-              padding: EdgeInsets.only(bottom: 5),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                //     mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
+                alignment: FractionalOffset.bottomCenter,
+                child: Container(
+                  padding: EdgeInsets.only(bottom: 5),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    //     mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
 
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(left: 5, right: 3),
-                    child: Image.asset(
-                      Constant.ASSETS_IMG + 'video_play.png',
-                      width: 15.0,
-                      height: 15.0,
-                    ),
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.only(left: 5, right: 3),
+                        child: Image.asset(
+                          Constant.ASSETS_IMG + 'video_play.png',
+                          width: 15.0,
+                          height: 15.0,
+                        ),
+                      ),
+                      Text(mModel.playnum.toString(),
+                          style: TextStyle(fontSize: 14.0, color: Colors.white)),
+                      Spacer(),
+                      Container(
+                        margin: EdgeInsets.only(right: 5),
+                        child: Text(
+                            DateUtil.getFormatTime4(mModel.videotime).toString(),
+                            style: TextStyle(fontSize: 14.0, color: Colors.white)),
+                      ),
+                    ],
                   ),
-                  Text(mModel.playnum.toString(),
-                      style: TextStyle(fontSize: 14.0, color: Colors.white)),
-                  Spacer(),
-                  Container(
-                    margin: EdgeInsets.only(right: 5),
-                    child: Text(
-                        DateUtil.getFormatTime4(mModel.videotime).toString(),
-                        style: TextStyle(fontSize: 14.0, color: Colors.white)),
-                  ),
-                ],
-              ),
-            ),
-          ))
+                ),
+              ))
         ],
       ),
     );
+
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getVideoList(true);
-    mScrollController.addListener(() {
-      print("滑动到底部");
-      var maxScroll = mScrollController.position.maxScrollExtent;
-      var pixels = mScrollController.position.pixels;
-      if (maxScroll == pixels) {
-        if (!isloadingMore) {
-          if (ishasMore) {
-            setState(() {
-              isloadingMore = true;
 
-              mCurPage += 1;
-            });
-            Future.delayed(Duration(seconds: 3), () {
-              getVideoList(false);
-            });
-          } else {
-            setState(() {
-              ishasMore = false;
-            });
-          }
-        }
-      }
-    });
-  }
 
-  Future pullToRefresh() async {
-    getVideoList(true);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    final double mGridItemHeight = 200;
-    final double mGridItemWidth = size.width / 2;
-
-    return Container(
-      padding: EdgeInsets.only(top: 15),
-      child: RefreshIndicator(
-        onRefresh: pullToRefresh,
-        child: new CustomScrollView(
-            controller: mScrollController,
-            slivers: <Widget>[
-              new SliverGrid(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  mainAxisSpacing: 1.0,
-                  crossAxisSpacing: 1.0,
-                  childAspectRatio: (mGridItemWidth / mGridItemHeight),
-                  crossAxisCount: 2,
-                ),
-                delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) {
-                  return getContentItem(context, mVideoList[index]);
-                }, childCount: mVideoList.length),
-              ),
-              new SliverToBoxAdapter(
-                child: _buildLoadMore(),
-              ),
-            ]),
-      ),
-    );
-  }
 }

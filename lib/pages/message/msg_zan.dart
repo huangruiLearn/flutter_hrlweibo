@@ -29,7 +29,7 @@ class _MsgZanPageState extends State<MsgZanPage> {
       "pageSize": Constant.PAGE_SIZE,
     });
     DioManager.instance.post(ServiceUrl.getMsgZanList, formData, (data) {
-      ComZanListModel mList = ComZanListModel.fromJson(data['data']);
+      ComZanListModel mList = ComZanListModel.fromJson(data);
       mZanList.clear();
       mZanList = mList.list;
       setState(() {});
@@ -45,7 +45,7 @@ class _MsgZanPageState extends State<MsgZanPage> {
     });
     await DioManager.instance.post(ServiceUrl.getMsgZanList, formData,
         (data) {
-      ComZanListModel mList = ComZanListModel.fromJson(data['data']);
+      ComZanListModel mList = ComZanListModel.fromJson(data);
       mZanList.addAll(mList.list);
       setState(() {
         isloadingMore = false;

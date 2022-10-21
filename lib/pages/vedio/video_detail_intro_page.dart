@@ -27,7 +27,7 @@ class _VideoDetailIntroPageState extends State<VideoDetailIntroPage> {
     DioManager.instance
         .post(ServiceUrl.getVideoDetailRecommendList, params, (data) {
       mRecommendVideoList.clear();
-      data['data'].forEach((data) {
+      data.forEach((data) {
         mRecommendVideoList.add(VideoModel.fromJson(data));
       });
 

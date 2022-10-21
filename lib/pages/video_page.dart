@@ -26,7 +26,7 @@ class _VideoPageState extends State<VideoPage> with TickerProviderStateMixin {
     mTabList.add(new VedioCategory(id: 3, cname: "小视频"));
     mTabController = TabController(length: mTabList.length, vsync: this);
     DioManager.instance.post(ServiceUrl.getVedioCategory, null, (data) {
-      List<VedioCategory> mList = VedioCategoryList.fromJson(data['data']).data;
+      List<VedioCategory> mList = VedioCategoryList.fromJson(data).data;
       setState(() {
         mTabList = mList;
         mTabController = TabController(length: mTabList.length, vsync: this);

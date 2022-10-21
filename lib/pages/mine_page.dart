@@ -18,7 +18,7 @@ class _MinePageState extends State<MinePage> {
         'otheruserId': UserUtil.getUserInfo().id,
       });
       DioManager.instance.post(ServiceUrl.getUserInfo, params, (data) {
-        UserUtil.saveUserInfo(data['data']);
+        UserUtil.saveUserInfo(data);
         setState(() {});
       }, (error) {});
     }
@@ -36,7 +36,7 @@ class _MinePageState extends State<MinePage> {
           'otheruserId': UserUtil.getUserInfo().id,
         });
         DioManager.instance.post(ServiceUrl.getUserInfo, params, (data) {
-          UserUtil.saveUserInfo(data['data']);
+          UserUtil.saveUserInfo(data);
           SchedulerBinding.instance
               .addPostFrameCallback((_) => setState(() {}));
         }, (error) {});

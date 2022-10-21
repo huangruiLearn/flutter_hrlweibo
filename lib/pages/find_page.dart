@@ -66,7 +66,7 @@ class _FindPageState extends State<FindPage> with TickerProviderStateMixin{
     FormData formData = FormData.fromMap({"userId": UserUtil.getUserInfo().id});
     DioManager.instance.post(ServiceUrl.getFindHomeInfo, formData, (data) {
       print("返回的正确数据:${data}");
-      FindHomeModel mModel = FindHomeModel.fromJson(data['data']);
+      FindHomeModel mModel = FindHomeModel.fromJson(data);
       setState(() {
         mTopHotSearchList = mModel.findhottop;
         mFindKindList = mModel.findkind;

@@ -125,7 +125,7 @@ class _VideoDetailCommentPageState extends State<VideoDetailCommentPage> {
         {"pageNum": page, "pageSize": Constant.PAGE_SIZE, "weiboid": weiboId});
     DioManager.instance.post(ServiceUrl.getWeiBoDetailComment, formData,
         (data) {
-      CommentList mComment = CommentList.fromJson(data['data']);
+      CommentList mComment = CommentList.fromJson(data);
       setState(() {
         mCommentList.addAll(mComment.list);
         isCommentloadingMore = false;

@@ -33,7 +33,7 @@ class _HotSearchPageState extends State<HotSearchPage> {
 
     DioManager.instance.post(ServiceUrl.getHotSearchList, null, (data) {
       mHotSearchList.clear();
-      data['data'].forEach((data) {
+      data.forEach((data) {
         mHotSearchList.add(Findhottop.fromJson(data));
       });
       setState(() {});

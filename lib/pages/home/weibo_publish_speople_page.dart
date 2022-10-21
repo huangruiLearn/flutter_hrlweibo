@@ -31,10 +31,10 @@ class _WeiBoPublishAtUserPageState extends State<WeiBoPublishAtUserPage> {
       // List<WeiboAtUser> listRecommend =[];
       //  List<WeiboAtUser> listNormal=[];
 
-      data['data']['hotusers'].forEach((data) {
+      data['hotusers'].forEach((data) {
         mRecommendList.add(WeiboAtUser.fromJson(data));
       });
-      data['data']['normalusers'].forEach((data) {
+      data['normalusers'].forEach((data) {
         mNormalList.add(WeiboAtUser.fromJson(data));
       });
 

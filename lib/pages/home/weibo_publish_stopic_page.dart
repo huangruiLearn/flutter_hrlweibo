@@ -36,7 +36,7 @@ class WeiBoPublishTopicPageState extends State<WeiBoPublishTopicPage> {
   void loadLeftTypeData() async {
     DioManager.instance.post(ServiceUrl.getWeiBoTopicTypeList, null,
         (data) {
-      data['data'].forEach((data) {
+      data.forEach((data) {
         mLeftTopicTypeList.add(TopicTypeResponse.fromJson(data));
       });
       loadRightTopicData(mLeftTopicTypeList[0].id.toString());
@@ -52,7 +52,7 @@ class WeiBoPublishTopicPageState extends State<WeiBoPublishTopicPage> {
       //  List<WeiboAtUser> listNormal=[];
       mRightTopicList.clear();
 
-      data['data'].forEach((data) {
+      data.forEach((data) {
         mRightTopicList.add(WeiBoTopic.fromJson(data));
       });
       setState(() {});

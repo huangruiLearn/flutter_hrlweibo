@@ -1,5 +1,6 @@
 import 'package:flutter_hrlweibo/public.dart';
 
+
 class DioManager {
   static late final DioManager instance = DioManager._internal();
 
@@ -16,58 +17,46 @@ class DioManager {
     dio = Dio(options);
   }
 
-  Future<void> post(String url, params, Function successCallBack,
-      Function errorCallBack) async {
-    requestHttp(url, successCallBack, "post", params, errorCallBack);
-  }
 
-
-
-  Future<Map<String, dynamic> > postTongbu(String url, params) async {
-    Response? response;
-
-    try {
-      response = await dio.post(url, data: params);
-    } on DioError catch (error) {
-      if (Constant.ISDEBUG) {
-        print('请求异常: ' + error.toString());
-      }
-     // errorCallBack(error.message);
-    }
-
-    String dataStr = json.encode(response?.data);
-    Map<String, dynamic> dataMap = json.decode(dataStr);
-    if (dataMap['status'] != 200) {
-     // errorCallBack(dataMap['msg'].toString());
-    } else {
-     // successCallBack(dataMap);
-    }
-    return dataMap;
-  }
-
-  void requestHttp(String url, Function successCallBack, String method,
-      FormData? params, Function errorCallBack) async {
+  
+  Future<Map<String, dynamic>> post(String url, params,
+      [Function? successCallBack, Function? errorCallBack]) async {
     Response? response;
     try {
-      response = await dio.post(url, data: params);
-    } on DioError catch (error) {
-      if (Constant.ISDEBUG) {
-        print('请求异常: ' + error.toString());
+      response = await dio.post(url, data: params) ;
+    }  catch (error) {
+      print('请求异常: ' + error.toString());
+      if (errorCallBack != null) {
+         errorCallBack(error.toString());
+      } else {
+        return Map<String, dynamic>();
       }
-      errorCallBack(error.message);
     }
-    if (Constant.ISDEBUG) {
-      print('请求url: ' + url);
-      print('请求头: ' + dio.options.headers.toString());
-      print('请求参数: ' + params.toString());
-      print('返回参数: ' + response.toString());
-    }
-    String dataStr = json.encode(response?.data);
-    Map<String, dynamic> dataMap = json.decode(dataStr);
-    if (dataMap['status'] != 200) {
-      errorCallBack(dataMap['msg'].toString());
+    print('请求url: ' + url);
+    print('返回参数: ' + response.toString());
+    if (response?.statusCode == 200) {
+      Map<String, dynamic> dataMap = json.decode(json.encode(response?.data));
+      if (dataMap['status'] == 200) {
+        if (successCallBack != null) {
+          successCallBack(dataMap['data']);
+        } else {
+          return dataMap['data'];
+        }
+      } else {
+        if (errorCallBack != null) {
+          errorCallBack(dataMap['msg']);
+        } else {
+          return Map<String, dynamic>();
+        }
+      }
     } else {
-      successCallBack(dataMap);
+      if (errorCallBack != null) {
+        errorCallBack(response.toString());
+      } else {
+        return Map<String, dynamic>();
+      }
     }
+    return Map<String, dynamic>();
   }
+
 }

@@ -10,7 +10,7 @@ VideoModel _$VideoModelFromJson(Map<String, dynamic> json) => VideoModel(
       id: json['id'] as int,
       coverimg: json['coverimg'] as String,
       videotime: json['videotime'] as int,
-      playnum: json['playnum'] as int,
+      playnum: json['playnum']  ,
       userid: json['userid'] as int,
       tag: json['tag'] as dynamic,
       recommengstr: json['recommengstr'] as String,
@@ -22,7 +22,7 @@ VideoModel _$VideoModelFromJson(Map<String, dynamic> json) => VideoModel(
       userisvertify: json['userisvertify'] as int,
       zannum: json['zannum'] as int,
       videourl: json['videourl'] as String,
-      userfancount: json['userfancount'] as int,
+      userfancount: json['userfancount'] ,
       userdesc: json['userdesc'] as String,
     );
 
