@@ -95,12 +95,6 @@ Flutter version 3.0.5
 | extended_text_field  | @ #在textfield中的处理 | https://github.com/fluttercandies/extended_text_field |
 
 
-qq交流群:747425162
-
-
-![技术交流群群聊二维码](https://user-images.githubusercontent.com/30585790/188896909-14772213-0a4e-4f40-aa94-d0c4806e5523.png)
-
-
 
 
 
