@@ -27,13 +27,7 @@ apk下载地址   https://www.pgyer.com/lrhP
 
 本地编译的话可以把android ios目录删掉 重新执行flutter create . 从新创建一下
 
-欢迎微信扫描下方二维码进行打赏
 
-
-<img src="assets/images/shoukuan.png" width = "300" height = "400" alt="图片名称" align=center />
- <br/>
- <br/>
- <br/>
  
  
 
